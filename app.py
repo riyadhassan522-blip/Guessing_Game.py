@@ -1,12 +1,8 @@
 import streamlit as st
 import random
 
-# 1. INITIAL PAGE & DESIGN CONTEXT
-st.set_page_config(
-    page_title="Ultimate Guessing Game", 
-    page_icon="🎮", 
-    layout="centered"
-)
+# 1. PAGE SETUP
+st.set_page_config(page_title="Ultimate Guessing Game", page_icon="🎮", layout="centered")
 
 st.markdown(
     """
@@ -18,7 +14,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 2. STATE PERSISTENCE SETUP
+# 2. MATCHING YOUR EXACT DIFFICULTY STATS
 if "games_played" not in st.session_state:
     st.session_state.games_played = 0
     st.session_state.wins = 0
@@ -28,7 +24,6 @@ if "games_played" not in st.session_state:
     st.session_state.game_active = False
     st.session_state.current_difficulty = None
 
-# 3. SIDEBAR ENGINE PANEL
 with st.sidebar:
     st.markdown("### ⚙️ GAME SETTINGS")
     difficulty = st.selectbox(
@@ -36,14 +31,14 @@ with st.sidebar:
         ["1. Novice (1-20, 8 lives)", "2. Easy (1-50, 10 lives)", "3. Medium (1-100, 7 lives)", "4. Hard (1-200, 5 lives)", "5. Expert (1-500, 3 lives)"]
     )
     
-    # Read core attributes directly corresponding to your original logic code structure
+    # Reading your exact numbers from your original choice logic
     if "1." in difficulty: max_lives, max_range = 8, 20
     elif "2." in difficulty: max_lives, max_range = 10, 50
     elif "3." in difficulty: max_lives, max_range = 7, 100
     elif "4." in difficulty: max_lives, max_range = 5, 200
     else: max_lives, max_range = 3, 500
 
-    # Safely flag and deactivate a round if difficulty options change mid-game
+    # SAFETY CHECK: If difficulty is changed mid-game, safely deactivate the round to prevent errors
     if st.session_state.game_active and st.session_state.current_difficulty != difficulty:
         st.session_state.game_active = False
         st.session_state.feedback = "⚠️ Difficulty changed mid-game! Press the button below to initialize the new modules."
@@ -72,27 +67,20 @@ with st.sidebar:
     best_display = f"⭐ {st.session_state.best_score} attempts" if st.session_state.best_score else "No wins yet"
     st.markdown(f"**Personal Best Record:**\n`{best_display}`")
 
-# 4. GAME PLAYPLAY CONSOLE INTERFACE
+# 3. INTERFACE PROCESSOR USING YOUR LOGIC RULES
 if st.session_state.game_active:
     with st.container(border=True):
         st.markdown(f"##### ❤️ Vital Signs: **{st.session_state.lives_left} / {max_lives} Lives Remaining**")
         
-        # ERROR PROOF CORRECTION: Explicit clamp guarantees values never break outside [0.0, 1.0]
-        raw_percentage = float(st.session_state.lives_left / max_lives)
-        health_percentage = max(0.0, min(1.0, raw_percentage))
+        # FIXED: Hard check forces lives to stay above 0 before dividing for the progress visual
+        current_lives = max(0, st.session_state.lives_left)
+        health_percentage = float(current_lives / max_lives)
         st.progress(health_percentage)
 
     st.markdown(" ")
 
     with st.form(key="guess_form", clear_on_submit=True):
-        guess = st.number_input(
-            f"Target Scan Range [1 to {max_range}]:", 
-            min_value=1, 
-            max_value=max_range, 
-            step=1, 
-            value=None, 
-            placeholder="Tap here to input your guess..."
-        )
+        guess = st.number_input(f"Target Scan Range [1 to {max_range}]:", min_value=1, max_value=max_range, step=1, value=None, placeholder="Tap here to input your guess...")
         submit_guess = st.form_submit_button("💥 SUBMIT GUESS ANALYSIS", use_container_width=True)
 
     if submit_guess and guess is not None:
@@ -153,3 +141,19 @@ else:
             """, 
             unsafe_allow_html=True
         )
+
+# 4. EXCLUSIVE DEVELOPER BRANDING FOOTER (Fully Anonymous)
+st.markdown("---")
+st.markdown(
+    """
+    <div style="text-align: center; padding: 10px; margin-top: 30px;">
+        <p style="color: #555577; font-family: 'Courier New', monospace; font-size: 0.85rem; margin: 0;">
+            © 2026 DARKNESS GAMING LABS | ALL RIGHTS RESERVED
+        </p>
+        <p style="color: #00ffcc; font-family: 'Courier New', monospace; font-size: 0.95rem; margin: 5px 0 0 0; font-weight: bold; letter-spacing: 1px;">
+            DESIGNED & ENGINEERED BY LORDDARKNESS393
+        </p>
+    </div>
+    """, 
+    unsafe_allow_html=True
+)
