@@ -203,12 +203,15 @@ if st.session_state.gg_active:
             st.session_state.gg_losses += 1
             st.session_state.gg_played += 1
             st.session_state.gg_active = False
-
-        if "gg_feedback" in st.session_state:
+            
+    # Line 207 has EXACTLY 4 spaces at the front
+    if "gg_feedback" in st.session_state:
+        # These lines below MUST have EXACTLY 8 spaces (or 2 tabs) at the front
         if st.session_state.gg_feedback_type == "success": st.success(st.session_state.gg_feedback)
         elif st.session_state.gg_feedback_type == "warning": st.warning(st.session_state.gg_feedback)
         elif st.session_state.gg_feedback_type == "error": st.error(st.session_state.gg_feedback)
         else: st.info(st.session_state.gg_feedback)
+
 else:
     if "gg_feedback" in st.session_state and "changed mid-game" in st.session_state.gg_feedback:
         st.info(st.session_state.gg_feedback)
