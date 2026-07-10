@@ -18,79 +18,108 @@ if "gg_played" not in st.session_state:
     st.session_state.gg_active = False
     st.session_state.gg_current_difficulty = None
 
+import base64
+
+# =========================================================================
+# GRAPHIC LAYER ENCODER MODULE
+# =========================================================================
+def get_base64_image(image_path):
+    """Converts your local background file directly into safe web graphics string"""
+    try:
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    except FileNotFoundError:
+        return ""
+
+# Convert your local waterfall background layout asset
+bg_base64 = get_base64_image("themes/bg.jpg")
+
 # =========================================================================
 # 3D CEL-SHADED GAMING ENGINE (Safe Flat String CSS Engine with Sidebar Blur)
 # =========================================================================
-css_style = (
-    "<style>\n"
-    "@keyframes entryPop {\n"
-    "    0% { transform: scale(0.96); opacity: 0; }\n"
-    "    100% { transform: scale(1); opacity: 1; }\n"
-    "}\n"
-    "/* Targets both main view containers to load your raw Japanese pagoda background art */\n"
-    ".stApp, [data-testid='stAppViewContainer'] {\n"
-    "    background-image: linear-gradient(rgba(26, 12, 18, 0.65), rgba(26, 12, 18, 0.78)), url('https://githubusercontent.com') !important;\n"
-    "    background-size: cover !important;\n"
-    "    background-position: center center !important;\n"
-    "    background-attachment: fixed !important;\n"
-    "    animation: entryPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;\n"
-    "}\n"
-    "/* FIXED SIDEBAR: Destroys the solid sidebar layout to force clean glass blur */\n"
-    "[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {\n"
-    "    background-color: rgba(37, 22, 31, 0.45) !important;\n"
-    "    backdrop-filter: blur(12px) !important;\n"
-    "    -webkit-backdrop-filter: blur(12px) !important;\n"
-    "    border-right: 3px solid #1a0c12 !important;\n"
-    "}\n"
-    "div.stButton > button:first-child {\n"
-    "    background: #ff66aa !important;\n"
-    "    color: #1a0c12 !important;\n"
-    "    border: 3px solid #1a0c12 !important;\n"
-    "    font-weight: 900 !important;\n"
-    "    font-size: 1.1rem !important;\n"
-    "    text-transform: uppercase !important;\n"
-    "    letter-spacing: 2px !important;\n"
-    "    border-radius: 8px !important;\n"
-    "    box-shadow: 0px 6px 0px #992255 !important;\n"
-    "    transition: all 0.1s ease-in-out !important;\n"
-    "    margin-bottom: 6px !important;\n"
-    "    width: 100% !important;\n"
-    "}\n"
-    "div.stButton > button:first-child:active {\n"
-    "    transform: translateY(4px) !important;\n"
-    "    box-shadow: 0px 2px 0px #992255 !important;\n"
-    "}\n"
-    "div.stButton > button:first-child:hover {\n"
-    "    background: #ff88bb !important;\n"
-    "    color: #1a0c12 !important;\n"
-    "    border-color: #1a0c12 !important;\n"
-    "}\n"
-    "div[data-testid='stForm'] {\n"
-    "    background-color: rgba(45, 20, 32, 0.82) !important;\n"
-    "    backdrop-filter: blur(10px) !important;\n"
-    "    border: 4px solid #1a0c12 !important;\n"
-    "    border-radius: 12px !important;\n"
-    "    box-shadow: 8px 8px 0px #1a0c12 !important;\n"
-    "    padding: 20px !important;\n"
-    "    max-width: 100% !important;\n"
-    "}\n"
-    "div[data-testid='stMetricValue'] {\n"
-    "    font-weight: 900 !important;\n"
-    "    color: #ff66aa !important;\n"
-    "    text-shadow: 2px 2px 0px #1a0c12 !important;\n"
-    "    font-size: 1.8rem !important;\n"
-    "}\n"
-    "@media (max-width: 768px) {\n"
-    "    div[style*='padding: 25px'] {\n"
-    "        padding: 15px !important;\n"
-    "    }\n"
-    "    h1 {\n"
-    "        font-size: 1.8rem !important;\n"
-    "    }\n"
-    "}\n"
-    "</style>"
-)
+css_style = f"""
+<style>
+@keyframes entryPop {{
+    0% {{ transform: scale(0.96); opacity: 0; }}
+    100% {{ transform: scale(1); opacity: 1; }}
+}}
+/* Targets both main view containers to load your raw Japanese pagoda background art */
+.stApp, [data-testid='stAppViewContainer'] {{
+    background-image: linear-gradient(rgba(26, 12, 18, 0.65), rgba(26, 12, 18, 0.78)), url("data:image/jpeg;base64,{bg_base64}") !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-attachment: fixed !important;
+    animation: entryPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+}}
+/* FIXED SIDEBAR: Destroys the solid sidebar layout to force clean glass blur */
+[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
+    background-color: rgba(30, 15, 23, 0.30) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border-right: 3px solid #ff66aa !important;
+}}
+div.stButton > button:first-child {{
+    background: #ff66aa !important;
+    color: #1a0c12 !important;
+    border: 3px solid #1a0c12 !important;
+    font-weight: 900 !important;
+    font-size: 1.1rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    border-radius: 8px !important;
+    box-shadow: 0px 6px 0px #992255 !important;
+    transition: all 0.1s ease-in-out !important;
+    margin-bottom: 6px !important;
+    width: 100% !important;
+}}
+div.stButton > button:first-child:active {{
+    transform: translateY(4px) !important;
+    box-shadow: 0px 2px 0px #992255 !important;
+}}
+div.stButton > button:first-child:hover {{
+    background: #ff88bb !important;
+    color: #1a0c12 !important;
+    border-color: #1a0c12 !important;
+}}
+div[data-testid='stForm'], .stMainBlockContainer {{
+    background-color: rgba(45, 20, 32, 0.85) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 4px solid #1a0c12 !important;
+    border-radius: 12px !important;
+    box-shadow: 8px 8px 0px #1a0c12 !important;
+    padding: 20px !important;
+    max-width: 100% !important;
+}}
+div[data-testid='stMetricValue'] {{
+    font-weight: 900 !important;
+    color: #ff66aa !important;
+    text-shadow: 2px 2px 0px #1a0c12 !important;
+    font-size: 1.8rem !important;
+}}
+@media (max-width: 768px) {{
+    div[style*='padding: 25px'] {{
+        padding: 15px !important;
+    }}
+    h1 {{
+        font-size: 1.8rem !important;
+    }}
+}}
+</style>
+"""
 st.markdown(css_style, unsafe_allow_html=True)
+
+# 2. BRANDING BANNER: SAKURA REALM OVERLAY
+banner_html = (
+    "<div style='background-color: rgba(45, 20, 32, 0.82); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 4px solid #1a0c12; box-shadow: 8px 8px 0px #1a0c12; margin-bottom: 35px;'>\n"
+    "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 3px 3px 0px #1a0c12;'>\n"
+    "        🌸 LORD'S ARCADE REALM 🌸\n"
+    "    </h1>\n"
+    "    <p style='color: #ffffff; margin: 8px 0 0 0; font-size: 1rem; font-family: \"Courier New\", monospace; font-weight: bold; letter-spacing: 1px;'>\n"
+    "        [ SYSTEM CORE MODULES // ENGINEERED BY: LORDDARKNESS393 ]\n"
+    "    </p>\n"
+    "</div>"
+)
+st.markdown(banner_html, unsafe_allow_html=True)
 
 # 2. BRANDING BANNER: SAKURA REALM OVERLAY
 banner_html = (
