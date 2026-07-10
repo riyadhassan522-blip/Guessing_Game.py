@@ -211,4 +211,14 @@ else:
         st.info(st.session_state.gg_feedback)
     else:
         idle_html = (
-            "<div style='text-align: center; padding: 40px 20px; background-color: rgba(45, 22, 34, 0.85); backdrop-filter: blur(8px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #110b11;'>")
+            "<div style='text-align: center; padding: 40px 20px; background-color: rgba(45, 20, 32, 0.85); backdrop-filter: blur(10px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #1a0c12;'>"
+            "<p style='font-size: 1.3rem; color: #ff66aa; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>STATUS // PLATFORM IDLE</p>"
+            "<p style='font-size: 0.95rem; color: #ffffff; font-weight: bold; margin-top: 10px;'>Initialize the left matrix panel to deploy your first gameplay module round!</p>"
+            "</div>"
+        )
+        st.markdown(idle_html, unsafe_allow_html=True)
+
+# 5. STUDIO PRODUCTION INSIGNIA
+footer_html = "<div style='text-align: center; padding: 10px; margin-top: 30px;'><p style='color: #614653; font-family: \"Courier New\", monospace; font-size: 0.85rem; margin: 0; font-weight: bold;'>© 2026 DARKNESS GAMING LABS | ALL RIGHTS RESERVED</p><p style=" + "'color: #ff66aa; font-family: \"Courier New\", monospace; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'" + ">DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
+st.markdown("---")
+st.markdown(footer_html, unsafe_allow_html=True)
