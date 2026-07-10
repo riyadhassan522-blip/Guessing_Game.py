@@ -208,14 +208,12 @@ if st.session_state.gg_active:
         elif st.session_state.gg_feedback_type == "warning": st.warning(st.session_state.gg_feedback)
         elif st.session_state.gg_feedback_type == "error": st.error(st.session_state.gg_feedback)
         else: st.info(st.session_state.gg_feedback)
-else:
-    if "gg_feedback" in st.session_state and "changed mid-game" in st.session_state.gg_feedback:
-        st.info(st.session_state.gg_feedback)
-    else:
-        st.markdown(
-            """
-            <div style="text-align: center; padding: 40px 20px; background-color: rgba(45, 22, 34, 0.85); backdrop-filter: blur(8px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #110b11;">
-                <p style="font-size: 1.3rem; color: #ff66aa; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #110b11;">STATUS // SYSTEM IDLE</p>
-                <p style="font-size: 0.95rem; color: #ffffff; font-weight: bold; margin-top: 10px;">Deploy the left operational module console to clear the terminal grids!</p>
-            </div>
-            """, 
+          """, 
+            unsafe_allow_html=True
+        )
+
+# STUDIO PRODUCTION INSIGNIA
+footer_html = '<div style="text-align: center; padding: 10px; margin-top: 30px;"><p style="color: #614653; font-family: \'Courier New\', monospace; font-size: 0.85rem; margin: 0; font-weight: bold;">© 2026 DARKNESS GAMING LABS | ALL RIGHTS RESERVED</p><p style="color: #ff66aa; font-family: \'Courier New\', monospace; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #110b11;">DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>'
+
+st.markdown("---")
+st.markdown(footer_html, unsafe_allow_html=True)
