@@ -215,11 +215,4 @@ else:
             unsafe_allow_html=True
         )
 
-# STUDIO PRODUCTION INSIGNIA
-st.markdown("---")
-st.markdown(
-    """
-    <div style="text-align: center; padding: 10px; margin-top: 30px;">
-        <p style="color: #614653; font-family: 'Courier New', monospace; font-size: 0.85rem; margin: 0; font-weight: bold;">
-            © 2026 DARKNESS GAMING LABS | ALL RIGHTS RESERVED
-        </p>
+# STUDIO PRODUCTION INSIGNIA (Single-line concatenation string format completely avoids triple-quote bugs)
