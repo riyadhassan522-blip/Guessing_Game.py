@@ -18,26 +18,34 @@ if "gg_played" not in st.session_state:
     st.session_state.gg_active = False
     st.session_state.gg_current_difficulty = None
 
+# =========================================================================
+# ⚙️ GITHUB FOLDER SOURCE: PULLS FROM YOUR CUSTOM UPCOMING FOLDER
+# =========================================================================
+# This automatically grabs "bg.jpg" from the "themes" folder you are about to make!
+WALLPAPER_URL = "https://githubusercontent.com"
+
 # ==========================================
 # 3D CEL-SHADED GAMING ENGINE (CSS Injection)
 # ==========================================
 st.markdown(
-    """
+    f"""
     <style>
-    /* Keyframe 1: Pop compression scale transition when items render */
-    @keyframes entryPop {
-        0% { transform: scale(0.96); opacity: 0; }
-        100% { transform: scale(1); opacity: 1; }
-    }
+    @keyframes entryPop {{
+        0% {{ transform: scale(0.96); opacity: 0; }}
+        100% {{ transform: scale(1); opacity: 1; }}
+    }}
     
-    /* Global application structure override */
-    .stApp {
-        background: linear-gradient(180deg, #160c13 0%, #0d060b 100%) !important;
+    /* Injects your GitHub image as a full-bleed crisp background screen */
+    .stApp {{
+        background-image: linear-gradient(rgba(13, 6, 11, 0.75), rgba(13, 6, 11, 0.85)), url("{WALLPAPER_URL}") !important;
+        background-size: cover !important;
+        background-position: center center !important;
+        background-attachment: fixed !important;
         animation: entryPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) once !important;
-    }
+    }}
     
     /* Re-engineer standard flat buttons into chunky, tactile 3D action tiles */
-    div.stButton > button:first-child {
+    div.stButton > button:first-child {{
         background: #ff66aa !important;
         color: #110b11 !important;
         border: 3px solid #110b11 !important;
@@ -46,33 +54,33 @@ st.markdown(
         text-transform: uppercase !important;
         letter-spacing: 2px !important;
         border-radius: 8px !important;
-        box-shadow: 0px 6px 0px #991155 !important; /* Thick geometric 3D shadow */
+        box-shadow: 0px 6px 0px #991155 !important;
         transition: all 0.1s ease-in-out !important;
         margin-bottom: 6px !important;
     }
     
-    /* CRITICAL GAMING MECHANIC: The physical click compression bounce down */
-    div.stButton > button:first-child:active {
+    div.stButton > button:first-child:active {{
         transform: translateY(4px) !important;
         box-shadow: 0px 2px 0px #991155 !important;
-    }
-    div.stButton > button:first-child:hover {
+    }}
+    div.stButton > button:first-child:hover {{
         background: #ff88bb !important;
         color: #110b11 !important;
         border-color: #110b11 !important;
-    }
+    }}
     
     /* Format entry panels into heavy console modules */
-    div[data-testid="stForm"] {
-        background-color: #2d1622 !important;
+    div[data-testid="stForm"] {{
+        background-color: rgba(45, 22, 34, 0.85) !important;
+        backdrop-filter: blur(8px) !important;
         border: 4px solid #110b11 !important;
         border-radius: 12px !important;
-        box-shadow: 8px 8px 0px #110b11 !important; /* Sharp pop-art dropshadow */
+        box-shadow: 8px 8px 0px #110b11 !important;
         padding: 25px !important;
     }
     
     /* Force bold text highlighting on metrics indicators */
-    div[data-testid="stMetricValue"] {
+    div[data-testid="stMetricValue"] {{
         font-weight: 900 !important;
         color: #ff66aa !important;
         text-shadow: 2px 2px 0px #110b11 !important;
@@ -85,7 +93,7 @@ st.markdown(
 # HEAVY IMPACT COMIC HEADER BRAND BANNER
 st.markdown(
     """
-    <div style="background-color: #2d1622; padding: 25px; border-radius: 12px; text-align: center; border: 4px solid #110b11; box-shadow: 8px 8px 0px #110b11; margin-bottom: 35px;">
+    <div style="background-color: rgba(45, 22, 34, 0.85); backdrop-filter: blur(8px); padding: 25px; border-radius: 12px; text-align: center; border: 4px solid #110b11; box-shadow: 8px 8px 0px #110b11; margin-bottom: 35px;">
         <h1 style="color: #ff66aa; margin: 0; font-family: 'Courier New', monospace; font-size: 2.5rem; letter-spacing: 2px; font-weight: 900; text-shadow: 3px 3px 0px #110b11;">
             🌸 桜 GUESS CORE v2 🌸
         </h1>
@@ -207,12 +215,5 @@ else:
     else:
         st.markdown(
             """
-            <div style="text-align: center; padding: 40px 20px; background-color: #2d1622; border-radius: 12px; border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #110b11;">
+            <div style="text-align: center; padding: 40px 20px; background-color: rgba(45, 22, 34, 0.85); backdrop-filter: blur(8px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #110b11;">
                 <p style="font-size: 1.3rem; color: #ff66aa; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #110b11;">STATUS // SYSTEM IDLE</p>
-                <p style="font-size: 0.95rem; color: #ffffff; font-weight: bold; margin-top: 10px;">Deploy the left operational module console to clear the terminal grids!</p>
-            </div>
-            """, 
-            unsafe_allow_html=True
-        )
-
-# STUDIO PRODUCTION INSIGNIA (Single-line concatenation string format completely avoids triple-quote bugs)
