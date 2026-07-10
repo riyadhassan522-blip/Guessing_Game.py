@@ -122,7 +122,7 @@ with st.sidebar:
         st.session_state.gg_round_attempts = 0
         st.session_state.gg_active = True
         st.session_state.gg_current_difficulty = difficulty
-        st.session_state.gg_feedback = "🎯 SYSTEM ENGINE LOADED. DISPATCH YOUR FIRST GUESS ANALYSIS ANALYSIS."
+        st.session_state.gg_feedback = "🎯 SYSTEM ENGINE LOADED. DISPATCH YOUR FIRST GUESS ANALYSIS."
         st.session_state.gg_feedback_type = "info"
 
     # PERSISTENT SCOREBOARD DASHBOARD
