@@ -56,7 +56,8 @@ st.markdown(
         box-shadow: 0px 6px 0px #991155 !important;
         transition: all 0.1s ease-in-out !important;
         margin-bottom: 6px !important;
-    }
+        width: 100% !important; /* Full width touch target for mobile phones */
+    }}
     
     div.stButton > button:first-child:active {{
         transform: translateY(4px) !important;
@@ -68,14 +69,15 @@ st.markdown(
         border-color: #110b11 !important;
     }}
     
-    /* Format entry panels into heavy console modules */
+    /* Format entry panels into heavy console modules with blur elements */
     div[data-testid="stForm"] {{
         background-color: rgba(45, 22, 34, 0.85) !important;
         backdrop-filter: blur(8px) !important;
         border: 4px solid #110b11 !important;
         border-radius: 12px !important;
         box-shadow: 8px 8px 0px #110b11 !important;
-        padding: 25px !important;
+        padding: 20px !important;
+        max-width: 100% !important;
     }}
     
     /* Force bold text highlighting on metrics indicators */
@@ -83,6 +85,17 @@ st.markdown(
         font-weight: 900 !important;
         color: #ff66aa !important;
         text-shadow: 2px 2px 0px #110b11 !important;
+        font-size: 1.8rem !important;
+    }}
+
+    /* Mobile scaling enhancements to maximize viewport space */
+    @media (max-width: 768px) {{
+        div[style*="padding: 25px"] {{
+            padding: 15px !important;
+        }}
+        h1 {{
+            font-size: 1.8rem !important;
+        }}
     }}
     </style>
     """,
@@ -214,8 +227,3 @@ else:
     else:
         st.markdown(
             """
-            <div style="text-align: center; padding: 40px 20px; background-color: rgba(45, 22, 34, 0.85); backdrop-filter: blur(8px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #110b11;">
-                <p style="font-size: 1.3rem; color: #ff66aa; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #110b11;">STATUS // SYSTEM IDLE</p>
-                <p style="font-size: 0.95rem; color: #ffffff; font-weight: bold; margin-top: 10px;">Deploy the left operational module console to clear the terminal grids!</p>
-            </div>
-            """, 
