@@ -56,7 +56,7 @@ st.markdown(
         box-shadow: 0px 6px 0px #991155 !important;
         transition: all 0.1s ease-in-out !important;
         margin-bottom: 6px !important;
-        width: 100% !important; /* Full width touch target for mobile phones */
+        width: 100% !important;
     }}
     
     div.stButton > button:first-child:active {{
@@ -227,3 +227,4 @@ else:
     else:
         st.markdown(
             """
+            <div style="text-align: center; padding: 40px 20px; background-color: rgba(45, 22, 34, 0.85); backdrop-filter: blur(8px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #110b11;">
