@@ -3,8 +3,8 @@ import random
 
 # 1. APPLICATION ENVIRONMENT FRAMEWORK
 st.set_page_config(
-    page_title="LordDarkness Arcade Core", 
-    page_icon="🥊", 
+    page_title="Lord's Gaming Hub", 
+    page_icon="🎮", 
     layout="centered"
 )
 
@@ -19,7 +19,7 @@ if "gg_played" not in st.session_state:
     st.session_state.gg_current_difficulty = None
 
 # =========================================================================
-# ⚙️ GITHUB FOLDER SOURCE: PULLS FROM YOUR CUSTOM UPCOMING FOLDER
+# ⚙️ GITHUB FOLDER SOURCE: PULLS FROM YOUR CUSTOM ASSET DIRECTORY
 # =========================================================================
 WALLPAPER_URL = "https://githubusercontent.com"
 
@@ -56,7 +56,7 @@ st.markdown(
         box-shadow: 0px 6px 0px #991155 !important;
         transition: all 0.1s ease-in-out !important;
         margin-bottom: 6px !important;
-    }}
+    }
     
     div.stButton > button:first-child:active {{
         transform: translateY(4px) !important;
@@ -94,10 +94,10 @@ st.markdown(
     """
     <div style="background-color: rgba(45, 22, 34, 0.85); backdrop-filter: blur(8px); padding: 25px; border-radius: 12px; text-align: center; border: 4px solid #110b11; box-shadow: 8px 8px 0px #110b11; margin-bottom: 35px;">
         <h1 style="color: #ff66aa; margin: 0; font-family: 'Courier New', monospace; font-size: 2.5rem; letter-spacing: 2px; font-weight: 900; text-shadow: 3px 3px 0px #110b11;">
-            🌸 桜 GUESS CORE v2 🌸
+            🌸 LORD'S GAMING HUB 🌸
         </h1>
         <p style="color: #ffffff; margin: 8px 0 0 0; font-size: 1rem; font-family: 'Courier New', monospace; font-weight: bold; letter-spacing: 1px;">
-            [ ARCADE ENGINE // ENGINE CREDITS: LORDDARKNESS393 ]
+            [ ARCADE STATION ENGINE // ENG CREDITS: LORDDARKNESS393 ]
         </p>
     </div>
     """, 
@@ -208,12 +208,14 @@ if st.session_state.gg_active:
         elif st.session_state.gg_feedback_type == "warning": st.warning(st.session_state.gg_feedback)
         elif st.session_state.gg_feedback_type == "error": st.error(st.session_state.gg_feedback)
         else: st.info(st.session_state.gg_feedback)
-          """, 
-            unsafe_allow_html=True
-        )
-
-# STUDIO PRODUCTION INSIGNIA
-footer_html = '<div style="text-align: center; padding: 10px; margin-top: 30px;"><p style="color: #614653; font-family: \'Courier New\', monospace; font-size: 0.85rem; margin: 0; font-weight: bold;">© 2026 DARKNESS GAMING LABS | ALL RIGHTS RESERVED</p><p style="color: #ff66aa; font-family: \'Courier New\', monospace; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #110b11;">DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>'
-
-st.markdown("---")
-st.markdown(footer_html, unsafe_allow_html=True)
+else:
+    if "gg_feedback" in st.session_state and "changed mid-game" in st.session_state.gg_feedback:
+        st.info(st.session_state.gg_feedback)
+    else:
+        st.markdown(
+            """
+            <div style="text-align: center; padding: 40px 20px; background-color: rgba(45, 22, 34, 0.85); backdrop-filter: blur(8px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #110b11;">
+                <p style="font-size: 1.3rem; color: #ff66aa; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #110b11;">STATUS // SYSTEM IDLE</p>
+                <p style="font-size: 0.95rem; color: #ffffff; font-weight: bold; margin-top: 10px;">Deploy the left operational module console to clear the terminal grids!</p>
+            </div>
+            """, 
