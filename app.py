@@ -24,100 +24,85 @@ if "gg_played" not in st.session_state:
 WALLPAPER_URL = "https://githubusercontent.com"
 
 # ==========================================
-# 3D CEL-SHADED GAMING ENGINE (CSS Injection)
+# 3D CEL-SHADED GAMING ENGINE (Safe Flat String CSS Engine)
 # ==========================================
-st.markdown(
-    f"""
-    <style>
-    @keyframes entryPop {{
-        0% {{ transform: scale(0.96); opacity: 0; }}
-        100% {{ transform: scale(1); opacity: 1; }}
-    }}
-    
-    /* Injects your GitHub image as a full-bleed crisp background screen */
-    .stApp {{
-        background-image: linear-gradient(rgba(13, 6, 11, 0.75), rgba(13, 6, 11, 0.85)), url("{WALLPAPER_URL}") !important;
-        background-size: cover !important;
-        background-position: center center !important;
-        background-attachment: fixed !important;
-        animation: entryPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) once !important;
-    }}
-    
-    /* Re-engineer standard flat buttons into chunky, tactile 3D action tiles */
-    div.stButton > button:first-child {{
-        background: #ff66aa !important;
-        color: #110b11 !important;
-        border: 3px solid #110b11 !important;
-        font-weight: 900 !important;
-        font-size: 1.1rem !important;
-        text-transform: uppercase !important;
-        letter-spacing: 2px !important;
-        border-radius: 8px !important;
-        box-shadow: 0px 6px 0px #991155 !important;
-        transition: all 0.1s ease-in-out !important;
-        margin-bottom: 6px !important;
-        width: 100% !important;
-    }}
-    
-    div.stButton > button:first-child:active {{
-        transform: translateY(4px) !important;
-        box-shadow: 0px 2px 0px #991155 !important;
-    }}
-    div.stButton > button:first-child:hover {{
-        background: #ff88bb !important;
-        color: #110b11 !important;
-        border-color: #110b11 !important;
-    }}
-    
-    /* Format entry panels into heavy console modules with blur elements */
-    div[data-testid="stForm"] {{
-        background-color: rgba(45, 22, 34, 0.85) !important;
-        backdrop-filter: blur(8px) !important;
-        border: 4px solid #110b11 !important;
-        border-radius: 12px !important;
-        box-shadow: 8px 8px 0px #110b11 !important;
-        padding: 20px !important;
-        max-width: 100% !important;
-    }}
-    
-    /* Force bold text highlighting on metrics indicators */
-    div[data-testid="stMetricValue"] {{
-        font-weight: 900 !important;
-        color: #ff66aa !important;
-        text-shadow: 2px 2px 0px #110b11 !important;
-        font-size: 1.8rem !important;
-    }}
-
-    /* Mobile scaling enhancements to maximize viewport space */
-    @media (max-width: 768px) {{
-        div[style*="padding: 25px"] {{
-            padding: 15px !important;
-        }}
-        h1 {{
-            font-size: 1.8rem !important;
-        }}
-    }}
-    </style>
-    """,
-    unsafe_allow_html=True
+css_style = (
+    "<style>\n"
+    "@keyframes entryPop {\n"
+    "    0% { transform: scale(0.96); opacity: 0; }\n"
+    "    100% { transform: scale(1); opacity: 1; }\n"
+    "}\n"
+    ".stApp {\n"
+    "    background-image: linear-gradient(rgba(13, 6, 11, 0.75), rgba(13, 6, 11, 0.85)), url('" + WALLPAPER_URL + "') !important;\n"
+    "    background-size: cover !important;\n"
+    "    background-position: center center !important;\n"
+    "    background-attachment: fixed !important;\n"
+    "    animation: entryPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) once !important;\n"
+    "}\n"
+    "div.stButton > button:first-child {\n"
+    "    background: #ff66aa !important;\n"
+    "    color: #110b11 !important;\n"
+    "    border: 3px solid #110b11 !important;\n"
+    "    font-weight: 900 !important;\n"
+    "    font-size: 1.1rem !important;\n"
+    "    text-transform: uppercase !important;\n"
+    "    letter-spacing: 2px !important;\n"
+    "    border-radius: 8px !important;\n"
+    "    box-shadow: 0px 6px 0px #991155 !important;\n"
+    "    transition: all 0.1s ease-in-out !important;\n"
+    "    margin-bottom: 6px !important;\n"
+    "    width: 100% !important;\n"
+    "}\n"
+    "div.stButton > button:first-child:active {\n"
+    "    transform: translateY(4px) !important;\n"
+    "    box-shadow: 0px 2px 0px #991155 !important;\n"
+    "}\n"
+    "div.stButton > button:first-child:hover {\n"
+    "    background: #ff88bb !important;\n"
+    "    color: #110b11 !important;\n"
+    "    border-color: #110b11 !important;\n"
+    "}\n"
+    "div[data-testid='stForm'] {\n"
+    "    background-color: rgba(45, 22, 34, 0.85) !important;\n"
+    "    backdrop-filter: blur(8px) !important;\n"
+    "    border: 4px solid #110b11 !important;\n"
+    "    border-radius: 12px !important;\n"
+    "    box-shadow: 8px 8px 0px #110b11 !important;\n"
+    "    padding: 20px !important;\n"
+    "    max-width: 100% !important;\n"
+    "}\n"
+    "div[data-testid='stMetricValue'] {\n"
+    "    font-weight: 900 !important;\n"
+    "    color: #ff66aa !important;\n"
+    "    text-shadow: 2px 2px 0px #110b11 !important;\n"
+    "    font-size: 1.8rem !important;\n"
+    "}\n"
+    "@media (max-width: 768px) {\n"
+    "    div[style*='padding: 25px'] {\n"
+    "        padding: 15px !important;\n"
+    "    }\n"
+    "    h1 {\n"
+    "        font-size: 1.8rem !important;\n"
+    "    }\n"
+    "}\n"
+    "</style>"
 )
+st.markdown(css_style, unsafe_allow_html=True)
 
-# HEAVY IMPACT COMIC HEADER BRAND BANNER
-st.markdown(
-    """
-    <div style="background-color: rgba(45, 22, 34, 0.85); backdrop-filter: blur(8px); padding: 25px; border-radius: 12px; text-align: center; border: 4px solid #110b11; box-shadow: 8px 8px 0px #110b11; margin-bottom: 35px;">
-        <h1 style="color: #ff66aa; margin: 0; font-family: 'Courier New', monospace; font-size: 2.5rem; letter-spacing: 2px; font-weight: 900; text-shadow: 3px 3px 0px #110b11;">
-            🌸 LORD'S GAMING HUB 🌸
-        </h1>
-        <p style="color: #ffffff; margin: 8px 0 0 0; font-size: 1rem; font-family: 'Courier New', monospace; font-weight: bold; letter-spacing: 1px;">
-            [ ARCADE STATION ENGINE // ENG CREDITS: LORDDARKNESS393 ]
-        </p>
-    </div>
-    """, 
-    unsafe_allow_html=True
+# 2. BRANDING BANNER
+banner_html = (
+    "<div style='background-color: rgba(45, 22, 34, 0.85); backdrop-filter: blur(8px); padding: 25px; border-radius: 12px; text-align: center; border: 4px solid #110b11; box-shadow: 8px 8px 0px #110b11; margin-bottom: 35px;'>\n"
+    "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.5rem; letter-spacing: 2px; font-weight: 900; text-shadow: 3px 3px 0px #110b11;'>\n"
+    "        🌸 LORD'S GAMING HUB 🌸\n"
+    "    </h1>\n"
+    "    <p style='color: #ffffff; margin: 8px 0 0 0; font-size: 1rem; font-family: \"Courier New\", monospace; font-weight: bold; letter-spacing: 1px;'>\n"
+    "        [ ARCADE STATION ENGINE // ENG CREDITS: LORDDARKNESS393 ]\n"
+    "    </p>\n"
+    "</div>"
 )
+st.markdown(banner_html, unsafe_allow_html=True)
 
-# 2. CONTROL PANEL CONFIGURATION
+# 3. CONTROL PANEL CONFIGURATION
 with st.sidebar:
     st.markdown("### ⚙️ SYSTEM SETTINGS")
     difficulty = st.selectbox(
@@ -160,7 +145,7 @@ with st.sidebar:
     best_display = f"⭐ {st.session_state.gg_best_score} attempts" if st.session_state.gg_best_score else "No wins recorded"
     st.markdown(f"**Personal Best Record:**\n`{best_display}`")
 
-# 3. INTERFACE PROCESSOR ROUTINE
+# 4. INTERFACE PROCESSOR ROUTINE
 if st.session_state.gg_active:
     with st.container(border=True):
         st.markdown(f"##### 🌸 Core Integrity: **{st.session_state.gg_lives_left} / {max_lives} Lives Remaining**")
@@ -225,6 +210,5 @@ else:
     if "gg_feedback" in st.session_state and "changed mid-game" in st.session_state.gg_feedback:
         st.info(st.session_state.gg_feedback)
     else:
-        st.markdown(
-            """
-            <div style="text-align: center; padding: 40px 20px; background-color: rgba(45, 22, 34, 0.85); backdrop-filter: blur(8px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #110b11;">
+        idle_html = (
+            "<div style='text-align: center; padding: 40px 20px; background-color: rgba(45, 22, 34, 0.85); backdrop-filter: blur(8px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #110b11;'>\n"
