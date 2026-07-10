@@ -27,13 +27,13 @@ css_style = (
     "    0% { transform: scale(0.96); opacity: 0; }\n"
     "    100% { transform: scale(1); opacity: 1; }\n"
     "}\n"
-    "/* Targets both main view containers to bypass native Streamlit dark themes */\n"
+    "/* Targets both main view containers to load your raw Japanese pagoda background art */\n"
     ".stApp, [data-testid='stAppViewContainer'] {\n"
     "    background-image: linear-gradient(rgba(26, 12, 18, 0.65), rgba(26, 12, 18, 0.78)), url('https://githubusercontent.com') !important;\n"
     "    background-size: cover !important;\n"
     "    background-position: center center !important;\n"
     "    background-attachment: fixed !important;\n"
-    "    animation: entryPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) once !important;\n"
+    "    animation: entryPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;\n"
     "}\n"
     "/* FIXED SIDEBAR: Destroys the solid sidebar layout to force clean glass blur */\n"
     "[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {\n"
@@ -209,20 +209,21 @@ if st.session_state.gg_active:
         elif st.session_state.gg_feedback_type == "warning": st.warning(st.session_state.gg_feedback)
         elif st.session_state.gg_feedback_type == "error": st.error(st.session_state.gg_feedback)
         else: st.info(st.session_state.gg_feedback)
+       if "gg_feedback" in st.session_state:
+        if st.session_state.gg_feedback_type == "success": st.success(st.session_state.gg_feedback)
+        elif st.session_state.gg_feedback_type == "warning": st.warning(st.session_state.gg_feedback)
+        elif st.session_state.gg_feedback_type == "error": st.error(st.session_state.gg_feedback)
+        else: st.info(st.session_state.gg_feedback)
 else:
+    # Changed from 'else: if' to 'elif' to fix the syntax crash
     if "gg_feedback" in st.session_state and "changed mid-game" in st.session_state.gg_feedback:
         st.info(st.session_state.gg_feedback)
     else:
-      idle_html = (
-          "<div style='text-align: center; padding: 40px 20px; background-color: rgba(45, 20, 32, 0.85); backdrop-filter: blur(10px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #1a0c12;'>"
-          "<p style='font-size: 1.3rem; color: #ff66aa; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>STATUS // PLATFORM IDLE</p>"
-          "<p style='font-size: 0.95rem; color: #ffffff; font-weight: bold; margin-top: 10px;'>Initialize the left matrix panel to deploy your first gameplay module round!</p>"
-          "</div>"
-      )
-      st.markdown(idle_html, unsafe_allow_html=True)
-
-# 5. STUDIO PRODUCTION INSIGNIA
-footer_html = "<div style='text-align: center; padding: 10px; margin-top: 30px;'><p style='color: #614653; font-family: \"Courier New\", monospace; font-size: 0.85rem; margin: 0; font-weight: bold;'>© 2026 DARKNESS GAMING LABS | ALL RIGHTS RESERVED</p><p style=" + "'color: #ff66aa; font-family: \"Courier New\", monospace; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'" + ">DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
-st.markdown("---")
-st.markdown(footer_html, unsafe_allow_html=True)
-
+        idle_html = (
+            "<div style='text-align: center; padding: 40px 20px; background-color: rgba(45, 20, 32, 0.85); backdrop-filter: blur(10px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #1a0c12;'>"
+            "<p style='font-size: 1.3rem; color: #ff66aa; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>STATUS // PLATFORM IDLE</p>"
+            "<p style='font-size: 0.95rem; color: #ffffff; font-weight: bold; margin-top: 10px;'>Initialize the left matrix panel to deploy your first gameplay module round!</p>"
+            "</div>"
+        )
+        st.markdown(idle_html, unsafe_allow_html=True)
+         
