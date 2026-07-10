@@ -3,8 +3,8 @@ import random
 
 # 1. APPLICATION ENVIRONMENT FRAMEWORK
 st.set_page_config(
-    page_title="Lord's Gaming Hub", 
-    page_icon="🎮", 
+    page_title="Lord's Arcade Realm", 
+    page_icon="🌸", 
     layout="centered"
 )
 
@@ -19,13 +19,8 @@ if "gg_played" not in st.session_state:
     st.session_state.gg_current_difficulty = None
 
 # =========================================================================
-# ⚙️ GITHUB FOLDER SOURCE: PULLS FROM YOUR CUSTOM ASSET DIRECTORY
+# 3D CEL-SHADED GAMING ENGINE (Safe Flat String CSS Engine with Sidebar Blur)
 # =========================================================================
-WALLPAPER_URL = "https://githubusercontent.com"
-
-# ==========================================
-# 3D CEL-SHADED GAMING ENGINE (Safe Flat String CSS Engine)
-# ==========================================
 css_style = (
     "<style>\n"
     "@keyframes entryPop {\n"
@@ -33,48 +28,54 @@ css_style = (
     "    100% { transform: scale(1); opacity: 1; }\n"
     "}\n"
     ".stApp {\n"
-    "    background-image: linear-gradient(rgba(13, 6, 11, 0.75), rgba(13, 6, 11, 0.85)), url('" + WALLPAPER_URL + "') !important;\n"
+    "    background-image: linear-gradient(rgba(26, 12, 18, 0.65), rgba(26, 12, 18, 0.78)), url('https://githubusercontent.com') !important;\n"
     "    background-size: cover !important;\n"
     "    background-position: center center !important;\n"
     "    background-attachment: fixed !important;\n"
     "    animation: entryPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) once !important;\n"
     "}\n"
+    "/* NEW FEATURE: Applies the premium blurred frosted glass texture to the left sidebar level selector */\n"
+    "[data-testid='stSidebar'] {\n"
+    "    background-color: rgba(37, 22, 31, 0.75) !important;\n"
+    "    backdrop-filter: blur(12px) !important;\n"
+    "    border-right: 3px solid #1a0c12 !important;\n"
+    "}\n"
     "div.stButton > button:first-child {\n"
     "    background: #ff66aa !important;\n"
-    "    color: #110b11 !important;\n"
-    "    border: 3px solid #110b11 !important;\n"
+    "    color: #1a0c12 !important;\n"
+    "    border: 3px solid #1a0c12 !important;\n"
     "    font-weight: 900 !important;\n"
     "    font-size: 1.1rem !important;\n"
     "    text-transform: uppercase !important;\n"
     "    letter-spacing: 2px !important;\n"
     "    border-radius: 8px !important;\n"
-    "    box-shadow: 0px 6px 0px #991155 !important;\n"
+    "    box-shadow: 0px 6px 0px #992255 !important;\n"
     "    transition: all 0.1s ease-in-out !important;\n"
     "    margin-bottom: 6px !important;\n"
     "    width: 100% !important;\n"
     "}\n"
     "div.stButton > button:first-child:active {\n"
     "    transform: translateY(4px) !important;\n"
-    "    box-shadow: 0px 2px 0px #991155 !important;\n"
+    "    box-shadow: 0px 2px 0px #992255 !important;\n"
     "}\n"
     "div.stButton > button:first-child:hover {\n"
     "    background: #ff88bb !important;\n"
-    "    color: #110b11 !important;\n"
-    "    border-color: #110b11 !important;\n"
+    "    color: #1a0c12 !important;\n"
+    "    border-color: #1a0c12 !important;\n"
     "}\n"
     "div[data-testid='stForm'] {\n"
-    "    background-color: rgba(45, 22, 34, 0.85) !important;\n"
-    "    backdrop-filter: blur(8px) !important;\n"
-    "    border: 4px solid #110b11 !important;\n"
+    "    background-color: rgba(45, 20, 32, 0.82) !important;\n"
+    "    backdrop-filter: blur(10px) !important;\n"
+    "    border: 4px solid #1a0c12 !important;\n"
     "    border-radius: 12px !important;\n"
-    "    box-shadow: 8px 8px 0px #110b11 !important;\n"
+    "    box-shadow: 8px 8px 0px #1a0c12 !important;\n"
     "    padding: 20px !important;\n"
     "    max-width: 100% !important;\n"
     "}\n"
     "div[data-testid='stMetricValue'] {\n"
     "    font-weight: 900 !important;\n"
     "    color: #ff66aa !important;\n"
-    "    text-shadow: 2px 2px 0px #110b11 !important;\n"
+    "    text-shadow: 2px 2px 0px #1a0c12 !important;\n"
     "    font-size: 1.8rem !important;\n"
     "}\n"
     "@media (max-width: 768px) {\n"
@@ -89,14 +90,14 @@ css_style = (
 )
 st.markdown(css_style, unsafe_allow_html=True)
 
-# 2. BRANDING BANNER
+# 2. BRANDING BANNER: SAKURA REALM OVERLAY
 banner_html = (
-    "<div style='background-color: rgba(45, 22, 34, 0.85); backdrop-filter: blur(8px); padding: 25px; border-radius: 12px; text-align: center; border: 4px solid #110b11; box-shadow: 8px 8px 0px #110b11; margin-bottom: 35px;'>\n"
-    "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.5rem; letter-spacing: 2px; font-weight: 900; text-shadow: 3px 3px 0px #110b11;'>\n"
-    "        🌸 LORD'S GAMING HUB 🌸\n"
+    "<div style='background-color: rgba(45, 20, 32, 0.82); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 4px solid #1a0c12; box-shadow: 8px 8px 0px #1a0c12; margin-bottom: 35px;'>\n"
+    "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 3px 3px 0px #1a0c12;'>\n"
+    "        🌸 LORD'S ARCADE REALM 🌸\n"
     "    </h1>\n"
     "    <p style='color: #ffffff; margin: 8px 0 0 0; font-size: 1rem; font-family: \"Courier New\", monospace; font-weight: bold; letter-spacing: 1px;'>\n"
-    "        [ ARCADE STATION ENGINE // ENG CREDITS: LORDDARKNESS393 ]\n"
+    "        [ SYSTEM CORE MODULES // ENGINEERED BY: LORDDARKNESS393 ]\n"
     "    </p>\n"
     "</div>"
 )
@@ -175,27 +176,27 @@ if st.session_state.gg_active:
         if guess < secret:
             st.session_state.gg_lives_left -= 1
             msg = f"📉 {guess} is Too Low!"
-            if secret - guess <= warm_threshold: msg += " 👉 Getting warm!!"
+            if secret - guess <= warm_threshold: msg += " 👉 Radar signature getting warm!!"
             st.session_state.gg_feedback = msg
             st.session_state.gg_feedback_type = "warning"
         elif guess > secret:
             st.session_state.gg_lives_left -= 1
             msg = f"📈 {guess} is Too High!"
-            if guess - secret <= warm_threshold: msg += " 👉 Getting warm!!"
+            if guess - secret <= warm_threshold: msg += " 👉 Radar signature getting warm!!"
             st.session_state.gg_feedback = msg
             st.session_state.gg_feedback_type = "warning"
         else:
-            st.session_state.gg_feedback = f"🎉 MAINFRAME CRACKED! You secured system victory in {st.session_state.gg_round_attempts} attempts!"
+            st.session_state.gg_feedback = f"🎉 MAINFRAME ACCESS SECURED! Encryption cracked in {st.session_state.gg_round_attempts} attempts!"
             st.session_state.gg_feedback_type = "success"
             st.session_state.gg_wins += 1
             st.session_state.gg_played += 1
             if st.session_state.gg_best_score is None or st.session_state.gg_round_attempts < st.session_state.gg_best_score:
                 st.session_state.gg_best_score = st.session_state.gg_round_attempts
-                st.toast("🌸 NEW GLOBAL RECORD UNLOCKED! 🌸")
+                st.toast("🌸 NEW MAINFRAME CORE SPEED-RECORD SET! 🌸")
             st.session_state.gg_active = False
 
         if st.session_state.gg_lives_left <= 0 and st.session_state.gg_active:
-            st.session_state.gg_feedback = f"💀 MODULE CRASH! Out of lives. Critical signature code was: {secret}."
+            st.session_state.gg_feedback = f"💀 PROTOCOL ABORTED! System crashed. Core signature code was: {secret}."
             st.session_state.gg_feedback_type = "error"
             st.session_state.gg_losses += 1
             st.session_state.gg_played += 1
@@ -210,15 +211,16 @@ else:
     if "gg_feedback" in st.session_state and "changed mid-game" in st.session_state.gg_feedback:
         st.info(st.session_state.gg_feedback)
     else:
-        idle_html = (
-            "<div style='text-align: center; padding: 40px 20px; background-color: rgba(45, 20, 32, 0.85); backdrop-filter: blur(10px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #1a0c12;'>"
-            "<p style='font-size: 1.3rem; color: #ff66aa; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>STATUS // PLATFORM IDLE</p>"
-            "<p style='font-size: 0.95rem; color: #ffffff; font-weight: bold; margin-top: 10px;'>Initialize the left matrix panel to deploy your first gameplay module round!</p>"
-            "</div>"
-        )
-        st.markdown(idle_html, unsafe_allow_html=True)
+      idle_html = (
+          "<div style='text-align: center; padding: 40px 20px; background-color: rgba(45, 20, 32, 0.85); backdrop-filter: blur(10px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #1a0c12;'>"
+          "<p style='font-size: 1.3rem; color: #ff66aa; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>STATUS // PLATFORM IDLE</p>"
+          "<p style='font-size: 0.95rem; color: #ffffff; font-weight: bold; margin-top: 10px;'>Initialize the left matrix panel to deploy your first gameplay module round!</p>"
+          "</div>"
+      )
+      st.markdown(idle_html, unsafe_allow_html=True)
 
 # 5. STUDIO PRODUCTION INSIGNIA
 footer_html = "<div style='text-align: center; padding: 10px; margin-top: 30px;'><p style='color: #614653; font-family: \"Courier New\", monospace; font-size: 0.85rem; margin: 0; font-weight: bold;'>© 2026 DARKNESS GAMING LABS | ALL RIGHTS RESERVED</p><p style=" + "'color: #ff66aa; font-family: \"Courier New\", monospace; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'" + ">DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
 st.markdown("---")
 st.markdown(footer_html, unsafe_allow_html=True)
+
