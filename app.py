@@ -21,7 +21,7 @@ if "gg_played" not in st.session_state:
 # =========================================================================
 # ⚙️ GITHUB FOLDER SOURCE: PULLS FROM YOUR CUSTOM UPCOMING FOLDER
 # =========================================================================
-# This automatically grabs "bg.jpg" from the "themes" folder you are about to make!
+# This automatically grabs "bg.jpg" from the "themes" folder you made!
 WALLPAPER_URL = "https://githubusercontent.com"
 
 # ==========================================
@@ -57,7 +57,7 @@ st.markdown(
         box-shadow: 0px 6px 0px #991155 !important;
         transition: all 0.1s ease-in-out !important;
         margin-bottom: 6px !important;
-    }
+    }}
     
     div.stButton > button:first-child:active {{
         transform: translateY(4px) !important;
@@ -77,14 +77,14 @@ st.markdown(
         border-radius: 12px !important;
         box-shadow: 8px 8px 0px #110b11 !important;
         padding: 25px !important;
-    }
+    }}
     
     /* Force bold text highlighting on metrics indicators */
     div[data-testid="stMetricValue"] {{
         font-weight: 900 !important;
         color: #ff66aa !important;
         text-shadow: 2px 2px 0px #110b11 !important;
-    }
+    }}
     </style>
     """,
     unsafe_allow_html=True
@@ -198,7 +198,7 @@ if st.session_state.gg_active:
             st.session_state.gg_active = False
 
         if st.session_state.gg_lives_left <= 0 and st.session_state.gg_active:
-            st.session_state.gg_feedback = f"💀 MODULE CRASH! Out of lives. Core signature code was: {secret}."
+            st.session_state.gg_feedback = f"💀 MODULE CRASH! Out of lives. Critical signature code was: {secret}."
             st.session_state.gg_feedback_type = "error"
             st.session_state.gg_losses += 1
             st.session_state.gg_played += 1
