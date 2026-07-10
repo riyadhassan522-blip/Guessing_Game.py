@@ -59,12 +59,12 @@ css_style = f"""
     animation: entryPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
 }}
 
-/* THE FROSTED GLASS SIDEBAR EFFECT */
+/* THE ULTRA-CLEAR FROSTED GLASS SIDEBAR EFFECT */
 [data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
-    background-color: rgba(30, 15, 23, 0.20) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border-right: 3px solid #ff66aa !important;
+    background-color: rgba(17, 11, 17, 0.05) !important; /* Stripped down to 5% opacity */
+    backdrop-filter: blur(12px) !important;             /* Heavy glass blur engine */
+    -webkit-backdrop-filter: blur(12px) !important;     
+    border-right: 3px solid #ff66aa !important;         /* Glowing sakura divider border */
 }}
 
 /* Retro Arcade 3D Button Style */
@@ -92,14 +92,14 @@ div.stButton > button:first-child:hover {{
     border-color: #1a0c12 !important;
 }}
 
-/* Floating Semi-Transparent UI Panel Containers */
+/* Floating UI Panel Containers - Stripped to Pure Transparency */
 div[data-testid='stForm'], .stMainBlockContainer {{
-    background-color: rgba(35, 16, 25, 0.75) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border: 4px solid #1a0c12 !important;
-    border-radius: 12px !important;
-    box-shadow: 8px 8px 0px #1a0c12 !important;
+    background: transparent !important;                 /* Removes solid box panels entirely */
+    background-color: transparent !important;
+    backdrop-filter: none !important;                   /* Disables double blur conflict */
+    -webkit-backdrop-filter: none !important;
+    border: none !important;                            /* Wipes out solid black borders */
+    box-shadow: none !important;                        /* Removes flat drop shadows */
     padding: 25px !important;
     max-width: 100% !important;
 }}
@@ -115,7 +115,7 @@ st.markdown(css_style, unsafe_allow_html=True)
 
 # 2. BRANDING BANNER: SINGLE SYSTEM RECOVERY MODULE
 banner_html = (
-    "<div style='background-color: rgba(45, 20, 32, 0.82); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 4px solid #1a0c12; box-shadow: 8px 8px 0px #1a0c12; margin-bottom: 35px;'>\n"
+    "<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 4px solid #1a0c12; box-shadow: 8px 8px 0px #1a0c12; margin-bottom: 35px;'>\n"
     "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 3px 3px 0px #1a0c12;'>\n"
     "        🌸 LORD'S ARCADE REALM 🌸\n"
     "    </h1>\n"
@@ -235,7 +235,7 @@ else:
         st.info(st.session_state.gg_feedback)
     else:
         idle_html = (
-            "<div style='text-align: center; padding: 40px 20px; background-color: rgba(45, 20, 32, 0.85); backdrop-filter: blur(10px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #1a0c12;'>"
+            "<div style='text-align: center; padding: 40px 20px; background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #1a0c12;'>"
             "<p style='font-size: 1.3rem; color: #ff66aa; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>STATUS // PLATFORM IDLE</p>"
             "<p style='font-size: 0.95rem; color: #ffffff; font-weight: bold; margin-top: 10px;'>Initialize the left matrix panel to deploy your first gameplay module round!</p>"
             "</div>"
