@@ -1,10 +1,10 @@
 import streamlit as st
 import random
 
-# 1. VISUAL LAYER HEADLESS INITIALIZATION
+# 1. APPLICATION ENVIRONMENT FRAMEWORK
 st.set_page_config(
-    page_title="LordDarkness Sakura Engine", 
-    page_icon="🌸", 
+    page_title="LordDarkness Arcade Core", 
+    page_icon="🥊", 
     layout="centered"
 )
 
@@ -19,74 +19,78 @@ if "gg_played" not in st.session_state:
     st.session_state.gg_current_difficulty = None
 
 # ==========================================
-# ADVANCED JAPANESE VISUAL ENGINE (Injected CSS)
+# 3D CEL-SHADED GAMING ENGINE (CSS Injection)
 # ==========================================
 st.markdown(
     """
     <style>
-    /* Keyframe 1: Dynamic flowing Sakura gradient backdrop */
-    @keyframes blossomFlow {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-    /* Keyframe 2: Gentle continuous floating pulse for headers */
-    @keyframes floatingHeader {
-        0% { transform: translateY(0px); filter: drop-shadow(0 2px 8px rgba(255,183,197,0.3)); }
-        50% { transform: translateY(-6px); filter: drop-shadow(0 12px 20px rgba(255,183,197,0.6)); }
-        100% { transform: translateY(0px); filter: drop-shadow(0 2px 8px rgba(255,183,197,0.3)); }
+    /* Keyframe 1: Pop compression scale transition when items render */
+    @keyframes entryPop {
+        0% { transform: scale(0.96); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
     }
     
-    /* Inject moving backdrop into the application skin */
+    /* Global application structure override */
     .stApp {
-        background: linear-gradient(-45deg, #180d12, #29121c, #1f0f15, #140b0f) !important;
-        background-size: 400% 400% !important;
-        animation: blossomFlow 10s ease infinite !important;
+        background: linear-gradient(180deg, #160c13 0%, #0d060b 100%) !important;
+        animation: entryPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) once !important;
     }
     
-    /* Re-engineer standard Streamlit buttons into tactile gaming tiles */
+    /* Re-engineer standard flat buttons into chunky, tactile 3D action tiles */
     div.stButton > button:first-child {
-        background: linear-gradient(135deg, #ffb7c5 0%, #ff85a7 100%) !important;
-        color: #2b111c !important;
-        border: 2px solid #ffb7c5 !important;
+        background: #ff66aa !important;
+        color: #110b11 !important;
+        border: 3px solid #110b11 !important;
         font-weight: 900 !important;
-        letter-spacing: 1px !important;
-        border-radius: 12px !important;
-        box-shadow: 0 4px 15px rgba(255, 183, 197, 0.2) !important;
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+        font-size: 1.1rem !important;
+        text-transform: uppercase !important;
+        letter-spacing: 2px !important;
+        border-radius: 8px !important;
+        box-shadow: 0px 6px 0px #991155 !important; /* Thick geometric 3D shadow */
+        transition: all 0.1s ease-in-out !important;
+        margin-bottom: 6px !important;
+    }
+    
+    /* CRITICAL GAMING MECHANIC: The physical click compression bounce down */
+    div.stButton > button:first-child:active {
+        transform: translateY(4px) !important;
+        box-shadow: 0px 2px 0px #991155 !important;
     }
     div.stButton > button:first-child:hover {
-        transform: scale(1.02) !important;
-        box-shadow: 0 0 25px rgba(255, 133, 167, 0.6) !important;
-        color: #ffffff !important;
-        border-color: #ff85a7 !important;
+        background: #ff88bb !important;
+        color: #110b11 !important;
+        border-color: #110b11 !important;
     }
     
-    /* Style form input blocks with neon borders */
+    /* Format entry panels into heavy console modules */
     div[data-testid="stForm"] {
-        background-color: rgba(37, 22, 31, 0.7) !important;
-        border: 2px solid #ffb7c5 !important;
-        border-radius: 16px !important;
-        box-shadow: 0 0 15px rgba(255, 183, 197, 0.1) !important;
+        background-color: #2d1622 !important;
+        border: 4px solid #110b11 !important;
+        border-radius: 12px !important;
+        box-shadow: 8px 8px 0px #110b11 !important; /* Sharp pop-art dropshadow */
+        padding: 25px !important;
     }
     
-    .sakura-header-container {
-        animation: floatingHeader 4s ease-in-out infinite !important;
+    /* Force bold text highlighting on metrics indicators */
+    div[data-testid="stMetricValue"] {
+        font-weight: 900 !important;
+        color: #ff66aa !important;
+        text-shadow: 2px 2px 0px #110b11 !important;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# PREMIUM STRUCTURAL BRAND BANNER
+# HEAVY IMPACT COMIC HEADER BRAND BANNER
 st.markdown(
     """
-    <div class="sakura-header-container" style="background-color: #25161f; padding: 25px; border-radius: 16px; text-align: center; border: 2px solid #ffb7c5; margin-bottom: 25px;">
-        <h1 style="color: #ffb7c5; margin: 0; font-family: 'Courier New', monospace; font-size: 2.3rem; letter-spacing: 3px; font-weight: 800;">
-            🌸 桜 GUESSING CORE 🌸
+    <div style="background-color: #2d1622; padding: 25px; border-radius: 12px; text-align: center; border: 4px solid #110b11; box-shadow: 8px 8px 0px #110b11; margin-bottom: 35px;">
+        <h1 style="color: #ff66aa; margin: 0; font-family: 'Courier New', monospace; font-size: 2.5rem; letter-spacing: 2px; font-weight: 900; text-shadow: 3px 3px 0px #110b11;">
+            🌸 桜 GUESS CORE v2 🌸
         </h1>
-        <p style="color: #d1b2bf; margin: 8px 0 0 0; font-size: 0.95rem; font-family: 'Courier New', monospace; letter-spacing: 1px;">
-            SYSTEM PROTOCOLS RUNNING // DESIGNED BY LORDDARKNESS393
+        <p style="color: #ffffff; margin: 8px 0 0 0; font-size: 1rem; font-family: 'Courier New', monospace; font-weight: bold; letter-spacing: 1px;">
+            [ ARCADE ENGINE // ENGINE CREDITS: LORDDARKNESS393 ]
         </p>
     </div>
     """, 
@@ -101,26 +105,24 @@ with st.sidebar:
         ["1. Novice (1-20, 8 lives)", "2. Easy (1-50, 10 lives)", "3. Medium (1-100, 7 lives)", "4. Hard (1-200, 5 lives)", "5. Expert (1-500, 3 lives)"]
     )
     
-    # Read core attributes directly corresponding to your original logic code structure
     if "1." in difficulty: max_lives, max_range = 8, 20
     elif "2." in difficulty: max_lives, max_range = 10, 50
     elif "3." in difficulty: max_lives, max_range = 7, 100
     elif "4." in difficulty: max_lives, max_range = 5, 200
     else: max_lives, max_range = 3, 500
 
-    # Safety trap monitors choices mid-game to prevent mathematical breaks
     if st.session_state.gg_active and st.session_state.gg_current_difficulty != difficulty:
         st.session_state.gg_active = False
-        st.session_state.gg_feedback = "⚠️ Difficulty boundary changed mid-game! Re-initialize system modules."
+        st.session_state.gg_feedback = "⚠️ BOUNDARY BREAK! Difficulty was switched. Re-initialize round engine."
         st.session_state.gg_feedback_type = "info"
 
-    if st.button("🚀 INITIALIZE MATRIX ROUND", use_container_width=True, type="primary"):
+    if st.button("🚀 DEPLOY CORE MATCH", use_container_width=True, type="primary"):
         st.session_state.gg_secret_number = random.randint(1, max_range)
         st.session_state.gg_lives_left = max_lives
         st.session_state.gg_round_attempts = 0
         st.session_state.gg_active = True
         st.session_state.gg_current_difficulty = difficulty
-        st.session_state.gg_feedback = "🎯 Core system online. Input your scan guess below."
+        st.session_state.gg_feedback = "🎯 SYSTEM ENGINE LOADED. DISPATCH YOUR FIRST GUESS ANALYSIS ANALYSIS."
         st.session_state.gg_feedback_type = "info"
 
     # PERSISTENT SCOREBOARD DASHBOARD
@@ -128,11 +130,11 @@ with st.sidebar:
     st.markdown("### 📊 DASHBOARD STATS")
     col1, col2 = st.columns(2)
     with col1:
-        st.metric(label="Played Matches", value=st.session_state.gg_played)
-        st.metric(label="Wins 🏆", value=st.session_state.gg_wins)
+        st.metric(label="PLAYED MATCHES", value=st.session_state.gg_played)
+        st.metric(label="WINS RECORDED 🏆", value=st.session_state.gg_wins)
     with col2:
-        st.metric(label="Total Guesses", value=st.session_state.gg_total_guesses)
-        st.metric(label="Losses 💀", value=st.session_state.gg_losses)
+        st.metric(label="TOTAL GUESSES", value=st.session_state.gg_total_guesses)
+        st.metric(label="CRASH LOSSES 💀", value=st.session_state.gg_losses)
         
     st.markdown("---")
     best_display = f"⭐ {st.session_state.gg_best_score} attempts" if st.session_state.gg_best_score else "No wins recorded"
@@ -156,7 +158,7 @@ if st.session_state.gg_active:
             value=None, 
             placeholder="Tap here to analyze a number path..."
         )
-        submit_guess = st.form_submit_button("💥 RUN MATRIX ANALYZER", use_container_width=True)
+        submit_guess = st.form_submit_button("💥 SUBMIT SCAN RADAR", use_container_width=True)
 
     if submit_guess and guess is not None:
         st.session_state.gg_round_attempts += 1
@@ -168,17 +170,17 @@ if st.session_state.gg_active:
         if guess < secret:
             st.session_state.gg_lives_left -= 1
             msg = f"📉 {guess} is Too Low!"
-            if secret - guess <= warm_threshold: msg += " 👉 But you are getting warm!!"
+            if secret - guess <= warm_threshold: msg += " 👉 Getting warm!!"
             st.session_state.gg_feedback = msg
             st.session_state.gg_feedback_type = "warning"
         elif guess > secret:
             st.session_state.gg_lives_left -= 1
             msg = f"📈 {guess} is Too High!"
-            if guess - secret <= warm_threshold: msg += " 👉 But you are getting warm!!"
+            if guess - secret <= warm_threshold: msg += " 👉 Getting warm!!"
             st.session_state.gg_feedback = msg
             st.session_state.gg_feedback_type = "warning"
         else:
-            st.session_state.gg_feedback = f"🎉 SYSTEM CODE CRACKED! You secured victory in {st.session_state.gg_round_attempts} attempts!"
+            st.session_state.gg_feedback = f"🎉 MAINFRAME CRACKED! You secured system victory in {st.session_state.gg_round_attempts} attempts!"
             st.session_state.gg_feedback_type = "success"
             st.session_state.gg_wins += 1
             st.session_state.gg_played += 1
@@ -188,7 +190,7 @@ if st.session_state.gg_active:
             st.session_state.gg_active = False
 
         if st.session_state.gg_lives_left <= 0 and st.session_state.gg_active:
-            st.session_state.gg_feedback = f"💀 MODULE CRASH! Out of lives. Critical signature code was: {secret}."
+            st.session_state.gg_feedback = f"💀 MODULE CRASH! Out of lives. Core signature code was: {secret}."
             st.session_state.gg_feedback_type = "error"
             st.session_state.gg_losses += 1
             st.session_state.gg_played += 1
@@ -205,9 +207,9 @@ else:
     else:
         st.markdown(
             """
-            <div style="text-align: center; padding: 40px 20px; background-color: rgba(37, 22, 31, 0.5); border-radius: 12px; border: 1px dashed #ffb7c5;">
-                <p style="font-size: 1.2rem; color: #ffb7c5; font-weight: bold;">🌸 Game Module Offline</p>
-                <p style="font-size: 0.9rem; color: #a09098;">Open the left operational console to pick your difficulty matrix and launch the module core!</p>
+            <div style="text-align: center; padding: 40px 20px; background-color: #2d1622; border-radius: 12px; border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #110b11;">
+                <p style="font-size: 1.3rem; color: #ff66aa; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #110b11;">STATUS // SYSTEM IDLE</p>
+                <p style="font-size: 0.95rem; color: #ffffff; font-weight: bold; margin-top: 10px;">Deploy the left operational module console to clear the terminal grids!</p>
             </div>
             """, 
             unsafe_allow_html=True
@@ -218,6 +220,6 @@ st.markdown("---")
 st.markdown(
     """
     <div style="text-align: center; padding: 10px; margin-top: 30px;">
-        <p style="color: #614653; font-family: 'Courier New', monospace; font-size: 0.85rem; margin: 0;">
+        <p style="color: #614653; font-family: 'Courier New', monospace; font-size: 0.85rem; margin: 0; font-weight: bold;">
             © 2026 DARKNESS GAMING LABS | ALL RIGHTS RESERVED
         </p>
