@@ -35,6 +35,18 @@ def get_base64_image(image_path):
 bg_base64 = get_base64_image("themes/bg.jpg")
 
 # =========================================================================
+# PROCEDURAL RETRO AUDIO SYNTH ENGINE
+# =========================================================================
+def trigger_arcade_synth():
+    """Generates an embedded, retro chiptune bleep directly through code"""
+    audio_html = """
+    <audio autoplay style="display:none;">
+        <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQQAAAAAf39/fw==" type="audio/wav">
+    </audio>
+    """
+    st.markdown(audio_html, unsafe_allow_html=True)
+
+# =========================================================================
 # HARD FULL-SCREEN OVERWRITE ENGINE (Bypasses Web Platform UI Limits)
 # =========================================================================
 css_style = f"""
