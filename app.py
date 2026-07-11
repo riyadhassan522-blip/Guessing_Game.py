@@ -2,11 +2,10 @@
 import streamlit as st
 import base64
 import importlib
-import pkgutil
-from typing import Callable, Dict
 
 st.set_page_config(page_title="Lord's Arcade Realm", page_icon="🌸", layout="centered")
 
+# --- helpers ---------------------------------------------------------------
 def get_base64_image(path: str):
     try:
         with open(path, "rb") as f:
@@ -14,25 +13,7 @@ def get_base64_image(path: str):
     except Exception:
         return None
 
-def discover_pages(package_name: str = "pages") -> Dict[str, Callable]:
-    pages = {}
-    try:
-        package = importlib.import_module(package_name)
-    except Exception:
-        return pages
-    prefix = package.__name__ + "."
-    for finder, name, ispkg in pkgutil.iter_modules(package.__path__, prefix):
-        try:
-            mod = importlib.import_module(name)
-            app_fn = getattr(mod, "app", None)
-            if callable(app_fn):
-                title = getattr(mod, "PAGE_TITLE", None) or getattr(mod, "PAGE_NAME", None) or name.split(".")[-1]
-                pages[title] = app_fn
-        except Exception:
-            continue
-    return pages
-
-# Styling and frosted glass background
+# --- styling ---------------------------------------------------------------
 bg_b64 = get_base64_image("themes/bg.jpg")
 bg_css = (
     f"background-image: linear-gradient(rgba(26,12,18,0.45), rgba(26,12,18,0.65)), url('data:image/jpeg;base64,{bg_b64}');"
@@ -70,6 +51,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# --- header ---------------------------------------------------------------
 st.markdown(
     """
     <div class="frosted" style="text-align:center; margin-bottom:18px;">
@@ -80,38 +62,46 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# --- sidebar (controls only) ----------------------------------------------
 with st.sidebar:
-    st.markdown("### 🖥️ DIAGNOSTIC CORE")
-    st.markdown("● **STATUS:** `ONLINE` ⚡")
-    st.markdown("● **ENGINES:** `01 MODULE` 💾")
+    st.markdown("### 🖥️ SYSTEM SETTINGS")
+    rank = st.selectbox("Select Rank Boundary", ["1. Novice (1–20, 8 lives)"], index=0)
+    deploy = st.button("🎮 DEPLOY CORE MATCH")
     st.markdown("---")
+    st.markdown("### DASHBOARD STATS")
+    gs = st.session_state.get("global_stats", {"played": 0, "wins": 0, "losses": 0, "total_guesses": 0})
+    st.write(f"PLAYED MATCH… {gs['played']}")
+    st.write(f"TOTAL GUESSES {gs['total_guesses']}")
+    st.write(f"WINS RECORDE… {gs['wins']}")
+    st.write(f"CRASH LOSSES… {gs['losses']}")
 
-pages = discover_pages("pages")
-nav_options = ["🌸 MAIN LOBBY"] + sorted(pages.keys())
-choice = st.sidebar.radio("Navigate", nav_options)
+# --- main hub (clean by default) ------------------------------------------
+# Use a session flag so the hub remains clean until user deploys
+if "deployed_guessing" not in st.session_state:
+    st.session_state.deployed_guessing = False
 
-if choice == "🌸 MAIN LOBBY":
+if deploy:
+    # set flag; actual page is imported and run below
+    st.session_state.deployed_guessing = True
+
+if not st.session_state.deployed_guessing:
+    # Clean hub UI (exactly as in your screenshot)
     st.markdown("<div class='frosted'>", unsafe_allow_html=True)
-    st.markdown("### 🕹️ LOBBY TERMINAL HUB ONLINE")
-    st.markdown("---")
-    st.markdown("Your retro gaming console framework has been successfully updated and re-aligned to full cross-platform glass dictionary specs.")
-    st.info("💡 TRANSMISSION PANEL: Use the left-side drawer to deploy your game channels.")
-    global_stats = st.session_state.get("global_stats", {"played": 0, "wins": 0, "losses": 0, "total_guesses": 0})
-    cols = st.columns(4)
-    cols[0].metric("Played", global_stats["played"])
-    cols[1].metric("Wins", global_stats["wins"])
-    cols[2].metric("Losses", global_stats["losses"])
-    cols[3].metric("Guesses", global_stats["total_guesses"])
+    st.subheader("STATUS // PLATFORM IDLE")
+    st.write("Initialize the left matrix panel to deploy your first gameplay module round!")
     st.markdown("---")
     st.markdown("<div style='text-align:center; color:#ff66aa; font-weight:900;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</div>", unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
 else:
-    page_fn = pages.get(choice)
-    if page_fn:
-        try:
-            page_fn()
-        except Exception as e:
-            st.error("This page failed to load. Check the page module for errors.")
-            st.exception(e)
-    else:
-        st.error("Selected page not found. Make sure the page module defines `app()` and is inside the pages package.")
+    # Import and run the guessing game only when deployed.
+    # Import inside runtime to avoid import-time errors breaking the hub.
+    try:
+        mod = importlib.import_module("pages.Guessing_Game")
+        # call the app() function inside the module
+        if hasattr(mod, "app"):
+            mod.app()
+        else:
+            st.error("Guessing game module found but no app() function defined.")
+    except Exception as e:
+        st.error("Failed to load the guessing game. Check pages/Guessing_Game.py for errors.")
+        st.exception(e)
