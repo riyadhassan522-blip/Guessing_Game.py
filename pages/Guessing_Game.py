@@ -51,13 +51,13 @@ div[data-testid="stTextInput"] input {{ background-color: transparent !important
 div[data-testid="stTextInput"] [data-baseweb="input"] + div {{ display: none !important; }}
 div[data-testid='stMetricValue'] {{ font-weight: 900 !important; color: #ff66aa !important; text-shadow: 2px 2px 0px #1a0c12 !important; font-size: 1.6rem !important; }}
 
-/* 🚨 UNBEATABLE OVERRIDE: Global plain-text string artifact cleanup loop */
+/* 🚨 BLANKET TEXT DESTROYER OVERRIDE: Targets the top header elements directly to ensure total cleanup */
 [data-testid="collapsedControl"], 
-[data-testid="stHeader"] button, 
-[data-testid="stHeader"] span, 
-[data-testid="stHeader"] div, 
-.stAppHeader div, 
-.stAppHeader span {{
+[data-testid="stHeader"], 
+.stAppHeader, 
+[class*="Header"], 
+div[class*="collapsedControl"],
+section[data-testid="stSidebar"] > div:first-child > div:first-child {{
     font-size: 0px !important;
     color: transparent !important;
     line-height: 0 !important;
@@ -72,6 +72,7 @@ div[data-testid='stMetricValue'] {{ font-weight: 900 !important; color: #ff66aa 
 st.markdown(css_style, unsafe_allow_html=True)
 
 st.markdown("<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'><h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>🌸 RADAR NUMBER SCANNER 🌸</h1></div>", unsafe_allow_html=True)
+
 with st.sidebar:
     st.markdown("### ⚙️ SYSTEM SETTINGS")
     difficulty = st.selectbox("Select Rank Boundary:", ["1. Novice (1-20, 8 lives)", "2. Easy (1-50, 10 lives)", "3. Medium (1-100, 7 lives)", "4. Hard (1-200, 5 lives)", "5. Expert (1-500, 3 lives)"])
