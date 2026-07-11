@@ -61,18 +61,41 @@ css_style = f"""
     background-color: transparent !important;
 }}
 
-/* 💥 DESTROY STREAMLIT'S TOP WHITE NAVIGATION BAR AND TOOLBARS COMPLETELY */
-[data-testid="stHeader"], .stAppHeader, [data-testid="stToolbar"], [data-testid="stDecoration"] {{
+/* 💥 LAYER OVERRIDE: Wipes out the white header but leaves the sidebar arrow alive */
+[data-testid="stHeader"], .stAppHeader {
+    background: transparent !important;
+    background-color: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+[data-testid="stToolbar"], [data-testid="stDecoration"] {
     display: none !important;
     visibility: hidden !important;
-    height: 0px !important;
     opacity: 0 !important;
-}}
+}
 
-/* REMOVE DEFAULT TOP SCREEN MARGIN PADDING */
-.main .block-container {{
-    padding-top: 30px !important;
-}}
+/* 🌸 RETRO SIDEBAR EXPAND TRIGGER BUTTON: Forces the collapse/expand arrow to stay visible */
+section[data-testid="stSidebarCollapseButton"] button, 
+[data-testid="collapsedControl"] {
+    background-color: rgba(37, 22, 31, 0.85) !important;
+    backdrop-filter: blur(8px) !important;
+    color: #ff66aa !important; /* Glowing Sakura Pink arrow */
+    border: 2px solid #ff66aa !important;
+    border-radius: 8px !important;
+    box-shadow: 0px 0px 10px rgba(255, 102, 170, 0.4) !important;
+    left: 15px !important;
+    top: 15px !important;
+    z-index: 999999 !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+section[data-testid="stSidebarCollapseButton"] button:hover, 
+[data-testid="collapsedControl"]:hover {
+    transform: scale(1.1) !important;
+    background-color: #ff66aa !important;
+    color: #1a0c12 !important;
+}
 
 /* THE ULTRA-CLEAR FROSTED GLASS SIDEBAR EFFECT */
 [data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
