@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# 2. DICTIONARY DEFINITION: Cleanly maps only the Guessing Game to unfreeze testing
+# 2. DEFINITIVE ARCADES DICTIONARY CONFIGURATION
 st.navigation([
     st.Page("app.py", title="🌸 MAIN LOBBY"),
     st.Page("pages/Guessing_Game.py", title="🎯 RADAR SCANNER")
@@ -31,10 +31,13 @@ css_style = f"""
     background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
 }}
 
-h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stMetric, input, button, span {{
-    font-family: 'Courier New', Courier, monospace !important; font-weight: bold !important;
+/* 🎯 SAFE TYPOGRAPHY FILTER: Explicitly skips icon attribute strings so raw text labels never display */
+*:not(i):not([class*="icon"]):not([class*="Icon"]):not([class*="material"]) {{
+    font-family: 'Courier New', Courier, monospace !important;
+    font-weight: bold !important;
 }}
 
+/* THE GLORIOUS FROSTED GLASS SIDEBAR AREA */
 [data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
     background-color: rgba(30, 15, 23, 0.20) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important;
 }}
@@ -49,6 +52,7 @@ h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stMetric, input, button, span {{
     border: 2px solid rgba(255, 102, 170, 0.4) !important; border-radius: 24px !important; box-shadow: 0px 8px 32px rgba(255, 102, 170, 0.15) !important; padding: 35px !important;
 }}
 
+/* Clean up upper layout utility background headers safely */
 [data-testid="stHeader"], .stAppHeader, div.stAppViewContainer > div:first-child {{
     display: none !important; opacity: 0 !important; height: 0px !important;
 }}
@@ -70,7 +74,7 @@ st.markdown(banner_html, unsafe_allow_html=True)
 
 st.markdown("### 🕹️ LOBBY TERMINAL HUB ONLINE")
 st.markdown("---")
-st.markdown("Your retro gaming console framework has been successfully updated and re-aligned to full cross-platform glass dictionary specs.")
+st.markdown("Your retro gaming console database layout has been successfully updated and mapped directly via game configuration dictionary fields.")
 st.info("💡 TRANSMISSION PANEL: Pop open your left-side matrix link drawer options to deploy your game channels natively!")
 
 footer_html = "<div style='text-align: center; padding: 10px; margin-top: 50px;'><p style='color: #ff66aa; font-family: \"Courier New\", monospace; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
