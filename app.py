@@ -202,6 +202,25 @@ div[data-testid="stTextInput"] [data-baseweb="input"] + div {
         font-size: 1.2rem !important;
     }
 }
+/* 🌸 RETRO ARROW OVERWRITE: Blasts through Streamlit's fallback code names and replaces them with pure symbols */
+span[data-testid="collapsedControl"]::before,
+button[aria-label="Expand sidebar"]::before,
+.main div:first-child span::before {
+    content: ">>" !important;
+    color: #ff66aa !important;
+    font-size: 1.2rem !important;
+    font-family: 'Times New Roman', Times, serif !important;
+    font-weight: 900 !important;
+    text-shadow: 0px 0px 8px rgba(255, 102, 170, 0.6) !important;
+}
+
+/* Wipes out the long text string letters completely so only the sleek arrow symbols render */
+span[data-testid="collapsedControl"],
+span:contains("keyboard_double_arrow_right"),
+span:contains("keyboard_double_arrow_left") {
+    font-size: 0px !important;
+    color: transparent !important;
+}
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
