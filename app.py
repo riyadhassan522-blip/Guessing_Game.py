@@ -113,10 +113,10 @@ div[data-testid='stMetricValue'] {{
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
-# 2. BRANDING BANNER: SINGLE SYSTEM RECOVERY MODULE
+# 2. BRANDING BANNER: HIGH-TECH OVERLAY WITH SEAMLESS BLENDING
 banner_html = (
-    "<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 4px solid #1a0c12; box-shadow: 8px 8px 0px #1a0c12; margin-bottom: 35px;'>\n"
-    "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 3px 3px 0px #1a0c12;'>\n"
+    "<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>\n"
+    "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>\n"
     "        🌸 LORD'S ARCADE REALM 🌸\n"
     "    </h1>\n"
     "    <p style='color: #ffffff; margin: 8px 0 0 0; font-size: 1rem; font-family: \"Courier New\", monospace; font-weight: bold; letter-spacing: 1px;'>\n"
@@ -146,6 +146,11 @@ with st.sidebar:
         st.session_state.gg_feedback_type = "info"
 
     if st.button("🚀 DEPLOY CORE MATCH", use_container_width=True, type="primary"):
+        # ANIMATED LOADING SCREEN TRANSITION
+        with st.spinner("🔄 INITIALIZING MAINFRAME MODULE SYSTEM..."):
+            time.sleep(1.2)  # Artificial processing gap for retro arcade simulation feel
+            trigger_arcade_synth()
+            
         st.session_state.gg_secret_number = random.randint(1, max_range)
         st.session_state.gg_lives_left = max_lives
         st.session_state.gg_round_attempts = 0
@@ -190,6 +195,7 @@ if st.session_state.gg_active:
         submit_guess = st.form_submit_button("💥 SUBMIT SCAN RADAR", use_container_width=True)
 
     if submit_guess and guess is not None:
+        trigger_arcade_synth()
         st.session_state.gg_round_attempts += 1
         st.session_state.gg_total_guesses += 1
         
@@ -235,7 +241,7 @@ else:
         st.info(st.session_state.gg_feedback)
     else:
         idle_html = (
-            "<div style='text-align: center; padding: 40px 20px; background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); border: 4px dashed #ff66aa; box-shadow: 6px 6px 0px #1a0c12;'>"
+            "<div style='text-align: center; padding: 40px 20px; background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); border: 4px dashed #ff66aa; box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.15);'>"
             "<p style='font-size: 1.3rem; color: #ff66aa; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>STATUS // PLATFORM IDLE</p>"
             "<p style='font-size: 0.95rem; color: #ffffff; font-weight: bold; margin-top: 10px;'>Initialize the left matrix panel to deploy your first gameplay module round!</p>"
             "</div>"
