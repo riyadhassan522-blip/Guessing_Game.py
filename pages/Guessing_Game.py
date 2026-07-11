@@ -23,7 +23,6 @@ bg_base64 = get_base64_image("themes/bg.jpg")
 def trigger_arcade_synth():
     st.markdown("""<audio autoplay style="display:none;"><source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQQAAAAAf39/fw==" type="audio/wav"></audio>""", unsafe_allow_html=True)
 
-# Isolated styling rules applied strictly to this file instance
 css_style = f"""
 <style>
 .stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
@@ -31,7 +30,12 @@ css_style = f"""
     background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
 }}
 
-/* RESTORES DEDICATED BLURRY GLASS FLOATING CARD BOXES FOR SUB-PAGES */
+/* Clean Custom Monospace Blueprint Guidelines */
+h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stMetric, input, button, span {{
+    font-family: 'Courier New', Courier, monospace !important; font-weight: bold !important;
+}}
+
+/* RESTORES YOUR AMAZING LOOKING FLOATING RETRO COUNTER GLASS BOX PANELS */
 div[data-testid='stForm'], .stMainBlockContainer div[data-testid='stVerticalBlock'] > div[style*="border"] {{
     background-color: rgba(37, 22, 31, 0.45) !important;
     backdrop-filter: blur(16px) !important;
@@ -44,10 +48,8 @@ div[data-testid='stForm'], .stMainBlockContainer div[data-testid='stVerticalBloc
 }}
 .stMainBlockContainer {{ background: transparent !important; padding: 0 !important; max-width: 100% !important; }}
 
-/* Safe spacing layer eliminates the top margin cutoff entirely */
-.main .block-container {{ padding-top: 50px !important; }}
+.main .block-container {{ padding-top: 60px !important; }}
 
-html, body, p, span, label, div, h1, h2, h3, input, button {{ font-family: 'Courier New', Courier, monospace !important; font-weight: bold !important; }}
 [data-testid='stSidebar'], [data-testid='stSidebarUserContent'] {{ background-color: rgba(30, 15, 23, 0.25) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important; }}
 [data-testid="stSidebarNav"] ul {{ background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 1px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; }}
 [data-testid="stSidebarNav"] span {{ color: #ffffff !important; }}
@@ -63,9 +65,21 @@ div[data-testid="stTextInput"] input {{ background-color: transparent !important
 div[data-testid="stTextInput"] [data-baseweb="input"] + div {{ display: none !important; }}
 div[data-testid='stMetricValue'] {{ font-weight: 900 !important; color: #ff66aa !important; text-shadow: 2px 2px 0px #1a0c12 !important; font-size: 1.6rem !important; }}
 
-/* 🚨 SAFELY HIDES NATIVE HEADERS AND EXTRA ICON ELEMENTS WITHOUT BREAKING THE MENU */
-div.stAppViewContainer > div:first-child, [data-testid="collapsedControl"], [data-testid="stHeader"], .stAppHeader {{
-    display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0px !important; width: 0px !important;
+/* 🚨 THE ULTIMATE ABSOLUTE ERASER OVERRIDE: Forces the ghost text string invisible and locks size to 0px */
+[data-testid="collapsedControl"], 
+[data-testid="stHeader"], 
+.stAppHeader, 
+span[class*="icon"], 
+div[class*="icon"],
+div.stAppViewContainer > div:first-child {{
+    display: none !important; 
+    visibility: hidden !important; 
+    opacity: 0 !important; 
+    height: 0px !important; 
+    width: 0px !important;
+    font-size: 0px !important;
+    color: transparent !important;
+    line-height: 0 !important;
 }}
 </style>
 """
