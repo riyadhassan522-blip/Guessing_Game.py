@@ -31,7 +31,7 @@ css_style = f"""
     background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
 }}
 
-/* 🎯 SAFE TYPOGRAPHY FILTER: Explicitly skips icon attribute strings so raw text labels never display */
+/* 🎯 SAFE TYPOGRAPHY FILTER: Explicitly skips icon elements so the browser icons load natively */
 *:not(i):not([class*="icon"]):not([class*="Icon"]):not([class*="material"]) {{
     font-family: 'Courier New', Courier, monospace !important;
     font-weight: bold !important;
@@ -72,9 +72,16 @@ banner_html = (
 )
 st.markdown(banner_html, unsafe_allow_html=True)
 
+with st.sidebar:
+    st.markdown("---")
+    st.markdown("### 🖥️ DIAGNOSTIC CORE")
+    st.markdown("● **STATUS:** `ONLINE` ⚡")
+    st.markdown("● **ENGINES:** `01 MODULE` 💾")
+    st.markdown("---")
+
 st.markdown("### 🕹️ LOBBY TERMINAL HUB ONLINE")
 st.markdown("---")
-st.markdown("Your retro gaming console database layout has been successfully updated and mapped directly via game configuration dictionary fields.")
+st.markdown("Your retro gaming console framework has been successfully updated and re-aligned to full cross-platform glass dictionary specs.")
 st.info("💡 TRANSMISSION PANEL: Pop open your left-side matrix link drawer options to deploy your game channels natively!")
 
 footer_html = "<div style='text-align: center; padding: 10px; margin-top: 50px;'><p style='color: #ff66aa; font-family: \"Courier New\", monospace; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
