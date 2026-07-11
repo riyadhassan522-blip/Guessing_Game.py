@@ -68,6 +68,26 @@ css_style = f"""
     border-right: 3px solid #ff66aa !important;
 }}
 
+/* 🌸 TARGET INDIVIDUAL INPUT DROPDOWN SELECTBOX CONTAINERS */
+div[data-baseweb="select"] > div, 
+div[data-baseweb="select"] ul {
+    background-color: rgba(37, 22, 31, 0.75) !important; /* Low-opacity deep cherry tint */
+    border: 1px solid rgba(255, 102, 170, 0.4) !important; /* Elegant glowing border */
+    color: #ffffff !important; /* Crisp white text input font */
+}
+
+/* Force dropdown option labels to use dark theme contrast color schemes */
+div[data-baseweb="popover"] div, 
+li[role="option"] {
+    background-color: #25161f !important;
+    color: #ffffff !important;
+}
+
+/* Wipes out any native light-gray borders inside standard data boxes */
+.stSelectbox div {
+    color: #ffffff !important;
+}
+
 /* Retro Arcade 3D Button Style */
 div.stButton > button:first-child {{
     background: #ff66aa !important;
