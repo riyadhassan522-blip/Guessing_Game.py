@@ -16,6 +16,7 @@ def get_base64_image(image_path):
 
 bg_base64 = get_base64_image("themes/bg.jpg")
 
+# Frosted Glass Translucent Grid Architecture with Spacing & Text Patch
 css_style = f"""
 <style>
 .stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
@@ -38,13 +39,19 @@ html, body, p, span, label, div, h1, h2, h3, button {{
     padding: 10px !important; 
 }}
 [data-testid="stSidebarNav"] span {{ color: #ffffff !important; }}
+
+/* 🌸 TOP-PADDING MARGIN FIX */
+.main .block-container {{
+    padding-top: 100px !important;
+}}
+
 div[data-testid='stForm'], .stMainBlockContainer {{ 
     background: transparent !important; 
     padding: 25px !important; 
     max-width: 100% !important; 
 }}
 
-/* 🎯 THE FROSTED GLASS BUTTONS */
+/* 🎯 THE FROSTED GLASS ARENA GRID BUTTONS */
 div.stButton > button:first-child {{
     background-color: rgba(37, 22, 31, 0.45) !important; 
     backdrop-filter: blur(12px) !important;             
@@ -76,20 +83,29 @@ div.stButton > button[type="primary"] {{
     border-radius: 8px !important;
 }}
 
-/* GHOST TEXT REMOVER */
-div.stAppViewContainer > div:first-child {{
+/* 🚨 SIDEBAR TEXT ARTIFACT DETONATOR: Hard-erases 'keyboard_double' */
+[data-testid="collapsedControl"], 
+[data-testid="stHeader"], 
+.stAppHeader, 
+[class*="Header"], 
+div[class*="collapsedControl"],
+section[data-testid="stSidebar"] > div:first-child > div:first-child {{
+    font-size: 0px !important;
+    color: transparent !important;
+    line-height: 0 !important;
     display: none !important;
     visibility: hidden !important;
+    opacity: 0 !important;
     height: 0px !important;
+    width: 0px !important;
 }}
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
 st.markdown("<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'><h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.1rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>❌ NEURAL MATRIX GRID ⭕</h1></div>", unsafe_allow_html=True)
-
 # =========================================================================
-# COMPILER-SAFE VECTOR STATE DICTIONARY MAPS
+# SOLID VALUE PARSING ENGINE FOR TIC-TAC-TOE VECTORS
 # =========================================================================
 v1 = [0, 1, 2]
 v2 = [3, 4, 5]
@@ -111,13 +127,14 @@ def evaluate_game_state(b):
 
 def calculate_bot_vector(b):
     win_lines = [v1, v2, v3, v4, v5, v6, v7, v8]
-    # 1. Immediate Win
+    
+    # 1. Immediate Win Checking
     for vector in win_lines:
         tokens = [b[vector[0]], b[vector[1]], b[vector[2]]]
         if tokens.count("O") == 2 and tokens.count(" ") == 1:
             return vector[tokens.index(" ")]
             
-    # 2. Deflection block
+    # 2. Deflection block checking
     for vector in win_lines:
         tokens = [b[vector[0]], b[vector[1]], b[vector[2]]]
         if tokens.count("X") == 2 and tokens.count(" ") == 1:
@@ -131,15 +148,17 @@ def calculate_bot_vector(b):
     open_nodes = [i for i, cell in enumerate(b) if cell == " "]
     return random.choice(open_nodes) if open_nodes else None
 
+# Initialize Persistent State Arrays
 if "ttt_board" not in st.session_state:
     st.session_state.ttt_board = [" " for _ in range(9)]
 
 board = st.session_state.ttt_board
 current_match_status = evaluate_game_state(board)
 
+# Live match evaluation overlay headers
 if current_match_status:
-    if current_match_status == "X": st.success("🎉 SECURITY MAINFRAME CRACKED! Player Wins!")
-    elif current_match_status == "O": st.error("💀 MATRIX COMPROMISE! The Neural Bot Core claims victory.")
+    if current_match_status == "X": st.success("🎉 MAINFRAME ACCESS GRANTED! Player Wins!")
+    elif current_match_status == "O": st.error("💀 PROTOCOL ABORTED! The Neural Bot Core claims victory.")
     else: st.warning("🤝 SYSTEM LOCKOUT! It's a draw matrix layout.")
 else:
     st.markdown("##### 📝 TARGET VECTOR SECTORS:")
@@ -160,6 +179,7 @@ for row_idx in range(3):
             
             if st.button(display_char, key=f"cell_{idx}", use_container_width=True, disabled=is_inactive):
                 board[idx] = "X"
+                # Check matrix conditions immediately prior to prompting AI responses
                 if not evaluate_game_state(board):
                     bot_move_idx = calculate_bot_vector(board)
                     if bot_move_idx is not None:
@@ -172,5 +192,6 @@ if st.button("🔄 RE-INITIALIZE GAME FIELD MATRIX", use_container_width=True, t
     st.session_state.ttt_board = [" " for _ in range(9)]
     st.rerun()
 
+# Studio Production Insignia Card Anchor
 footer_html = "<div style='text-align: center; padding: 10px; margin-top: 20px;'><p style='color: #ff66aa; font-family: \"Courier New\", monospace; font-size: 1rem; margin: 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
 st.markdown("---"); st.markdown(footer_html, unsafe_allow_html=True)
