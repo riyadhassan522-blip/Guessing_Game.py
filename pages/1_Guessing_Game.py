@@ -26,6 +26,23 @@ def trigger_arcade_synth():
 
 css_style = f"""
 <style>
+/* 🚨 COMPLETE OBLITERATION OF THE SIDEBAR TEXT ARTIFACT BUG */
+[data-testid="collapsedControl"],
+[data-testid="collapsedControl"] *,
+.stAppHeader,
+[data-testid="stHeader"],
+span[class*="icon"],
+div[class*="collapsedControl"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0px !important;
+    width: 0px !important;
+    font-size: 0px !important;
+    color: transparent !important;
+    line-height: 0 !important;
+}
+
 .stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
     background-image: linear-gradient(rgba(26, 12, 18, 0.45), rgba(26, 12, 18, 0.65)), url("data:image/jpeg;base64,{bg_base64}") !important;
     background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
