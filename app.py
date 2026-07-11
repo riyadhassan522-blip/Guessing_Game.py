@@ -77,8 +77,11 @@ html, body, [class*="css"], p, span, label, div, h1, h2, h3, h4, h5, h6, input {
 [data-testid="collapsedControl"],
 [data-testid="collapsedControl"] *,
 .stApp > header,
+.stAppHeader,
+[data-testid="stHeader"],
 span[class*="icon"],
-.main .block-container div:first-child span {
+.main .block-container div:first-child span,
+div.stAppViewContainer > div:first-child {{
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -87,7 +90,7 @@ span[class*="icon"],
     font-size: 0px !important;
     color: transparent !important;
     line-height: 0 !important;
-}
+}}
 
 /* Adjust layout containers to shift up cleanly now that the top gap is deleted */
 .main .block-container {
