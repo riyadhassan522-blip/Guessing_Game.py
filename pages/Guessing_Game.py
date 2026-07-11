@@ -31,7 +31,29 @@ css_style = f"""
     background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
 }}
 
-/* RESTORES YOUR AMAZING LOOKING FLOATING RETRO COUNTER GLASS BOX PANELS */
+/* SAFE ARCHITECTURAL TYPOGRAPHY: Forces your clean arcade monospace layout without corrupting Streamlit's icon engines */
+h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stMetric, input, button, .stForm {{
+    font-family: 'Courier New', Courier, monospace !important;
+    font-weight: bold !important;
+}}
+
+/* THE GLORIOUS FROSTED GLASS SIDEBAR AREA (Fully visible and functioning) */
+[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{ 
+    background-color: rgba(30, 15, 23, 0.25) !important; 
+    backdrop-filter: blur(16px) !important; 
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-right: 3px solid #ff66aa !important; 
+    display: block !important;
+    visibility: visible !important;
+}}
+[data-testid="stSidebarNav"] {{
+    display: block !important;
+    visibility: visible !important;
+}}
+[data-testid="stSidebarNav"] ul {{ background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 1px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; }}
+[data-testid="stSidebarNav"] span {{ color: #ffffff !important; }}
+
+/* FLOATING COUNTER CARDS COMPONENT HOUSING */
 div[data-testid='stForm'], .stMainBlockContainer div[data-testid='stVerticalBlock'] > div[style*="border"] {{
     background-color: rgba(37, 22, 31, 0.45) !important;
     backdrop-filter: blur(16px) !important;
@@ -44,15 +66,9 @@ div[data-testid='stForm'], .stMainBlockContainer div[data-testid='stVerticalBloc
 }}
 .stMainBlockContainer {{ background: transparent !important; padding: 0 !important; max-width: 100% !important; }}
 
-/* PREVENTS TOP CUTOFF BY INJECTING COMFORTABLE BUFFER SPACE USING AN INDEPENDENT WRAPPER */
 .main .block-container {{
     padding-top: 50px !important;
 }}
-
-html, body, p, span, label, div, h1, h2, h3, input, button {{ font-family: 'Courier New', Courier, monospace !important; font-weight: bold !important; }}
-[data-testid='stSidebar'], [data-testid='stSidebarUserContent'] {{ background-color: rgba(30, 15, 23, 0.25) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important; }}
-[data-testid="stSidebarNav"] ul {{ background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 1px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; }}
-[data-testid="stSidebarNav"] span {{ color: #ffffff !important; }}
 
 div.stButton > button:first-child {{
     background: #ff66aa !important; color: #1a0c12 !important; border: 3px solid #1a0c12 !important; font-weight: 900 !important;
@@ -65,9 +81,12 @@ div[data-testid="stTextInput"] input {{ background-color: transparent !important
 div[data-testid="stTextInput"] [data-baseweb="input"] + div {{ display: none !important; }}
 div[data-testid='stMetricValue'] {{ font-weight: 900 !important; color: #ff66aa !important; text-shadow: 2px 2px 0px #1a0c12 !important; font-size: 1.6rem !important; }}
 
-/* 🚨 PERMANENT ARTIFACT ERASED: Targets the exact layout element strings safely */
-div.stAppViewContainer > div:first-child, [data-testid="collapsedControl"], [data-testid="stHeader"], .stAppHeader {{
-    display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0px !important; width: 0px !important;
+/* 🚨 THE TRUE TEXT ELIMINATOR: Hard-deletes the broken top header toggle buttons completely from the page node structure */
+[data-testid="stHeader"], .stAppHeader, [data-testid="collapsedControl"] {{
+    display: none !important;
+    visibility: hidden !important;
+    height: 0px !important;
+    opacity: 0 !important;
 }}
 </style>
 """
@@ -109,7 +128,6 @@ with st.sidebar:
 if st.session_state.gg_active:
     with st.container(border=True):
         st.markdown(f"##### 🌸 Core Integrity: **{st.session_state.gg_lives_left} / {max_lives} Lives Remaining**")
-        # 🛡️ THE BULLETPROOF PROTECTION CLAMP: Forces percentage calculation mathematically within [0.0, 1.0] limits
         st.progress(float(min(1.0, max(0, st.session_state.gg_lives_left) / max_lives)))
     st.markdown(" ")
     with st.form(key="guess_form", clear_on_submit=True):
