@@ -56,30 +56,4 @@ st.markdown(
     """
     <div class="frosted" style="text-align:center; margin-bottom:18px;">
       <h1 style="color:#ff66aa; margin:0;">🌸 LORD'S ARCADE REALM 🌸</h1>
-      <p style="margin:6px 0 0 0; color:#fff;">[ SYSTEM CORE MODULES // CHIEF ENGINEER: LORDDARKNESS393 ]</p>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
-# --- sidebar ---------------------------------------------------------------
-with st.sidebar:
-    st.markdown("### 🖥️ SYSTEM SETTINGS")
-    difficulty = st.selectbox(
-        "Select Difficulty",
-        [
-            "Novice (1–20, 8 lives)",
-            "Easy (1–50, 6 lives)",
-            "Normal (1–100, 5 lives)",
-            "Hard (1–200, 4 lives)",
-            "Expert (1–500, 3 lives)"
-        ]
-    )
-    deploy = st.button("🎮 DEPLOY CORE MATCH")
-    st.markdown("---")
-    st.markdown("### DASHBOARD STATS")
-    gs = st.session_state.get("global_stats", {"played": 0, "wins": 0, "losses": 0, "total_guesses": 0})
-    st.write(f"PLAYED MATCH… {gs['played']}")
-    st.write(f"TOTAL GUESSES {gs['total_guesses']}")
-    st.write(f"WINS RECORDE… {gs['wins']}")
-    st.write(f"CRASH LOSSES…
+      <p style="margin:6px 0 0 0; color:#fff;">
