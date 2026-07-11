@@ -17,7 +17,7 @@ def get_base64_image(image_path):
 
 bg_base64 = get_base64_image("themes/bg.jpg")
 
-# Premium Frosted Glass Interface Engine with Top Margin Padding Correction
+# Rebuilt Frosted Glass Layout with Absolute Text Killer Injection Rules
 css_style = f"""
 <style>
 .stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
@@ -49,7 +49,6 @@ html, body, p, span, label, div, h1, h2, h3, a {{
     font-size: 1.05rem !important;
 }}
 
-/* 🌸 TOP-PADDING CORRECTION: Forces the main panel down so the UI never cuts off */
 .main .block-container {{
     padding-top: 100px !important;
 }}
@@ -64,21 +63,21 @@ html, body, p, span, label, div, h1, h2, h3, a {{
     padding: 35px !important;
 }}
 
-/* 🚨 TEXT ARTIFACT KILLER: Permanently cleans the screen corners on desktops and phones */
-[data-testid="collapsedControl"],
-[data-testid="collapsedControl"] *,
-.stAppHeader,
-[data-testid="stHeader"],
-span[class*="icon"],
-div[class*="collapsedControl"] {{
+/* 🚨 UNBEATABLE OVERRIDE: Hard-erases the broken text name from all header slots natively */
+[data-testid="collapsedControl"], 
+[data-testid="stHeader"] button, 
+[data-testid="stHeader"] span, 
+[data-testid="stHeader"] div, 
+.stAppHeader div, 
+.stAppHeader span {{
+    font-size: 0px !important;
+    color: transparent !important;
+    line-height: 0 !important;
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
     height: 0px !important;
     width: 0px !important;
-    font-size: 0px !important;
-    color: transparent !important;
-    line-height: 0 !important;
 }}
 </style>
 """
