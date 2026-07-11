@@ -1,27 +1,15 @@
 import streamlit as st
-import random
 import base64
-import time
 
-# 1. APPLICATION ENVIRONMENT FRAMEWORK
+# 1. APPLICATION LOBBY INSTANCE DEFINITION
 st.set_page_config(
     page_title="Lord's Arcade Realm", 
     page_icon="🌸", 
     layout="centered"
 )
 
-# Initialize Session Memory exactly matching your core logic variables
-if "gg_played" not in st.session_state:
-    st.session_state.gg_played = 0
-    st.session_state.gg_wins = 0
-    st.session_state.gg_losses = 0
-    st.session_state.gg_total_guesses = 0
-    st.session_state.gg_best_score = None
-    st.session_state.gg_active = False
-    st.session_state.gg_current_difficulty = None
-
 # =========================================================================
-# NATIVE IMAGE ENCODER FOR LOCAL BACKGROUND FILES
+# GRAPHIC LAYER ENCODER MODULE
 # =========================================================================
 def get_base64_image(image_path):
     """Converts local repository image bytes to embedded web graphics"""
@@ -31,26 +19,15 @@ def get_base64_image(image_path):
     except FileNotFoundError:
         return ""
 
-# Pull your custom waterfall pagoda art straight from your correct GitHub path
+# Pull your custom waterfall pagoda art straight from your themes directory
 bg_base64 = get_base64_image("themes/bg.jpg")
 
 # =========================================================================
-# PROCEDURAL RETRO AUDIO SYNTH ENGINE
+# LOBBY DISPLAY ENGINE: UNIFIED MONOSPACE BALANCING
 # =========================================================================
-def trigger_arcade_synth():
-    """Generates an embedded, retro chiptune bleep directly through code"""
-    audio_html = """
-    <audio autoplay style="display:none;">
-        <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQQAAAAAf39/fw==" type="audio/wav">
-    </audio>
-    """
-    st.markdown(audio_html, unsafe_allow_html=True)
-
-# =========================================================================
-# PART A: BASE64 IMAGE BACKGROUND LAYERING (Safe f-string execution)
-# =========================================================================
-bg_style = f"""
+css_style = f"""
 <style>
+/* Forces your local background image to stretch beautifully across the screen */
 .stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
     background-image: linear-gradient(rgba(26, 12, 18, 0.45), rgba(26, 12, 18, 0.65)), 
                 url("data:image/jpeg;base64,{bg_base64}") !important;
@@ -58,290 +35,61 @@ bg_style = f"""
     background-position: center center !important;
     background-attachment: fixed !important;
 }}
-</style>
-"""
-st.markdown(bg_style, unsafe_allow_html=True)
 
-# =========================================================================
-# PART B: THEMED ARCADE LAYOUT & SPECIFIC TYPOGRAPHY HOOKS
-# =========================================================================
-css_style = """
-<style>
-/* TARGETED TYPOGRAPHY HOOKS: Excludes icon containers from style rules */
-h1, h2, h3, h4, h5, h6, p, label, .stMetric, input, button {
+/* Set premium uniform typography matching the arcade portal aesthetic */
+html, body, p, span, label, div, h1, h2, h3 {{
     font-family: 'Courier New', Courier, monospace !important;
     font-weight: bold !important;
 }
 
-/* WIPE OUT STREAMLIT'S TOP WHITE PLATFORM HEADER */
-[data-testid="stHeader"], .stAppHeader {
-    background: transparent !important;
-    background-color: transparent !important;
-    border-bottom: none !important;
-    box-shadow: none !important;
-}
-
-/* THE FROSTED GLASS SIDEBAR EFFECT */
-[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {
+/* THE FROSTED GLASS SIDEBAR NAVIGATION MANAGEMENT DRAWERS */
+[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
     background-color: rgba(30, 15, 23, 0.25) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
     border-right: 3px solid #ff66aa !important;
-}
+}}
 
-/* COMPACT SIDEBAR TEXT FOR MOBILE AND DESKTOP SCREEN RADIUS */
-[data-testid="stSidebar"] label,
-[data-testid="stSidebar"] p,
-[data-testid="stSidebar"] span {
-    font-size: 0.9rem !important;
-}
-
-/* FIX FOR SIDEBAR DROPDOWN BOXES */
-div[data-baseweb="select"] > div, 
-div[data-baseweb="select"] ul {
-    background-color: rgba(37, 22, 31, 0.85) !important; 
-    border: 1px solid rgba(255, 102, 170, 0.4) !important; 
-    color: #ffffff !important; 
-}
-
-div[data-baseweb="popover"] div, 
-li[role="option"] {
-    background-color: #25161f !important;
-    color: #ffffff !important;
-}
-
-.stSelectbox div {
-    color: #ffffff !important;
-}
-
-/* Retro Arcade 3D Button Style */
-div.stButton > button:first-child {
-    background: #ff66aa !important;
-    color: #1a0c12 !important;
-    border: 3px solid #1a0c12 !important;
-    font-weight: 900 !important;
-    font-size: 1.1rem !important;
-    text-transform: uppercase !important;
-    letter-spacing: 2px !important;
+/* Clean typography panel styling inside the automatic pages links loop */
+[data-testid="stSidebarNav"] ul {{
+    background-color: rgba(37, 22, 31, 0.60) !important;
     border-radius: 8px !important;
-    box-shadow: 0px 6px 0px #992255 !important;
-    transition: all 0.1s ease-in-out !important;
-    margin-bottom: 6px !important;
-    width: 100% !important;
-}
-div.stButton > button:first-child:active {
-    transform: translateY(4px) !important;
-    box-shadow: 0px 2px 0px #992255 !important;
-}
-div.stButton > button:first-child:hover {
-    background: #ff88bb !important;
-    color: #1a0c12 !important;
-    border-color: #1a0c12 !important;
-}
+    border: 1px solid rgba(255, 102, 170, 0.2) !important;
+    padding: 12px !important;
+    margin-top: 20px !important;
+}}
 
-/* Floating UI Panel Containers - Clear Glass Style */
-div[data-testid='stForm'], .stMainBlockContainer {
-    background: transparent !important;                 
-    background-color: transparent !important;
-    backdrop-filter: none !important;                   
-    -webkit-backdrop-filter: none !important;
-    border: none !important;                            
-    box-shadow: none !important;                        
-    padding: 25px !important;
-    max-width: 100% !important;
-}
-div[data-testid='stMetricValue'] {
-    font-weight: 900 !important;
-    color: #ff66aa !important;
-    text-shadow: 2px 2px 0px #1a0c12 !important;
-    font-size: 1.6rem !important;
-}
+[data-testid="stSidebarNav"] span {{
+    color: #ffffff !important;
+    font-size: 1.05rem !important;
+    letter-spacing: 0.5px !important;
+}}
 
-/* BULLETPROOF TEXT INPUT BOX STYLING overrides Streamlit Cloud themes */
-div[data-testid="stTextInput"] [data-baseweb="input"] {
-    background-color: rgba(37, 22, 31, 0.90) !important; 
-    border: 2px solid rgba(255, 102, 170, 0.5) !important; 
-    border-radius: 8px !important;
-}
-
-div[data-testid="stTextInput"] input {
-    background-color: transparent !important;
-    color: #ff66aa !important;
-    font-family: 'Courier New', Courier, monospace !important;
-    font-weight: bold !important;
-    font-size: 1.1rem !important;
-}
-
-/* DESTROY NATIVE "PRESS ENTER TO SUBMIT FORM" INSTRUCTIONS OVERLAY FOR ANDROID PANELS */
-div[data-testid="stTextInput"] [data-baseweb="input"] + div {
+/* Wipes out native collapse controllers to prevent mobile alignment overlaps */
+button[aria-label="Collapse sidebar"], 
+button[aria-label="Expand sidebar"] {{
     display: none !important;
-    visibility: hidden !important;
-    height: 0px !important;
     opacity: 0 !important;
-}
-
-/* SAFE WORKAROUND: Injects elegant neon icons directly on the native button overlay headers */
-[data-testid="collapsedControl"] {
-    color: #ff66aa !important;
-}
-
-/* CROSS-PLATFORM SYSTEM MEDIA CAPTURE TUNING */
-@media screen and (max-width: 768px) {
-    h1 {
-        font-size: 1.4rem !important;
-    }
-    .main .block-container {
-        padding: 10px !important;
-        padding-top: 20px !important;
-    }
-    .stApp {
-        padding-bottom: 80px !important;
-    }
-    div[data-testid='stMetricValue'] {
-        font-size: 1.2rem !important;
-    }
-}
+}}
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
-# 2. BRANDING BANNER: SYSTEM MODULE CONFIGURATION OVERLAY
-banner_html = (
-    "<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>\n"
-    "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>\n"
-    "        🌸 LORD'S ARCADE REALM 🌸\n"
-    "    </h1>\n"
-    "    <p style='color: #ffffff; margin: 8px 0 0 0; font-size: 1rem; font-family: \"Courier New\", monospace; font-weight: bold; letter-spacing: 1px;'>\n"
-    "        [ SYSTEM CORE MODULES // ENGINEERED BY: LORDDARKNESS393 ]\n"
-    "    </p>\n"
-    "</div>"
+# =========================================================================
+# CENTRAL ARCADE TERMINAL INTERFACE MATRIX OVERLAY PANEL
+# =========================================================================
+st.markdown(
+    "<div style='background-color: rgba(45, 20, 32, 0.45); backdrop-filter: blur(12px); padding: 35px; border-radius: 16px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 8px 32px rgba(255, 102, 170, 0.15); margin-top: 60px;'>\n"
+    "    <h1 style='color: #ff66aa; margin: 0; font-size: 2.6rem; letter-spacing: 2px; text-shadow: 3px 3px 0px #1a0c12;'>🌸 WELCOME TO THE REALM 🌸</h1>\n"
+    "    <p style='color: #ffffff; margin: 15px 0 0 0; font-size: 1.1rem; letter-spacing: 1px; font-weight: bold;'>[ ARCADE CENTRAL MAINFRAME HUB // CHIEF ENGINEER: LORDDARKNESS393 ]</p>\n"
+    "    <hr style='border: none; border-top: 2px dashed rgba(255, 102, 170, 0.25); margin: 30px 0;'>\n"
+    "    <p style='color: #ff88bb; font-size: 1.05rem; line-height: 1.6; margin-bottom: 5px;'>The terminal framework database has been successfully updated and re-organized.</p>\n"
+    "    <p style='color: #ffffff; font-size: 0.95rem; opacity: 0.9;'>Deploy and swap your active gameplay engine cores natively from the left side matrix link options panel!</p>\n"
+    "</div>",
+    unsafe_allow_html=True
 )
-st.markdown(banner_html, unsafe_allow_html=True)
 
-# 3. CONTROL PANEL CONFIGURATION
-with st.sidebar:
-    st.markdown("### ⚙️ SYSTEM SETTINGS")
-    difficulty = st.selectbox(
-        "Select Rank Boundary:", 
-        ["1. Novice (1-20, 8 lives)", "2. Easy (1-50, 10 lives)", "3. Medium (1-100, 7 lives)", "4. Hard (1-200, 5 lives)", "5. Expert (1-500, 3 lives)"]
-    )
-    
-    if "1." in difficulty: max_lives, max_range = 8, 20
-    elif "2." in difficulty: max_lives, max_range = 10, 50
-    elif "3." in difficulty: max_lives, max_range = 7, 100
-    elif "4." in difficulty: max_lives, max_range = 5, 200
-    else: max_lives, max_range = 3, 500
-
-    if st.session_state.gg_active and st.session_state.gg_current_difficulty != difficulty:
-        st.session_state.gg_active = False
-        st.session_state.gg_feedback = "⚠️ BOUNDARY BREAK! Difficulty was switched. Re-initialize round engine."
-        st.session_state.gg_feedback_type = "info"
-
-    if st.button("🚀 DEPLOY CORE MATCH", use_container_width=True, type="primary"):
-        with st.spinner("🔄 INITIALIZING MAINFRAME MODULE SYSTEM..."):
-            time.sleep(1.2)  
-            trigger_arcade_synth()
-            
-        st.session_state.gg_secret_number = random.randint(1, max_range)
-        st.session_state.gg_lives_left = max_lives
-        st.session_state.gg_round_attempts = 0
-        st.session_state.gg_active = True
-        st.session_state.gg_current_difficulty = difficulty
-        st.session_state.gg_feedback = "🎯 SYSTEM ENGINE LOADED. DISPATCH YOUR FIRST GUESS ANALYSIS."
-        st.session_state.gg_feedback_type = "info"
-
-    # PERSISTENT SCOREBOARD DASHBOARD
-    st.markdown("---")
-    st.markdown("### 📊 DASHBOARD STATS")
-    col1, col2 = st.columns(2)
-    with col1:
-        st.metric(label="PLAYED MATCHES", value=st.session_state.gg_played)
-        st.metric(label="WINS RECORDED 🏆", value=st.session_state.gg_wins)
-    with col2:
-        st.metric(label="TOTAL GUESSES", value=st.session_state.gg_total_guesses)
-        st.metric(label="CRASH LOSSES 💀", value=st.session_state.gg_losses)
-        
-    st.markdown("---")
-    best_display = f"{st.session_state.gg_best_score} attempts" if st.session_state.gg_best_score else "No wins recorded"
-    st.markdown(f"<p style='color: #ff66aa; font-family: monospace; font-size: 0.85rem; font-weight: bold; margin-top: 15px;'>🏆 BEST RECORD: <span style='color: #ffffff;'>{best_display}</span></p>", unsafe_allow_html=True)
-
-# 4. INTERFACE PROCESSOR ROUTINE
-if st.session_state.gg_active:
-    with st.container(border=True):
-        st.markdown(f"##### 🌸 Core Integrity: **{st.session_state.gg_lives_left} / {max_lives} Lives Remaining**")
-        current_lives = max(0, st.session_state.gg_lives_left)
-        st.progress(float(current_lives / max_lives))
-
-    st.markdown(" ")
-
-    with st.form(key="guess_form", clear_on_submit=True):
-        guess_input = st.text_input(
-            f"Target Scan Range [1 to {max_range}]:", 
-            value="", 
-            placeholder="Type your number analysis here and click submit..."
-        )
-        submit_guess = st.form_submit_button("💥 SUBMIT SCAN RADAR", use_container_width=True)
-
-    if submit_guess and guess_input.strip().isdigit():
-        guess = int(guess_input.strip())
-        trigger_arcade_synth()
-        st.session_state.gg_round_attempts += 1
-        st.session_state.gg_total_guesses += 1
-        
-        warm_threshold = max(3, max_range // 15)
-        secret = st.session_state.gg_secret_number
-
-        if guess < secret:
-            st.session_state.gg_lives_left -= 1
-            msg = f"📉 {guess} is Too Low!"
-            if secret - guess <= warm_threshold: msg += " 👉 Radar signature getting warm!!"
-            st.session_state.gg_feedback = msg
-            st.session_state.gg_feedback_type = "warning"
-        elif guess > secret:
-            st.session_state.gg_lives_left -= 1
-            msg = f"📈 {guess} is Too High!"
-            if guess - secret <= warm_threshold: msg += " 👉 Radar signature getting warm!!"
-            st.session_state.gg_feedback = msg
-            st.session_state.gg_feedback_type = "warning"
-        else:
-            st.session_state.gg_feedback = f"🎉 MAINFRAME ACCESS SECURED! Encryption cracked in {st.session_state.gg_round_attempts} attempts!"
-            st.session_state.gg_feedback_type = "success"
-            st.session_state.gg_wins += 1
-            st.session_state.gg_played += 1
-            if st.session_state.gg_best_score is None or st.session_state.gg_round_attempts < st.session_state.gg_best_score:
-                st.session_state.gg_best_score = st.session_state.gg_round_attempts
-                st.toast("🌸 NEW MAINFRAME CORE SPEED-RECORD SET! 🌸")
-            st.session_state.gg_active = False
-
-        if st.session_state.gg_lives_left <= 0 and st.session_state.gg_active:
-            st.session_state.gg_feedback = f"💀 PROTOCOL ABORTED! System crashed. Core signature code was: {secret}."
-            st.session_state.gg_feedback_type = "error"
-            st.session_state.gg_losses += 1
-            st.session_state.gg_played += 1
-            st.session_state.gg_active = False
-            
-    elif submit_guess and not guess_input.strip().isdigit():
-        st.session_state.gg_feedback = "⚠️ INVALID TRANSMISSION! Input raw numbers sequence inside scanner channel."
-        st.session_state.gg_feedback_type = "error"
-
-    if "gg_feedback" in st.session_state:
-        if st.session_state.gg_feedback_type == "success": st.success(st.session_state.gg_feedback)
-        elif st.session_state.gg_feedback_type == "warning": st.warning(st.session_state.gg_feedback)
-        elif st.session_state.gg_feedback_type == "error": st.error(st.session_state.gg_feedback)
-        else: st.info(st.session_state.gg_feedback)
-else:
-    if "gg_feedback" in st.session_state and "changed mid-game" in st.session_state.gg_feedback:
-        st.info(st.session_state.gg_feedback)
-    else:
-        idle_html = (
-            "<div style='text-align: center; padding: 40px 20px; background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); border: 4px dashed #ff66aa; box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.15);'>"
-            "<p style='font-size: 1.3rem; color: #ff66aa; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>STATUS // PLATFORM IDLE</p>"
-            "<p style='font-size: 0.95rem; color: #ffffff; font-weight: bold; margin-top: 10px;'>Initialize the left matrix panel to deploy your first gameplay module round!</p>"
-            "</div>"
-        )
-        st.markdown(idle_html, unsafe_allow_html=True)
-
-# 5. STUDIO PRODUCTION INSIGNIA
-footer_html = "<div style='text-align: center; padding: 10px; margin-top: 30px;'><p style='color: #614653; font-family: \"Courier New\", monospace; font-size: 0.85rem; margin: 0; font-weight: bold;'>© 2026 DARKNESS GAMING LABS | ALL RIGHTS RESERVED</p><p style='color: #ff66aa; font-family: \"Courier New\", monospace; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
+# 4. PLATFORM FOOTER SIGN-OFF BRANDING INSIGNIA
+footer_html = "<div style='text-align: center; padding: 10px; margin-top: 50px;'><p style='color: #614653; font-family: \"Courier New\", monospace; font-size: 0.85rem; margin: 0; font-weight: bold;'>© 2026 DARKNESS GAMING LABS | ALL RIGHTS RESERVED</p><p style='color: #ff66aa; font-family: \"Courier New\", monospace; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
 st.markdown("---")
 st.markdown(footer_html, unsafe_allow_html=True)
