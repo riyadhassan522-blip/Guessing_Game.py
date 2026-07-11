@@ -130,12 +130,28 @@ div[data-testid='stMetricValue'] {{
     font-size: 1.8rem !important;
 }}
 
-/* 🌸 BULLETPROOF TEXT RADAR UNIFICATION: Wipes out buttons, hints, and misalignments 🌸 */
-div[data-testid="stTextInput"] [data-baseweb="input"] {{
+/* 🌸 GLOBAL INPUT OVERRIDE: Forcefully destroys all blinding white boxes on the page 🌸 */
+input, 
+[data-baseweb="input"], 
+[data-baseweb="input"] > div,
+div[data-testid="stTextInput"] > div {{
     background-color: rgba(37, 22, 31, 0.90) !important; 
+    background: rgba(37, 22, 31, 0.90) !important;
     border: 2px solid rgba(255, 102, 170, 0.5) !important; 
     border-radius: 8px !important;
+    color: #ff66aa !important; 
+    font-family: monospace !important;
+    font-weight: bold !important;
+}}
+
+/* Ensure typed numbers stay bright pink while actively selected */
+input:focus {{
     color: #ff66aa !important;
+}}
+
+/* Style the placeholder hint text safely */
+input::placeholder {{
+    color: rgba(255, 255, 255, 0.3) !important;
 }}
 
 div[data-testid="stTextInput"] input {{
