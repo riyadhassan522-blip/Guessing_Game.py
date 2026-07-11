@@ -153,6 +153,36 @@ input[type="number"]::placeholder {{
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
+/* 🌸 MAINFRAME INPUT SCANNER OVERRIDE: Wipes out the invisible text and the right-side white block */
+input[type="number"], 
+[data-baseweb="input"] > div, 
+.stNumberInput input,
+div[data-testid="stNumberInput"] div {{
+    background-color: rgba(37, 22, 31, 0.90) !important; /* Premium dark plum background */
+    color: #ff66aa !important; /* High-contrast glowing pink text for your numbers */
+    border: 2px solid rgba(255, 102, 170, 0.5) !important; /* Matching neon pink border line */
+    border-radius: 8px !important;
+    font-family: monospace !important;
+    font-weight: bold !important;
+}}
+
+/* 🎯 TARGETS AND ERASES THE RIGHT-SIDE INCREMENT BUTTON BACKGROUND */
+div[data-testid="stNumberInput"] button {{
+    background-color: transparent !important;
+    color: #ff66aa !important;
+    border: none !important;
+}}
+
+/* Ensure text stays bright pink while typing inside the scanner field */
+.stNumberInput input:focus {{
+    color: #ff66aa !important;
+}}
+
+/* Style the placeholder text safely */
+input[type="number"]::placeholder {{
+    color: rgba(255, 255, 255, 0.3) !important;
+}}
+
 # 2. BRANDING BANNER: SINGLE SYSTEM RECOVERY MODULE
 banner_html = (
     "<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>\n"
