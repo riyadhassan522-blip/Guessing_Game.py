@@ -30,25 +30,29 @@ css_style = f"""
     background-image: linear-gradient(rgba(26, 12, 18, 0.45), rgba(26, 12, 18, 0.65)), url("data:image/jpeg;base64,{bg_base64}") !important;
     background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
 }}
-html, body, p, span, label, div, h1, h2, h3, input {{ font-family: 'Courier New', Courier, monospace !important; font-weight: bold !important; }}
-[data-testid='stSidebar'], [data-testid='stSidebarUserContent'] {{ background-color: rgba(30, 15, 23, 0.25) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important; }}
-[data-testid="stSidebarNav"] ul {{ background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 1px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; }}
-[data-testid="stSidebarNav"] span {{ color: #ffffff !important; }}
 
-.main .block-container {{ padding-top: 60px !important; }}
-
-/* 🌸 RESTORES AMAZING GLOWING GLASS HOUSING HOOKS FOR GAME COMPONENTS */
-div[data-testid='stForm'], div[data-testid='stBlock'] > div, .stElementContainer > div[style*="border"] {{
+/* RESTORES YOUR AMAZING LOOKING FLOATING RETRO COUNTER GLASS BOX PANELS */
+div[data-testid='stForm'], .stMainBlockContainer div[data-testid='stVerticalBlock'] > div[style*="border"] {{
     background-color: rgba(37, 22, 31, 0.45) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
     border: 2px solid rgba(255, 102, 170, 0.4) !important;
     border-radius: 24px !important;
-    padding: 25px !important;
+    padding: 30px !important;
     box-shadow: 0px 8px 32px rgba(255, 102, 170, 0.15) !important;
-    margin-bottom: 20px !important;
+    margin-bottom: 25px !important;
 }}
 .stMainBlockContainer {{ background: transparent !important; padding: 0 !important; max-width: 100% !important; }}
+
+/* PREVENTS TOP CUTOFF BY INJECTING COMFORTABLE BUFFER SPACE USING AN INDEPENDENT WRAPPER */
+.main .block-container {{
+    padding-top: 50px !important;
+}}
+
+html, body, p, span, label, div, h1, h2, h3, input, button {{ font-family: 'Courier New', Courier, monospace !important; font-weight: bold !important; }}
+[data-testid='stSidebar'], [data-testid='stSidebarUserContent'] {{ background-color: rgba(30, 15, 23, 0.25) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important; }}
+[data-testid="stSidebarNav"] ul {{ background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 1px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; }}
+[data-testid="stSidebarNav"] span {{ color: #ffffff !important; }}
 
 div.stButton > button:first-child {{
     background: #ff66aa !important; color: #1a0c12 !important; border: 3px solid #1a0c12 !important; font-weight: 900 !important;
@@ -60,12 +64,16 @@ div[data-testid="stTextInput"] [data-baseweb="input"] {{ background-color: rgba(
 div[data-testid="stTextInput"] input {{ background-color: transparent !important; color: #ff66aa !important; font-size: 1.1rem !important; }}
 div[data-testid="stTextInput"] [data-baseweb="input"] + div {{ display: none !important; }}
 div[data-testid='stMetricValue'] {{ font-weight: 900 !important; color: #ff66aa !important; text-shadow: 2px 2px 0px #1a0c12 !important; font-size: 1.6rem !important; }}
+
+/* 🚨 PERMANENT ARTIFACT ERASED: Targets the exact layout element strings safely */
+div.stAppViewContainer > div:first-child, [data-testid="collapsedControl"], [data-testid="stHeader"], .stAppHeader {{
+    display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0px !important; width: 0px !important;
+}}
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
 st.markdown("<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 16px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'><h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>🌸 RADAR NUMBER SCANNER 🌸</h1></div>", unsafe_allow_html=True)
-
 with st.sidebar:
     st.markdown("### ⚙️ SYSTEM SETTINGS")
     difficulty = st.selectbox("Select Rank Boundary:", ["1. Novice (1-20, 8 lives)", "2. Easy (1-50, 10 lives)", "3. Medium (1-100, 7 lives)", "4. Hard (1-200, 5 lives)", "5. Expert (1-500, 3 lives)"])
@@ -101,7 +109,8 @@ with st.sidebar:
 if st.session_state.gg_active:
     with st.container(border=True):
         st.markdown(f"##### 🌸 Core Integrity: **{st.session_state.gg_lives_left} / {max_lives} Lives Remaining**")
-        st.progress(float(max(0, st.session_state.gg_lives_left) / max_lives))
+        # 🛡️ THE BULLETPROOF PROTECTION CLAMP: Forces percentage calculation mathematically within [0.0, 1.0] limits
+        st.progress(float(min(1.0, max(0, st.session_state.gg_lives_left) / max_lives)))
     st.markdown(" ")
     with st.form(key="guess_form", clear_on_submit=True):
         guess_input = st.text_input(f"Target Scan Range [1 to {max_range}]:", value="", placeholder="Type your number analysis here and click submit...")
