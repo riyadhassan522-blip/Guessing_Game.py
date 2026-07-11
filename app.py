@@ -47,7 +47,7 @@ def trigger_arcade_synth():
     st.markdown(audio_html, unsafe_allow_html=True)
 
 # =========================================================================
-# THE REVERTED CYBER ARCADE THEME ENGINE
+# THE REVERTED CYBER ARCADE THEME ENGINE (WITH FIXED SIDEBAR DROPDOWN)
 # =========================================================================
 css_style = f"""
 <style>
@@ -58,26 +58,34 @@ css_style = f"""
     background-size: cover !important;
     background-position: center center !important;
     background-attachment: fixed !important;
+}}
 
-/* 🌸 TARGET INDIVIDUAL INPUT DROPDOWN SELECTBOX CONTAINERS */
+/* THE FROSTED GLASS SIDEBAR EFFECT */
+[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
+    background-color: rgba(30, 15, 23, 0.25) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-right: 3px solid #ff66aa !important;
+}}
+
+/* 🌸 FIX FOR STARK WHITE SIDEBAR DROPDOWN BOXES 🌸 */
 div[data-baseweb="select"] > div, 
-div[data-baseweb="select"] ul {
-    background-color: rgba(37, 22, 31, 0.75) !important; /* Low-opacity deep cherry tint */
-    border: 1px solid rgba(255, 102, 170, 0.4) !important; /* Elegant glowing border */
-    color: #ffffff !important; /* Crisp white text input font */
-}
+div[data-baseweb="select"] ul {{
+    background-color: rgba(37, 22, 31, 0.85) !important; /* Translucent cherry/plum box */
+    border: 1px solid rgba(255, 102, 170, 0.4) !important; /* Neon outline */
+    color: #ffffff !important; /* Crisp white input text */
+}}
 
-/* Force dropdown option labels to use dark theme contrast color schemes */
+/* Force selection dropdown options text to match the dark color scheme */
 div[data-baseweb="popover"] div, 
-li[role="option"] {
+li[role="option"] {{
     background-color: #25161f !important;
     color: #ffffff !important;
-}
+}}
 
-/* Wipes out any native light-gray borders inside standard data boxes */
-.stSelectbox div {
+.stSelectbox div {{
     color: #ffffff !important;
-}
+}}
 
 /* Retro Arcade 3D Button Style */
 div.stButton > button:first-child {{
