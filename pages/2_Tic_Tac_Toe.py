@@ -104,15 +104,15 @@ st.markdown(css_style, unsafe_allow_html=True)
 st.markdown("<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'><h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.1rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>❌ NEURAL MATRIX GRID ⭕</h1></div>", unsafe_allow_html=True)
 
 # =========================================================================
-# FIXED BULLETPROOF GAME AND BOT LOGIC
+# BULLETPROOF COMPILATION HOOKS: STRING PARSING METHOD FOR WIN VECTORS
 # =========================================================================
-def evaluate_game_state(b):
-    # Hardcoded coordinate pathways (Completely line-by-line safe format)
-    win_vectors = [, [3, 4, 5], [6, 7, 8],
-, [1, 4, 7], [2, 5, 8],
-, [2, 4, 6]
+def get_win_vectors():
+    # Storing vectors as plain structural numbers to avoid system generation bugs
+    return [, [3, 4, 5], [6, 7, 8], # Horizontal rows, [1, 4, 7], [2, 5, 8], # Vertical columns, [2, 4, 6]             # Diagonal lines
     ]
-    for vector in win_vectors:
+
+def evaluate_game_state(b):
+    for vector in get_win_vectors():
         if b[vector[0]] == b[vector[1]] == b[vector[2]] and b[vector[0]] != " ":
             return b[vector[0]]
     if " " not in b:
@@ -120,18 +120,14 @@ def evaluate_game_state(b):
     return None
 
 def calculate_bot_vector(b):
-    win_vectors = [, [3, 4, 5], [6, 7, 8],
-, [1, 4, 7], [2, 5, 8],
-, [2, 4, 6]
-    ]
     # 1. Immediate Win Checking
-    for vector in win_vectors:
+    for vector in get_win_vectors():
         tokens = [b[v] for v in vector]
         if tokens.count("O") == 2 and tokens.count(" ") == 1:
             return vector[tokens.index(" ")]
             
     # 2. Deflection block checking
-    for vector in win_vectors:
+    for vector in get_win_vectors():
         tokens = [b[v] for v in vector]
         if tokens.count("X") == 2 and tokens.count(" ") == 1:
             return vector[tokens.index(" ")]
