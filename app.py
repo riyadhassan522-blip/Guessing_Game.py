@@ -68,6 +68,26 @@ css_style = f"""
     border-right: 3px solid #ff66aa !important;
 }}
 
+/* 🌸 MAINFRAME INPUT SCANNER OVERRIDE: Fixes the invisible white text bug */
+input[type="number"], [data-baseweb="input"] > div, .stNumberInput input {{
+    background-color: rgba(37, 22, 31, 0.90) !important; /* Premium dark plum background */
+    color: #ff66aa !important; /* High-contrast glowing pink text for your numbers */
+    border: 2px solid rgba(255, 102, 170, 0.5) !important; /* Matching neon pink border line */
+    border-radius: 8px !important;
+    font-family: monospace !important;
+    font-weight: bold !important;
+}}
+
+/* Ensure text stays bright pink while typing inside the scanner field */
+.stNumberInput input:focus {{
+    color: #ff66aa !important;
+}}
+
+/* Style the placeholder text safely */
+input[type="number"]::placeholder {{
+    color: rgba(255, 255, 255, 0.3) !important;
+}}
+
 /* 🌸 FIX FOR STARK WHITE SIDEBAR DROPDOWN BOXES 🌸 */
 div[data-baseweb="select"] > div, 
 div[data-baseweb="select"] ul {{
