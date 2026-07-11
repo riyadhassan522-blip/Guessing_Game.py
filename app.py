@@ -19,7 +19,7 @@ def get_base64_image(image_path):
 bg_base64 = get_base64_image("themes/bg.jpg")
 
 # =========================================================================
-# THE CEL-SHADED ARCADE THEME ENGINE (Matches Guessing Game perfectly)
+# THE UNIFIED FROSTED GLASS THEME ENGINE (Matches Game Pages Perfectly)
 # =========================================================================
 css_style = f"""
 <style>
@@ -41,8 +41,8 @@ html, body, p, span, label, div, h1, h2, h3, a {{
 /* THE GLASS SIDEBAR PANEL EFFECT */
 [data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
     background-color: rgba(30, 15, 23, 0.20) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
     border-right: 3px solid #ff66aa !important;
 }}
 
@@ -50,7 +50,7 @@ html, body, p, span, label, div, h1, h2, h3, a {{
 [data-testid="stSidebarNav"] ul {{
     background-color: rgba(37, 22, 31, 0.70) !important;
     border-radius: 8px !important;
-    border: 2px solid rgba(255, 102, 170, 0.4) !important;
+    border: 1px solid rgba(255, 102, 170, 0.4) !important;
     padding: 10px !important;
     margin-top: 30px !important;
 }}
@@ -59,16 +59,16 @@ html, body, p, span, label, div, h1, h2, h3, a {{
     font-size: 1.05rem !important;
 }}
 
-/* REVERTED TO THE ELEGANT MAIN CONTENT PANEL CONTAINER */
+/* 🌸 ELEGANT BLURRY FROSTED GLASS MAIN CONTENT PANEL CONTAINER 🌸 */
 .stMainBlockContainer {{
-    background-color: rgba(35, 16, 25, 0.75) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border: 4px solid #1a0c12 !important;
-    border-radius: 12px !important;
-    box-shadow: 8px 8px 0px #1a0c12 !important;
+    background-color: rgba(37, 22, 31, 0.45) !important; /* Semi-transparent base layer */
+    backdrop-filter: blur(16px) !important;              /* High-end glass blur texture */
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 2px solid rgba(255, 102, 170, 0.4) !important; /* Elegant glowing outline */
+    border-radius: 16px !important;
+    box-shadow: 0px 8px 32px rgba(255, 102, 170, 0.15) !important; /* Subtle soft glow aura */
     padding: 35px !important;
-    margin-top: 50px !important;
+    margin-top: 60px !important;
 }}
 
 /* Wipes out platform arrow controllers to prevent layout overlaps */
@@ -80,11 +80,11 @@ button[aria-label="Collapse sidebar"], button[aria-label="Expand sidebar"] {{
 st.markdown(css_style, unsafe_allow_html=True)
 
 # =========================================================================
-# LOBBY ARCADE GATE OVERLAY PANEL
+# LOBBY ARCADE GATE OVERLAY PANEL (Sleek Glass Banner Box)
 # =========================================================================
 banner_html = (
-    "<div style='background-color: rgba(45, 20, 32, 0.82); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 4px solid #1a0c12; box-shadow: 8px 8px 0px #1a0c12; margin-bottom: 35px;'>\n"
-    "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 3px 3px 0px #1a0c12;'>\n"
+    "<div style='background-color: rgba(45, 20, 32, 0.45); backdrop-filter: blur(12px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>\n"
+    "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>\n"
     "        🌸 LORD'S ARCADE REALM 🌸\n"
     "    </h1>\n"
     "    <p style='color: #ffffff; margin: 8px 0 0 0; font-size: 1rem; font-family: \"Courier New\", monospace; font-weight: bold; letter-spacing: 1px;'>\n"
@@ -94,9 +94,9 @@ banner_html = (
 )
 st.markdown(banner_html, unsafe_allow_html=True)
 
-st.markdown("### 🕹️ LOBBY MAIN RECOVERY CORE")
+st.markdown("### 🕹️ LOBBY CENTRAL HUB ONLINE")
 st.markdown("---")
-st.markdown("Your retro gaming console framework has been successfully updated and re-aligned.")
+st.markdown("Your retro gaming console framework has been successfully updated and re-aligned to full cross-platform glass specs.")
 st.info("💡 TRANSMISSION: Slide open the left system matrix panel to choose and switch between your active game modules natively!")
 
 footer_html = "<div style='text-align: center; padding: 10px; margin-top: 50px;'><p style='color: #ff66aa; font-family: \"Courier New\", monospace; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
