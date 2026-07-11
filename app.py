@@ -62,10 +62,19 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# --- sidebar (controls only) ----------------------------------------------
+# --- sidebar ---------------------------------------------------------------
 with st.sidebar:
     st.markdown("### 🖥️ SYSTEM SETTINGS")
-    rank = st.selectbox("Select Rank Boundary", ["1. Novice (1–20, 8 lives)"], index=0)
+    difficulty = st.selectbox(
+        "Select Difficulty",
+        [
+            "Novice (1–20, 8 lives)",
+            "Easy (1–50, 6 lives)",
+            "Normal (1–100, 5 lives)",
+            "Hard (1–200, 4 lives)",
+            "Expert (1–500, 3 lives)"
+        ]
+    )
     deploy = st.button("🎮 DEPLOY CORE MATCH")
     st.markdown("---")
     st.markdown("### DASHBOARD STATS")
@@ -73,35 +82,4 @@ with st.sidebar:
     st.write(f"PLAYED MATCH… {gs['played']}")
     st.write(f"TOTAL GUESSES {gs['total_guesses']}")
     st.write(f"WINS RECORDE… {gs['wins']}")
-    st.write(f"CRASH LOSSES… {gs['losses']}")
-
-# --- main hub (clean by default) ------------------------------------------
-# Use a session flag so the hub remains clean until user deploys
-if "deployed_guessing" not in st.session_state:
-    st.session_state.deployed_guessing = False
-
-if deploy:
-    # set flag; actual page is imported and run below
-    st.session_state.deployed_guessing = True
-
-if not st.session_state.deployed_guessing:
-    # Clean hub UI (exactly as in your screenshot)
-    st.markdown("<div class='frosted'>", unsafe_allow_html=True)
-    st.subheader("STATUS // PLATFORM IDLE")
-    st.write("Initialize the left matrix panel to deploy your first gameplay module round!")
-    st.markdown("---")
-    st.markdown("<div style='text-align:center; color:#ff66aa; font-weight:900;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</div>", unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
-else:
-    # Import and run the guessing game only when deployed.
-    # Import inside runtime to avoid import-time errors breaking the hub.
-    try:
-        mod = importlib.import_module("pages.Guessing_Game")
-        # call the app() function inside the module
-        if hasattr(mod, "app"):
-            mod.app()
-        else:
-            st.error("Guessing game module found but no app() function defined.")
-    except Exception as e:
-        st.error("Failed to load the guessing game. Check pages/Guessing_Game.py for errors.")
-        st.exception(e)
+    st.write(f"CRASH LOSSES…
