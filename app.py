@@ -23,9 +23,17 @@ css_style = f"""
                 url("data:image/jpeg;base64,{bg_base64}") !important;
     background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
 }}
-html, body, p, span, label, div, h1, h2, h3, a {{ font-family: 'Courier New', Courier, monospace !important; font-weight: bold !important; }}
+
+/* RE-ALIGN TYPOGRAPHY: Keeps font changes out of the icon blocks permanently */
+h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stMetric, input, button, span:not([class*="Icon"]):not([class*="icon"]):not([class*="material"]) {{
+    font-family: 'Courier New', Courier, monospace !important;
+    font-weight: bold !important;
+}}
+
+/* THE GLORIOUS FROSTED GLASS SIDEBAR (Perfect and visible) */
 [data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
-    background-color: rgba(30, 15, 23, 0.20) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important;
+    background-color: rgba(30, 15, 23, 0.20) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important;
+    display: block !important; visibility: visible !important;
 }}
 [data-testid="stSidebarNav"] ul {{
     background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 1px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; margin-top: 15px !important;
@@ -37,16 +45,14 @@ html, body, p, span, label, div, h1, h2, h3, a {{ font-family: 'Courier New', Co
     background-color: rgba(37, 22, 31, 0.45) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important;
     border: 2px solid rgba(255, 102, 170, 0.4) !important; border-radius: 24px !important; box-shadow: 0px 8px 32px rgba(255, 102, 170, 0.15) !important; padding: 35px !important;
 }}
+
+/* 🚨 RE-ENGINEERED ICON CONTEXT CLEANER: Hides only the broken text header nodes safely */
+[data-testid="stHeader"], .stAppHeader, div.stAppViewContainer > div:first-child {{
+    display: none !important; opacity: 0 !important; height: 0px !important; width: 0px !important;
+}}
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
-
-with st.sidebar:
-    st.markdown("---")
-    st.markdown("### 🖥️ DIAGNOSTIC CORE")
-    st.markdown("● **STATUS:** `ONLINE` ⚡")
-    st.markdown("● **ENGINES:** `02 TERMINALS` 💾")
-    st.markdown("---")
 
 banner_html = (
     "<div style='background-color: rgba(45, 20, 32, 0.45); backdrop-filter: blur(12px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>\n"
