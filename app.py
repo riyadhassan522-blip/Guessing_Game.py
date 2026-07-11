@@ -47,7 +47,7 @@ def trigger_arcade_synth():
     st.markdown(audio_html, unsafe_allow_html=True)
 
 # =========================================================================
-# THE REVERTED CYBER ARCADE THEME ENGINE (WITH FIXED SIDEBAR DROPDOWN)
+# THE PERFECTED CYBER ARCADE THEME ENGINE
 # =========================================================================
 css_style = f"""
 <style>
@@ -130,15 +130,15 @@ div[data-testid='stMetricValue'] {{
     font-size: 1.8rem !important;
 }}
 
-/* 🌸 MAINFRAME INPUT SCANNER OVERRIDE: Restores perfect alignment and functionality */
+/* 🌸 STYLING ONLY THE INPUT TEXT FIELD INSIDE THE SCANNER ROW 🌸 */
 .stNumberInput input {{
-    background-color: rgba(37, 22, 31, 0.90) !important; /* Premium dark plum background */
-    color: #ff66aa !important; /* High-contrast glowing pink text for your numbers */
+    background-color: rgba(37, 22, 31, 0.90) !important; 
+    color: #ff66aa !important; 
     font-family: monospace !important;
     font-weight: bold !important;
 }}
 
-/* Targets the complete base row outer wrapper containing input field and buttons */
+/* Targets the complete outer base row wrapper box natively */
 div[data-testid="stNumberInput"] div[role="data-baseweb"] {{
     background-color: rgba(37, 22, 31, 0.90) !important;
     border: 2px solid rgba(255, 102, 170, 0.5) !important;
@@ -150,7 +150,6 @@ div[data-testid="stNumberInput"] button {{
     background-color: transparent !important;
     color: #ff66aa !important;
     border: none !important;
-    cursor: pointer !important;
 }}
 
 /* Ensure text stays bright pink while typing inside the scanner field */
@@ -162,7 +161,6 @@ div[data-testid="stNumberInput"] button {{
 input[type="number"]::placeholder {{
     color: rgba(255, 255, 255, 0.3) !important;
 }}
-
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
