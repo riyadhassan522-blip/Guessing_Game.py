@@ -47,43 +47,28 @@ def trigger_arcade_synth():
     st.markdown(audio_html, unsafe_allow_html=True)
 
 # =========================================================================
-# HARD FULL-SCREEN OVERWRITE ENGINE (Bypasses Web Platform UI Limits)
+# THE REVERTED CYBER ARCADE THEME ENGINE
 # =========================================================================
 css_style = f"""
 <style>
-.stApp, [data-testid='stAppViewContainer'], [data-testid='stHeader'], .stAppHeader {{
-    background-image: linear-gradient(rgba(26, 12, 18, 0.50), rgba(26, 12, 18, 0.70)), 
+/* Forces your local background image to stretch beautifully across the screen */
+.stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
+    background-image: linear-gradient(rgba(26, 12, 18, 0.45), rgba(26, 12, 18, 0.65)), 
                 url("data:image/jpeg;base64,{bg_base64}") !important;
     background-size: cover !important;
     background-position: center center !important;
     background-attachment: fixed !important;
-    background-color: transparent !important;
 }}
 
-/* DISBALE THE SIDEBAR ENTIRELY TO ELIMINATE PANEL CONFLICTS */
-[data-testid="stSidebar"], section[data-testid="stSidebar"] {{
-    display: none !important;
-    visibility: hidden !important;
-    width: 0px !important;
+/* THE FROSTED GLASS SIDEBAR EFFECT (Restored and visible) */
+[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
+    background-color: rgba(30, 15, 23, 0.25) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-right: 3px solid #ff66aa !important;
 }}
 
-[data-testid="stToolbar"], [data-testid="stDecoration"] {{
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-}}
-
-[data-testid="stHeader"], .stAppHeader {{
-    background: transparent !important;
-    background-color: transparent !important;
-    border-bottom: none !important;
-    box-shadow: none !important;
-}}
-
-.main .block-container {{
-    padding-top: 30px !important;
-}}
-
+/* Retro Arcade 3D Button Style */
 div.stButton > button:first-child {{
     background: #ff66aa !important;
     color: #1a0c12 !important;
@@ -108,6 +93,7 @@ div.stButton > button:first-child:hover {{
     border-color: #1a0c12 !important;
 }}
 
+/* Floating UI Panel Containers - Clear Glass Style */
 div[data-testid='stForm'], .stMainBlockContainer {{
     background: transparent !important;                 
     background-color: transparent !important;
