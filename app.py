@@ -25,20 +25,30 @@ css_style = f"""
 }}
 html, body, p, span, label, div, h1, h2, h3, a {{ font-family: 'Courier New', Courier, monospace !important; font-weight: bold !important; }}
 [data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
-    background-color: rgba(30, 15, 23, 0.20) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important;
+    background-color: rgba(30, 15, 23, 0.20) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important;
 }}
 [data-testid="stSidebarNav"] ul {{
     background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 2px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; margin-top: 15px !important;
 }}
 [data-testid="stSidebarNav"] span {{ color: #ffffff !important; font-size: 1.05rem !important; }}
 
-.main .block-container {{ padding-top: 110px !important; }}
-.stMainBlockContainer {{
-    background-color: rgba(37, 22, 31, 0.45) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important;
-    border: 2px solid rgba(255, 102, 170, 0.4) !important; border-radius: 16px !important; box-shadow: 0px 8px 32px rgba(255, 102, 170, 0.15) !important; padding: 35px !important;
+/* 🌸 MOVING THE WHOLE UI DOWN: Increased padding-top to shift layouts down cleanly into view */
+.main .block-container {{ 
+    padding-top: 150px !important; 
 }}
 
-/* 🚨 RE-ENGINEERED ARTIFACT DELETER: Targets the exact layout element strings safely */
+.stMainBlockContainer {{
+    background-color: rgba(37, 22, 31, 0.45) !important; backdrop-filter: blur(16px) !important;
+    border: 2px solid rgba(255, 102, 170, 0.4) !important; 
+    
+    /* 📐 CORNER SHAPE CONTROL PANEL: 
+       - Change to '0px !important;' for razor-sharp classic retro corners.
+       - Keep at '16px !important;' for smooth premium modern round text frames. */
+    border-radius: 16px !important; 
+    
+    box-shadow: 0px 8px 32px rgba(255, 102, 170, 0.15) !important; padding: 35px !important;
+}}
+
 div.stAppViewContainer > div:first-child, [data-testid="collapsedControl"], [data-testid="stHeader"], .stAppHeader {{
     display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0px !important; width: 0px !important;
 }}
@@ -46,19 +56,15 @@ div.stAppViewContainer > div:first-child, [data-testid="collapsedControl"], [dat
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
-# 🛠️ PREMIUM SIDEBAR INTEGRATION TOOLBAR
+# Cleaned-up Sidebar Info Console Drawer
 with st.sidebar:
     st.markdown("---")
-    st.markdown("### ⚙️ CABINET SYSTEM")
+    st.markdown("### 🖥️ DIAGNOSTIC CORE")
     st.markdown(" ")
-    
-    # Fully functional, visual cross-platform settings block
-    st.toggle("⚡ OVERCLOCK MAINFRAME MODE", value=True)
-    st.selectbox("SYSTEM SOUND MIXER:", ["Retro Wave Synth (Active)", "Chiptune Audio Bleeps", "Mute Audio Node"])
-    st.radio("ACTIVE TEXT DISPLAY:", ["Courier New Mono", "Standard Arcade Script"])
-    
+    st.markdown("● **PLATFORM STATUS:** `ONLINE` ⚡")
+    st.markdown("● **ACTIVE MODULES:** `02 ENGINES` 💾")
+    st.markdown("● **THEME REVOLVER:** `CYBER CHERRY` 🌸")
     st.markdown("---")
-    st.markdown("<p style='color: #ff66aa; font-family: monospace; font-size: 0.85rem; font-weight: bold;'>🎨 ACTIVE COMPONENT THEME:<br><span style='color: #ffffff;'>[ CYBER CHERRY BLOSSOM ]</span></p>", unsafe_allow_html=True)
 
 banner_html = (
     "<div style='background-color: rgba(45, 20, 32, 0.45); backdrop-filter: blur(12px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>\n"
@@ -72,9 +78,9 @@ banner_html = (
 )
 st.markdown(banner_html, unsafe_allow_html=True)
 
-st.markdown("### 🕹顶 LOBBY CENTRAL HUB ONLINE")
+st.markdown("### 🕹️ LOBBY MAIN RECOVERY CORE")
 st.markdown("---")
-st.markdown("Your custom cross-platform retro gaming dashboard database has been successfully updated and re-aligned.")
+st.markdown("Your retro gaming console framework has been successfully updated and re-aligned to full cross-platform glass specs.")
 st.info("💡 TRANSMISSION PANEL: Pop open your left-side matrix link drawer options to deploy your game channels natively!")
 
 footer_html = "<div style='text-align: center; padding: 10px; margin-top: 50px;'><p style='color: #ff66aa; font-family: \"Courier New\", monospace; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
