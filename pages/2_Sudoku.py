@@ -1,6 +1,8 @@
 import streamlit as st
 import random
 import copy
+import time
+import base64
 
 st.set_page_config(
     page_title="Mainframe Sudoku Core", 
@@ -8,122 +10,129 @@ st.set_page_config(
     layout="centered"
 )
 
+# Native asset loader assigned strictly to this sub-page instance
+def get_base64_image(image_path):
+    try:
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    except FileNotFoundError:
+        return ""
+
+bg_base64 = get_base64_image("themes/bg.jpg")
+
 # =========================================================================
-# CENTRAL LOGIC MATRIX: THE BACKTRACKING VALIDATION ENGINE
+# ISOLATED BACKTRACKING MATHEMATICAL RESOLUTION ENGINE
 # =========================================================================
 def is_valid_move(board, row, col, num):
-    """Verifies grid compliance against Row, Column, and 3x3 Quadrant rules"""
-    # Check horizontal row constraint path
-    if num in board[row]:
-        return False
-        
-    # Check vertical column constraint path
-    if num in [board[i][col] for i in range(9)]:
-        return False
-        
-    # Check 3x3 sub-grid matrix block quadrant boundary
+    if num in board[row]: return False
+    if num in [board[i][col] for i in range(9)]: return False
     start_row, start_col = 3 * (row // 3), 3 * (col // 3)
     for i in range(3):
         for j in range(3):
-            if board[start_row + i][start_col + j] == num:
-                return False
-                
+            if board[start_row + i][start_col + j] == num: return False
     return True
 
 def solve_sudoku_matrix(board):
-    """Natively solves any 9x9 layout utilizing a recursive backtracking loop"""
     for row in range(9):
         for col in range(9):
             if board[row][col] == 0:
                 for num in range(1, 10):
                     if is_valid_move(board, row, col, num):
                         board[row][col] = num
-                        if solve_sudoku_matrix(board):
-                            return True
+                        if solve_sudoku_matrix(board): return True
                         board[row][col] = 0
                 return False
     return True
 
 def generate_base_puzzle(cells_to_remove=35):
-    """Generates an initialized puzzle matrix matching targeted difficulty seeds"""
-    # Initialize an unmapped 9x9 blank array grid
     board = [[0 for _ in range(9)] for _ in range(9)]
-    
-    # Populate the primary diagonal block vectors to seed random distribution paths Safely
     for box in range(0, 9, 3):
         nums = list(range(1, 10))
         random.shuffle(nums)
         for i in range(3):
-            for j in range(3):
-                board[box + i][box + j] = nums.pop()
-                
-    # Complete the core array map via solver execution
+            for j in range(3): board[box + i][box + j] = nums.pop()
     solve_sudoku_matrix(board)
     solution = copy.deepcopy(board)
-    
-    # Punch blank analytical sockets out of the completed field plane
     attempts = cells_to_remove
     while attempts > 0:
-        row = random.randint(0, 8)
-        col = random.randint(0, 8)
+        row, col = random.randint(0, 8), random.randint(0, 8)
         if board[row][col] != 0:
             board[row][col] = 0
             attempts -= 1
-            
     return board, solution
 
+def trigger_arcade_synth():
+    st.markdown("""<audio autoplay style="display:none;"><source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQQAAAAAf39/fw==" type="audio/wav"></audio>""", unsafe_allow_html=True)
+
 # =========================================================================
-# ARCADE STYLES ENGINE: CUSTOM MATRIX GRID SYSTEM
+# SUDOKU CORE EXCLUSIVE GRAPHICS WRAPPER (Zero Global Leakage)
 # =========================================================================
-css_style = """
+css_style = f"""
 <style>
-/* Synchronize global typography seamlessly with Lord's Monospace palette guidelines */
-html, body, [class*="css"], p, span, label, h3, select {
+.stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
+    background-image: linear-gradient(rgba(18, 8, 15, 0.60), rgba(18, 8, 15, 0.75)), 
+                url("data:image/jpeg;base64,{bg_base64}") !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-attachment: fixed !important;
+}}
+html, body, p, span, label, div, h1, h3, select {{
     font-family: 'Courier New', Courier, monospace !important;
     font-weight: bold !important;
-}
-
-/* 🎯 PREMIUM ARCADE SUDOKU MATRIX INPUT STYLING */
-div[data-testid="stNumberInput"] input {
-    background-color: rgba(37, 22, 31, 0.90) !important;
+}}
+/* SOLID HIGH-CONTRAST PANEL: Isolates the 9x9 board so it's fully visible and solid */
+div[data-testid='stForm'], .stMainBlockContainer {{
+    background-color: rgba(30, 14, 24, 0.94) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 3px solid #ff66aa !important;
+    border-radius: 16px !important;
+    box-shadow: 0px 0px 25px rgba(255, 102, 170, 0.25) !important;
+    padding: 30px !important;
+    max-width: 100% !important;
+}}
+/* TARGETED SUDOKU CELL HOOKS */
+div[data-testid="stNumberInput"] input {{
+    background-color: #1a0b14 !important;
     color: #ff66aa !important;
-    border: 1px solid rgba(255, 102, 170, 0.3) !important;
+    border: 2px solid rgba(255, 102, 170, 0.4) !important;
     text-align: center !important;
-    font-size: 1.3rem !important;
+    font-size: 1.4rem !important;
     font-weight: 900 !important;
-    border-radius: 6px !important;
-    padding: 0 !important;
-    height: 42px !important;
-}
-
-/* Hide native form instructions underneath individual math boxes */
-div[data-testid="stNumberInput"] [data-baseweb="input"] + div {
+    border-radius: 8px !important;
+    height: 45px !important;
+}}
+div[data-testid="stNumberInput"] [data-baseweb="input"] {{
+    background-color: transparent !important;
+    border: none !important;
+}}
+div[data-testid="stNumberInput"] [data-baseweb="input"] + div,
+div[data-testid="stNumberInput"] button {{
     display: none !important;
-}
-
-/* Strip native calculation buttons to ensure clean mobile device layout tracking */
-div[data-testid="stNumberInput"] button {
-    display: none !important;
-}
-
-/* Locked core starting numbers get high contrast white typography indicators */
-.locked-cell {
-    color: #ffffff !important;
-    text-shadow: 0px 0px 8px #ff66aa !important;
-}
+}}
+/* Sidebar Navigation Overrides */
+[data-testid='stSidebar'], [data-testid='stSidebarUserContent'] {{
+    background-color: rgba(30, 15, 23, 0.25) !important;
+    backdrop-filter: blur(16px) !important;
+    border-right: 3px solid #ff66aa !important;
+}}
+[data-testid="stSidebarNav"] ul {{
+    background-color: rgba(37, 22, 31, 0.60) !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 102, 170, 0.2) !important;
+    padding: 12px !important;
+}}
+[data-testid="stSidebarNav"] span {{ color: #ffffff !important; }}
+button[aria-label="Collapse sidebar"], button[aria-label="Expand sidebar"] {{ display: none !important; }}
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
-
 # =========================================================================
 # APPLICATION ENVIRONMENT MEMORY MANAGEMENT
 # =========================================================================
 if "sdk_puzzle" not in st.session_state:
-    # Initialize basic grid arrays on primary system spin up
     base_board, solved_map = generate_base_puzzle(cells_to_remove=30)
     st.session_state.sdk_puzzle = base_board
     st.session_state.sdk_solution = solved_map
-    # Keep track of original structural sockets so players can't overwrite locked nodes
     st.session_state.sdk_locked_mask = [[base_board[r][c] != 0 for c in range(9)] for r in range(9)]
     st.session_state.sdk_user_matrix = copy.deepcopy(base_board)
 
@@ -131,7 +140,7 @@ if "sdk_puzzle" not in st.session_state:
 # SYSTEM BRANDING BANNER
 # =========================================================================
 st.markdown(
-    "<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); margin-bottom: 25px;'>\n"
+    "<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 25px;'>\n"
     "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>\n"
     "        🧩 SYSTEM SUDOKU DECK 🧩\n"
     "    </h1>\n"
@@ -170,7 +179,6 @@ st.markdown("##### 📝 TARGET COMPLIANCE LAYER:")
 # =========================================================================
 # 9x9 COMPACT INTERACTIVE ARENA ENGINE
 # =========================================================================
-# Renders 9 core vertical column segments bounded within grid grids natively
 for r in range(9):
     grid_cols = st.columns(9)
     for c in range(9):
@@ -178,15 +186,13 @@ for r in range(9):
             is_locked = st.session_state.sdk_locked_mask[r][c]
             
             if is_locked:
-                # Displays the core static node values cleanly wrapped in visual markers
                 st.markdown(
-                    f"<div style='text-align:center; line-height:42px; background-color:rgba(255,102,170,0.15); "
-                    f"border:1px solid #ff66aa; border-radius:6px; height:42px; font-weight:900; color:#ffffff; "
-                    f"font-size:1.2rem; text-shadow:0px 0px 6px #ff66aa;'>{st.session_state.sdk_puzzle[r][c]}</div>", 
+                    f"<div style='text-align:center; line-height:42px; background-color:rgba(255,102,170,0.25); "
+                    f"border:2px solid #ff66aa; border-radius:8px; height:45px; font-weight:900; color:#ffffff; "
+                    f"font-size:1.3rem; text-shadow:0px 0px 8px #ff66aa;'>{st.session_state.sdk_puzzle[r][c]}</div>", 
                     unsafe_allow_html=True
                 )
             else:
-                # Players manipulate open analytical fields natively using numeric slots
                 val = st.session_state.sdk_user_matrix[r][c]
                 user_move = st.number_input(
                     label=f"cell_{r}_{c}",
