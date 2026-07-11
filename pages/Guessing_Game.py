@@ -35,6 +35,12 @@ def submit_guess(game, guess: int):
         game["message"] = f"🎉 Correct! The number was {game['target']}."
         game["stats"]["wins"] += 1
         game["stats"]["played"] += 1
+        # update global scoreboard
+        gs = st.session_state.get("global_stats", {"played":0,"wins":0,"losses":0,"total_guesses":0})
+        gs["played"] += 1
+        gs["wins"] += 1
+        gs["total_guesses"] += 1
+        st.session_state["global_stats"] = gs
         reset_round(game)
     else:
         game["lives"] -= 1
@@ -42,6 +48,10 @@ def submit_guess(game, guess: int):
             game["message"] = f"💥 Out of lives. The number was {game['target']}."
             game["stats"]["losses"] += 1
             game["stats"]["played"] += 1
+            gs = st.session_state.get("global_stats", {"played":0,"wins":0,"losses":0,"total_guesses":0})
+            gs["played"] += 1
+            gs["losses"] += 1
+            st.session_state["global_stats"] = gs
             reset_round(game)
         else:
             hint = "higher" if guess < game["target"] else "lower"
@@ -56,12 +66,11 @@ def app():
     st.header("🎯 RADAR SCANNER")
     st.subheader(f"Core Integrity: {game['lives']} / {LIVES_DEFAULT} Lives Remaining")
 
-    # difficulty selector (affects range and lives)
     with st.expander("Difficulty"):
         diff = st.selectbox("Select difficulty", ["Novice", "Normal", "Hard"], index=0, key="guess_diff")
         if diff == "Novice":
             game["range"] = [1, 20]
-            game["lives"] = 8
+            game["lives"] = LIVES_DEFAULT
         elif diff == "Normal":
             game["range"] = [1, 50]
             game["lives"] = 6
@@ -101,5 +110,4 @@ def app():
     st.sidebar.write(f"Total Guesses: {stats['total_guesses']}")
     st.sidebar.write(f"Wins Recorded: {stats['wins']}")
     st.sidebar.write(f"Crash Losses: {stats['losses']}")
-
     st.markdown("</div>", unsafe_allow_html=True)
