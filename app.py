@@ -130,29 +130,6 @@ div[data-testid='stMetricValue'] {{
     font-size: 1.8rem !important;
 }}
 
-/* 🌸 MAINFRAME INPUT SCANNER OVERRIDE: Fixes the invisible white text bug 🌸 */
-input[type="number"], [data-baseweb="input"] > div, .stNumberInput input {{
-    background-color: rgba(37, 22, 31, 0.90) !important; 
-    color: #ff66aa !important; 
-    border: 2px solid rgba(255, 102, 170, 0.5) !important; 
-    border-radius: 8px !important;
-    font-family: monospace !important;
-    font-weight: bold !important;
-}}
-
-/* Ensure text stays bright pink while typing inside the scanner field */
-.stNumberInput input:focus {{
-    color: #ff66aa !important;
-}}
-
-/* Style the placeholder text safely */
-input[type="number"]::placeholder {{
-    color: rgba(255, 255, 255, 0.3) !important;
-}}
-</style>
-"""
-st.markdown(css_style, unsafe_allow_html=True)
-
 /* 🌸 MAINFRAME INPUT SCANNER OVERRIDE: Wipes out the invisible text and the right-side white block */
 input[type="number"], 
 [data-baseweb="input"] > div, 
@@ -182,6 +159,10 @@ div[data-testid="stNumberInput"] button {{
 input[type="number"]::placeholder {{
     color: rgba(255, 255, 255, 0.3) !important;
 }}
+
+</style>
+"""
+st.markdown(css_style, unsafe_allow_html=True)
 
 # 2. BRANDING BANNER: SINGLE SYSTEM RECOVERY MODULE
 banner_html = (
