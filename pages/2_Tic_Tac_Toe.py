@@ -107,8 +107,8 @@ st.markdown("<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filt
 # FIXED NEURAL MATRIX ENGINE & ADAPTIVE BOT BRAIN LOGIC 
 # =========================================================================
 def evaluate_game_state(b):
-    # Fixed clean coordinate matrix arrays (No hanging blank commas)
-    win_vectors = [, [3, 4, 5], [6, 7, 8],  # Horizontal rows, [1, 4, 7], [2, 5, 8],  # Vertical columns, [2, 4, 6]              # Diagonal lines
+    # Core mathematical indices representing all possible win lines in a 1D 3x3 array
+    win_vectors = [, [3, 4, 5], [6, 7, 8],  # Horizontal vector lines, [1, 4, 7], [2, 5, 8],  # Vertical column tracks, [2, 4, 6]              # Cross diagonal trajectories
     ]
     for vector in win_vectors:
         if b[vector[0]] == b[vector[1]] == b[vector[2]] and b[vector[0]] != " ":
