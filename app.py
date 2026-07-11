@@ -73,17 +73,12 @@ html, body, [class*="css"], p, span, label, div, h1, h2, h3, h4, h5, h6, input {
     font-weight: bold !important;
 }
 
-/* 🚨 TOTAL OBLITERATION OF THE "KEYBOARD_DOUBLE" TEXT ARTIFACT BUG */
+/* 🚨 COMPLETE OBLITERATION OF THE SIDEBAR TEXT ARTIFACT BUG */
 [data-testid="collapsedControl"],
+[data-testid="collapsedControl"] *,
 .stApp > header,
 span[class*="icon"],
-.main .block-container div:first-child span,
-div[class*="collapsedControl"],
-span[data-testid="collapsedControl"],
-[data-testid="collapsedControl"] button,
-p[id^="keyboard_double"],
-span[id^="keyboard_double"],
-div[id^="keyboard_double"] {
+.main .block-container div:first-child span {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -91,6 +86,7 @@ div[id^="keyboard_double"] {
     width: 0px !important;
     font-size: 0px !important;
     color: transparent !important;
+    line-height: 0 !important;
 }
 
 /* Adjust layout containers to shift up cleanly now that the top gap is deleted */
