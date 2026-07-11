@@ -79,8 +79,11 @@ html, body, [class*="css"], p, span, label, div, h1, h2, h3, h4, h5, h6, input {
 span[class*="icon"],
 .main .block-container div:first-child span,
 div[class*="collapsedControl"],
-span:contains("keyboard"),
-div:contains("keyboard") {
+span[data-testid="collapsedControl"],
+[data-testid="collapsedControl"] button,
+p[id^="keyboard_double"],
+span[id^="keyboard_double"],
+div[id^="keyboard_double"] {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
