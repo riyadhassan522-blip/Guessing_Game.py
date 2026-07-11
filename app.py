@@ -63,38 +63,22 @@ bg_style = f"""
 st.markdown(bg_style, unsafe_allow_html=True)
 
 # =========================================================================
-# PART B: STYLES ENGINE (Reverted to stable arcade monospace)
+# PART B: THEMED ARCADE LAYOUT & SPECIFIC TYPOGRAPHY HOOKS
 # =========================================================================
 css_style = """
 <style>
-/* GLOBAL TYPOGRAPHY: Restores the premium custom arcade font engine */
-html, body, [class*="css"], p, span, label, div, h1, h2, h3, h4, h5, h6, input {
+/* TARGETED TYPOGRAPHY HOOKS: Excludes icon containers from style rules */
+h1, h2, h3, h4, h5, h6, p, label, .stMetric, input, button {
     font-family: 'Courier New', Courier, monospace !important;
     font-weight: bold !important;
 }
 
-/* 🚨 COMPLETE OBLITERATION OF THE SIDEBAR TEXT ARTIFACT BUG */
-[data-testid="collapsedControl"],
-[data-testid="collapsedControl"] *,
-.stApp > header,
-.stAppHeader,
-[data-testid="stHeader"],
-span[class*="icon"],
-.main .block-container div:first-child span,
-div.stAppViewContainer > div:first-child {{
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    height: 0px !important;
-    width: 0px !important;
-    font-size: 0px !important;
-    color: transparent !important;
-    line-height: 0 !important;
-}}
-
-/* Adjust layout containers to shift up cleanly now that the top gap is deleted */
-.main .block-container {
-    padding-top: 15px !important;
+/* WIPE OUT STREAMLIT'S TOP WHITE PLATFORM HEADER */
+[data-testid="stHeader"], .stAppHeader {
+    background: transparent !important;
+    background-color: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
 }
 
 /* THE FROSTED GLASS SIDEBAR EFFECT */
@@ -103,6 +87,13 @@ div.stAppViewContainer > div:first-child {{
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
     border-right: 3px solid #ff66aa !important;
+}
+
+/* COMPACT SIDEBAR TEXT FOR MOBILE AND DESKTOP SCREEN RADIUS */
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span {
+    font-size: 0.9rem !important;
 }
 
 /* FIX FOR SIDEBAR DROPDOWN BOXES */
@@ -137,7 +128,7 @@ div.stButton > button:first-child {
     transition: all 0.1s ease-in-out !important;
     margin-bottom: 6px !important;
     width: 100% !important;
-}}
+}
 div.stButton > button:first-child:active {
     transform: translateY(4px) !important;
     box-shadow: 0px 2px 0px #992255 !important;
@@ -166,7 +157,7 @@ div[data-testid='stMetricValue'] {
     font-size: 1.6rem !important;
 }
 
-/* BULLETPROOF TEXT RADAR BOX UNIFICATION */
+/* BULLETPROOF TEXT INPUT BOX STYLING overrides Streamlit Cloud themes */
 div[data-testid="stTextInput"] [data-baseweb="input"] {
     background-color: rgba(37, 22, 31, 0.90) !important; 
     border: 2px solid rgba(255, 102, 170, 0.5) !important; 
@@ -181,17 +172,20 @@ div[data-testid="stTextInput"] input {
     font-size: 1.1rem !important;
 }
 
-/* DESTROY NATIVE FORM INSTRUCTION TEXT BLOCKS FOR ANDROID CROSS-PLAY */
+/* DESTROY NATIVE "PRESS ENTER TO SUBMIT FORM" INSTRUCTIONS OVERLAY FOR ANDROID PANELS */
 div[data-testid="stTextInput"] [data-baseweb="input"] + div {
     display: none !important;
     visibility: hidden !important;
     height: 0px !important;
     opacity: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
 }
 
-/* CROSS-PLATFORM SYSTEM MEDIA TUNING */
+/* SAFE WORKAROUND: Injects elegant neon icons directly on the native button overlay headers */
+[data-testid="collapsedControl"] {
+    color: #ff66aa !important;
+}
+
+/* CROSS-PLATFORM SYSTEM MEDIA CAPTURE TUNING */
 @media screen and (max-width: 768px) {
     h1 {
         font-size: 1.4rem !important;
@@ -211,7 +205,7 @@ div[data-testid="stTextInput"] [data-baseweb="input"] + div {
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
-# 2. BRANDING BANNER: HIGH-TECH OVERLAY WITH SEAMLESS BLENDING
+# 2. BRANDING BANNER: SYSTEM MODULE CONFIGURATION OVERLAY
 banner_html = (
     "<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>\n"
     "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>\n"
@@ -269,7 +263,7 @@ with st.sidebar:
         
     st.markdown("---")
     best_display = f"{st.session_state.gg_best_score} attempts" if st.session_state.gg_best_score else "No wins recorded"
-    st.markdown(f"<p style='color: #ff66aa; font-family: \"Courier New\", monospace; font-size: 0.85rem; font-weight: bold; margin-top: 15px;'>🏆 BEST RECORD: <span style='color: #ffffff;'>{best_display}</span></p>", unsafe_allow_html=True)
+    st.markdown(f"<p style='color: #ff66aa; font-family: monospace; font-size: 0.85rem; font-weight: bold; margin-top: 15px;'>🏆 BEST RECORD: <span style='color: #ffffff;'>{best_display}</span></p>", unsafe_allow_html=True)
 
 # 4. INTERFACE PROCESSOR ROUTINE
 if st.session_state.gg_active:
