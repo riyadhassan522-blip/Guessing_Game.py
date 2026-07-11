@@ -191,7 +191,7 @@ with st.sidebar:
         st.metric(label="CRASH LOSSES 💀", value=st.session_state.gg_losses)
         
     st.markdown("---")
-        best_display = f"{st.session_state.gg_best_score} attempts" if st.session_state.gg_best_score else "No wins recorded"
+    best_display = f"{st.session_state.gg_best_score} attempts" if st.session_state.gg_best_score else "No wins recorded"
     st.markdown(f"<p style='color: #ff66aa; font-family: monospace; font-size: 0.9rem; font-weight: bold; margin-top: 15px;'>🏆 BEST RECORD: <span style='color: #ffffff;'>{best_display}</span></p>", unsafe_allow_html=True)
 
 # 4. INTERFACE PROCESSOR ROUTINE
