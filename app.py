@@ -58,15 +58,6 @@ css_style = f"""
     background-size: cover !important;
     background-position: center center !important;
     background-attachment: fixed !important;
-}}
-
-/* THE FROSTED GLASS SIDEBAR EFFECT (Restored and visible) */
-[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
-    background-color: rgba(30, 15, 23, 0.25) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
-    border-right: 3px solid #ff66aa !important;
-}}
 
 /* 🌸 TARGET INDIVIDUAL INPUT DROPDOWN SELECTBOX CONTAINERS */
 div[data-baseweb="select"] > div, 
