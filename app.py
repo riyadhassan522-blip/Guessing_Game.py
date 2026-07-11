@@ -187,9 +187,8 @@ with st.sidebar:
         st.session_state.gg_feedback_type = "info"
 
     if st.button("🚀 DEPLOY CORE MATCH", use_container_width=True, type="primary"):
-        # ANIMATED LOADING SCREEN TRANSITION
         with st.spinner("🔄 INITIALIZING MAINFRAME MODULE SYSTEM..."):
-            time.sleep(1.2)  # Simulated processing loop delay
+            time.sleep(1.2)  
             trigger_arcade_synth()
             
         st.session_state.gg_secret_number = random.randint(1, max_range)
@@ -224,18 +223,18 @@ if st.session_state.gg_active:
 
     st.markdown(" ")
 
+    # Switched form engine to utilize a clean unified text input string field
     with st.form(key="guess_form", clear_on_submit=True):
-        guess = st.number_input(
+        guess_input = st.text_input(
             f"Target Scan Range [1 to {max_range}]:", 
-            min_value=1, 
-            max_value=max_range, 
-            step=1, 
-            value=None, 
-            placeholder="Tap here to analyze a number path..."
+            value="", 
+            placeholder="Type your number analysis here and click submit..."
         )
         submit_guess = st.form_submit_button("💥 SUBMIT SCAN RADAR", use_container_width=True)
 
-    if submit_guess and guess is not None:
+    # Process and convert text payload safely back into integer matrices
+    if submit_guess and guess_input.strip().isdigit():
+        guess = int(guess_input.strip())
         trigger_arcade_synth()
         st.session_state.gg_round_attempts += 1
         st.session_state.gg_total_guesses += 1
@@ -271,6 +270,10 @@ if st.session_state.gg_active:
             st.session_state.gg_losses += 1
             st.session_state.gg_played += 1
             st.session_state.gg_active = False
+            
+    elif submit_guess and not guess_input.strip().isdigit():
+        st.session_state.gg_feedback = "⚠️ INVALID TRANSMISSION! Input raw numbers sequence inside scanner channel."
+        st.session_state.gg_feedback_type = "error"
 
     if "gg_feedback" in st.session_state:
         if st.session_state.gg_feedback_type == "success": st.success(st.session_state.gg_feedback)
