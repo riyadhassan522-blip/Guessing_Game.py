@@ -2,7 +2,7 @@
 import streamlit as st
 import random
 
-PAGE_TITLE = "🎯 RADAR SCANNER"
+PAGE_TITLE = "🎯 Guessing Game"
 
 def _difficulty_to_params(diff_str):
     if "Novice" in diff_str:
@@ -19,7 +19,7 @@ def _init_state(range_vals, default_lives):
     if "games" not in st.session_state:
         st.session_state.games = {}
     game = st.session_state.games.setdefault("guessing", {})
-    # only update canonical difficulty values; do not overwrite runtime target unless difficulty changed
+    # if difficulty changed, reset canonical values and start a fresh round
     if game.get("range") != list(range_vals) or game.get("default_lives") != int(default_lives):
         game["range"] = list(range_vals)
         game["default_lives"] = int(default_lives)
@@ -62,7 +62,7 @@ def submit_guess(game, guess: int):
             game["message"] = f"Try {hint}. Lives left: {game['lives']}"
 
 def app():
-    # read difficulty selected in hub (fallback to Novice)
+    # read difficulty selected in hub
     diff = st.session_state.get("selected_difficulty", "Novice (1–20, 8 lives)")
     rng, lives = _difficulty_to_params(diff)
 
@@ -100,8 +100,8 @@ def app():
     st.sidebar.write(f"Wins Recorded: {stats['wins']}")
     st.sidebar.write(f"Crash Losses: {stats['losses']}")
 
-    if st.sidebar.button("🎮 DEPLOY CORE MATCH (RESTART)"):
+    if st.sidebar.button("🎮 RESTART MATCH"):
         reset_round(game)
-        st.success("Core match deployed. New target generated.")
+        st.success("Core match restarted. New target generated.")
 
     st.markdown("</div>", unsafe_allow_html=True)
