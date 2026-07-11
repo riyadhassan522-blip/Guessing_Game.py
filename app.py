@@ -4,6 +4,7 @@ import importlib
 
 st.set_page_config(page_title="Lord's Arcade Realm", page_icon="🌸", layout="centered")
 
+# --- helpers ---------------------------------------------------------------
 def get_base64_image(path: str):
     try:
         with open(path, "rb") as f:
@@ -11,6 +12,7 @@ def get_base64_image(path: str):
     except Exception:
         return None
 
+# --- styling ---------------------------------------------------------------
 bg_b64 = get_base64_image("themes/bg.jpg")
 bg_css = (
     f"background-image: linear-gradient(rgba(26,12,18,0.45), rgba(26,12,18,0.65)), url('data:image/jpeg;base64,{bg_b64}');"
@@ -48,6 +50,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# --- header ---------------------------------------------------------------
 st.markdown(
     """
     <div class="frosted" style="text-align:center; margin-bottom:18px;">
@@ -58,6 +61,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# --- sidebar ---------------------------------------------------------------
 with st.sidebar:
     st.markdown("### 🖥️ SYSTEM SETTINGS")
     difficulty = st.selectbox(
@@ -79,6 +83,7 @@ with st.sidebar:
     st.write(f"WINS RECORDED… {gs['wins']}")
     st.write(f"CRASH LOSSES… {gs['losses']}")
 
+# --- main hub --------------------------------------------------------------
 if "deployed_guessing" not in st.session_state:
     st.session_state.deployed_guessing = False
 
