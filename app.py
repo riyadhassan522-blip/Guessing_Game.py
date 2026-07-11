@@ -1,57 +1,107 @@
 # app.py
 import streamlit as st
+import base64
+import importlib
+import pkgutil
 
 st.set_page_config(page_title="Lord's Arcade Realm", page_icon="🌸", layout="centered")
 
-# --- Styling and background (keeps frosted look) ---------------------------
-def _load_bg_css():
+# --- helpers ---------------------------------------------------------------
+def get_base64_image(path: str):
     try:
-        import base64, pathlib
-        p = pathlib.Path("themes/bg.jpg")
-        if p.exists():
-            b64 = base64.b64encode(p.read_bytes()).decode()
-            bg = f"background-image: linear-gradient(rgba(26,12,18,0.45), rgba(26,12,18,0.65)), url('data:image/jpeg;base64,{b64}');"
-        else:
-            bg = "background-color: #110b11;"
+        with open(path, "rb") as f:
+            return base64.b64encode(f.read()).decode()
     except Exception:
-        bg = "background-color: #110b11;"
+        return None
 
-    st.markdown(
-        f"""
-        <style>
-        [data-testid='stAppViewContainer'] {{
-            {bg}
-            background-size: cover !important;
-            background-position: center center !important;
-        }}
-        .frosted {{
-            background: rgba(30,15,23,0.28);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,102,170,0.18);
-            border-radius: 14px;
-            padding: 18px;
-        }}
-        [data-testid='stSidebar'] {{
-            background: linear-gradient(rgba(20,10,15,0.35), rgba(20,10,15,0.25));
-            backdrop-filter: blur(14px);
-            border-right: 3px solid #ff66aa !important;
-        }}
-        h1,h2,h3,p,label,.stMarkdown,.stMetric,input,button {{
-            font-family: 'Courier New', monospace !important;
-            font-weight: 700 !important;
-            color: #ffffff !important;
-        }}
-        .main .block-container {{ padding-top: 48px !important; }}
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+def discover_pages(package_name: str = "pages"):
+    pages = {}
+    try:
+        package = importlib.import_module(package_name)
+    except Exception:
+        return pages
+    prefix = package.__name__ + "."
+    for finder, name, ispkg in pkgutil.iter_modules(package.__path__, prefix):
+        try:
+            mod = importlib.import_module(name)
+            title = getattr(mod, "PAGE_TITLE", None) or name.split(".")[-1]
+            pages[title] = name  # store module path string
+        except Exception:
+            continue
+    return pages
 
-_load_bg_css()
+# --- styling ---------------------------------------------------------------
+bg_b64 = get_base64_image("themes/bg.jpg")
+bg_css = (
+    f"background-image: linear-gradient(rgba(26,12,18,0.45), rgba(26,12,18,0.65)), url('data:image/jpeg;base64,{bg_b64}');"
+    if bg_b64 else "background-color: #110b11;"
+)
 
-# --- Sidebar controls (hub only sets difficulty and deploy flag) ------------
+st.markdown(
+    f"""
+    <style>
+    /* background */
+    [data-testid='stAppViewContainer'] {{
+        {bg_css}
+        background-size: cover !important;
+        background-position: center center !important;
+    }}
+
+    /* frosted glass container */
+    .frosted {{
+        background: rgba(30,15,23,0.28);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255,102,170,0.18);
+        border-radius: 14px;
+        padding: 22px;
+        margin-bottom: 18px;
+    }}
+
+    /* centered header */
+    .hub-title {{
+        text-align: center;
+        color: #ff66aa;
+        font-family: 'Courier New', monospace;
+        font-weight: 900;
+        font-size: 28px;
+        margin: 0;
+        padding: 0;
+    }}
+    .hub-sub {{
+        text-align: center;
+        color: #ffffff;
+        font-family: 'Courier New', monospace;
+        font-weight: 700;
+        margin-top: 6px;
+        margin-bottom: 0;
+    }}
+
+    /* sidebar frosted */
+    [data-testid='stSidebar'] {{
+        background: linear-gradient(rgba(20,10,15,0.35), rgba(20,10,15,0.25));
+        backdrop-filter: blur(14px);
+        border-right: 3px solid #ff66aa !important;
+    }}
+
+    /* general text */
+    h1,h2,h3,p,label,.stMarkdown,.stMetric,input,button {{
+        font-family: 'Courier New', monospace !important;
+        color: #ffffff !important;
+    }}
+
+    .main .block-container {{ padding-top: 36px !important; }}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# --- sidebar navigation and controls --------------------------------------
+pages = discover_pages("pages")
+page_titles = ["🌸 MAIN HUB"] + sorted(pages.keys())
+
 with st.sidebar:
     st.markdown("### 🖥️ SYSTEM SETTINGS")
+    # difficulty selector stored in session so pages can read it
     difficulty = st.selectbox(
         "Select Difficulty",
         [
@@ -64,12 +114,8 @@ with st.sidebar:
         index=0,
         key="hub_difficulty"
     )
-    # This flag only indicates the user wants to open the guessing game page.
-    if st.button("🎮 DEPLOY CORE MATCH"):
-        st.session_state.selected_difficulty = difficulty
-        # optional: set a flag so pages can detect the deploy action
-        st.session_state.deployed_guessing = True
-
+    # navigation radio (keeps hub clean until user selects a page)
+    choice = st.radio("Navigate", page_titles, index=0)
     st.markdown("---")
     st.markdown("### DASHBOARD STATS")
     gs = st.session_state.get("global_stats", {"played": 0, "wins": 0, "losses": 0, "total_guesses": 0})
@@ -78,13 +124,7 @@ with st.sidebar:
     st.write(f"WINS RECORDED… {gs['wins']}")
     st.write(f"CRASH LOSSES… {gs['losses']}")
 
-# --- Main hub UI (clean, no game UI here) ----------------------------------
-st.markdown("<div class='frosted'>", unsafe_allow_html=True)
-st.markdown("### 🌸 LORD'S ARCADE REALM 🌸")
-st.markdown("[ SYSTEM CORE MODULES // CHIEF ENGINEER: LORDDARKNESS393 ]")
-st.markdown("---")
-st.subheader("STATUS // PLATFORM IDLE")
-st.write("Initialize the left matrix panel to deploy your first gameplay module round!")
-st.markdown("---")
-st.markdown("<div style='text-align:center; color:#ff66aa; font-weight:900;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</div>", unsafe_allow_html=True)
-st.markdown("</div>", unsafe_allow_html=True)
+# store selected difficulty for pages to read
+st.session_state.selected_difficulty = st.session_state.get("hub_difficulty", "Novice (1–20, 8 lives)")
+
+# --- main hub
