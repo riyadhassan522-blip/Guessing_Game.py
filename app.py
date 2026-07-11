@@ -47,7 +47,7 @@ def trigger_arcade_synth():
     st.markdown(audio_html, unsafe_allow_html=True)
 
 # =========================================================================
-# PART A: BASE64 IMAGE BACKGROUND LAYERING (Uses f-string safely)
+# PART A: BASE64 IMAGE BACKGROUND LAYERING (Safe f-string execution)
 # =========================================================================
 bg_style = f"""
 <style>
@@ -63,10 +63,16 @@ bg_style = f"""
 st.markdown(bg_style, unsafe_allow_html=True)
 
 # =========================================================================
-# PART B: STYLES ENGINE (Uses standard string to fully protect brackets)
+# PART B: STYLES ENGINE (Pure text string to protect media brackets)
 # =========================================================================
 css_style = """
 <style>
+/* GLOBAL TYPOGRAPHY: Forces an incredibly clean, stylized retro monospace look */
+html, body, [class*="css"], p, span, label {
+    font-family: 'Courier New', Courier, monospace !important;
+    font-weight: bold !important;
+}
+
 /* THE FROSTED GLASS SIDEBAR EFFECT */
 [data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {
     background-color: rgba(30, 15, 23, 0.25) !important;
@@ -75,16 +81,31 @@ css_style = """
     border-right: 3px solid #ff66aa !important;
 }
 
-/* WIPE OUT THE NATIVE "PRESS ENTER TO SUBMIT FORM" TEXT FLOATING OVER THE VALUE ON ANDROID */
-form p, 
-div[style*="visibility: visible"] p,
-div[data-testid="stTextInput"] div:last-child {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0px !important;
-    opacity: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
+/* 🌸 COMPACT SIDEBAR TEXT: Shrinks letters slightly so they never warp on Android devices */
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span {
+    font-size: 0.85rem !important;
+    letter-spacing: -0.5px !important;
+}
+
+/* FIX FOR SIDEBAR DROPDOWN BOXES */
+div[data-baseweb="select"] > div, 
+div[data-baseweb="select"] ul {
+    background-color: rgba(37, 22, 31, 0.85) !important; 
+    border: 1px solid rgba(255, 102, 170, 0.4) !important; 
+    color: #ffffff !important; 
+}
+
+/* Force selection dropdown choices to use dark contrast styling rules */
+div[data-baseweb="popover"] div, 
+li[role="option"] {
+    background-color: #25161f !important;
+    color: #ffffff !important;
+}
+
+.stSelectbox div {
+    color: #ffffff !important;
 }
 
 /* Retro Arcade 3D Button Style */
@@ -112,7 +133,7 @@ div.stButton > button:first-child:hover {
     border-color: #1a0c12 !important;
 }
 
-/* Clear Glass Panels for Content Containers */
+/* Floating UI Panel Containers - Clear Glass Style */
 div[data-testid='stForm'], .stMainBlockContainer {
     background: transparent !important;                 
     background-color: transparent !important;
@@ -130,10 +151,35 @@ div[data-testid='stMetricValue'] {
     font-size: 1.6rem !important;
 }
 
-/* INTELLIGENT MEDIA RESPONSIVENESS PATTERNS FOR MOBILE PHONE CORES */
+/* 🌸 BULLETPROOF INPUT OVERRIDE: Restores field visibility while obliterating mobile hints 🌸 */
+div[data-testid="stTextInput"] [data-baseweb="input"] {
+    background-color: rgba(37, 22, 31, 0.90) !important; 
+    border: 2px solid rgba(255, 102, 170, 0.5) !important; 
+    border-radius: 8px !important;
+}
+
+div[data-testid="stTextInput"] input {
+    background-color: transparent !important;
+    color: #ff66aa !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-weight: bold !important;
+    font-size: 1.1rem !important;
+}
+
+/* 💥 DESTROY NATIVE "PRESS ENTER TO SUBMIT FORM" INSTRUCTION TEXT FIELD FOR MOBILE USERS */
+div[data-testid="stTextInput"] [data-baseweb="input"] + div {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0px !important;
+    opacity: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* CROSS-PLATFORM SYSTEM MEDIA CAPTURE TUNING */
 @media screen and (max-width: 768px) {
     h1 {
-        font-size: 1.5rem !important;
+        font-size: 1.4rem !important;
     }
     .main .block-container {
         padding: 10px !important;
@@ -143,14 +189,14 @@ div[data-testid='stMetricValue'] {
         padding-bottom: 80px !important;
     }
     div[data-testid='stMetricValue'] {
-        font-size: 1.3rem !important;
+        font-size: 1.2rem !important;
     }
 }
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
-# 2. BRANDING BANNER: SINGLE SYSTEM RECOVERY MODULE
+# 2. BRANDING BANNER: HIGH-TECH OVERLAY WITH SEAMLESS BLENDING
 banner_html = (
     "<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>\n"
     "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>\n"
@@ -208,7 +254,7 @@ with st.sidebar:
         
     st.markdown("---")
     best_display = f"{st.session_state.gg_best_score} attempts" if st.session_state.gg_best_score else "No wins recorded"
-    st.markdown(f"<p style='color: #ff66aa; font-family: monospace; font-size: 0.9rem; font-weight: bold; margin-top: 15px;'>🏆 BEST RECORD: <span style='color: #ffffff;'>{best_display}</span></p>", unsafe_allow_html=True)
+    st.markdown(f"<p style='color: #ff66aa; font-family: monospace; font-size: 0.85rem; font-weight: bold; margin-top: 15px;'>🏆 BEST RECORD: <span style='color: #ffffff;'>{best_display}</span></p>", unsafe_allow_html=True)
 
 # 4. INTERFACE PROCESSOR ROUTINE
 if st.session_state.gg_active:
@@ -219,7 +265,6 @@ if st.session_state.gg_active:
 
     st.markdown(" ")
 
-    # Switched form engine to utilize a clean unified text input string field
     with st.form(key="guess_form", clear_on_submit=True):
         guess_input = st.text_input(
             f"Target Scan Range [1 to {max_range}]:", 
@@ -228,7 +273,6 @@ if st.session_state.gg_active:
         )
         submit_guess = st.form_submit_button("💥 SUBMIT SCAN RADAR", use_container_width=True)
 
-    # Process and convert text payload safely back into integer matrices
     if submit_guess and guess_input.strip().isdigit():
         guess = int(guess_input.strip())
         trigger_arcade_synth()
