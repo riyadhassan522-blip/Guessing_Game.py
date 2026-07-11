@@ -100,7 +100,7 @@ def app():
 
     st.markdown("---")
     st.sidebar.header("SYSTEM SETTINGS")
-    if st.sidebar.button("🎮 DEPLOY CORE MATCH"):
+    if st.sidebar.button("🎮 DEPLOY CORE MATCH (RESTART)"):
         reset_round(game)
         st.success("Core match deployed. New target generated.")
 
