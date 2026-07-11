@@ -40,7 +40,7 @@ css_style = f"""
 html, body, p, span, label, div, h1, h2, h3 {{
     font-family: 'Courier New', Courier, monospace !important;
     font-weight: bold !important;
-}
+}}
 
 /* THE FROSTED GLASS SIDEBAR NAVIGATION MANAGEMENT DRAWERS */
 [data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
