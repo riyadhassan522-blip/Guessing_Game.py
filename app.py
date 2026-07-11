@@ -78,12 +78,16 @@ html, body, [class*="css"], p, span, label, div, h1, h2, h3, h4, h5, h6, input {
 .stApp > header,
 span[class*="icon"],
 .main .block-container div:first-child span,
-div[class*="collapsedControl"] {
+div[class*="collapsedControl"],
+span:contains("keyboard"),
+div:contains("keyboard") {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
     height: 0px !important;
     width: 0px !important;
+    font-size: 0px !important;
+    color: transparent !important;
 }
 
 /* Adjust layout containers to shift up cleanly now that the top gap is deleted */
