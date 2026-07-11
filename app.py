@@ -28,46 +28,43 @@ html, body, p, span, label, div, h1, h2, h3, a {{ font-family: 'Courier New', Co
     background-color: rgba(30, 15, 23, 0.20) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important;
 }}
 [data-testid="stSidebarNav"] ul {{
-    background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 2px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; margin-top: 15px !important;
+    background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 1px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; margin-top: 15px !important;
 }}
 [data-testid="stSidebarNav"] span {{ color: #ffffff !important; font-size: 1.05rem !important; }}
 
-/* 🌸 MOVING THE WHOLE UI DOWN: Increased padding-top to shift layouts down cleanly into view */
-.main .block-container {{ 
-    padding-top: 150px !important; 
-}}
+.main .block-container {{ padding-top: 140px !important; }}
 
+/* 🌸 ELIMINATES THE CUTOFF: Premium rounded glass layout box */
 .stMainBlockContainer {{
     background-color: rgba(37, 22, 31, 0.45) !important; backdrop-filter: blur(16px) !important;
     border: 2px solid rgba(255, 102, 170, 0.4) !important; 
-    
-    /* 📐 CORNER SHAPE CONTROL PANEL: 
-       - Change to '0px !important;' for razor-sharp classic retro corners.
-       - Keep at '16px !important;' for smooth premium modern round text frames. */
-    border-radius: 16px !important; 
-    
+    border-radius: 24px !important; /* Perfect uniform capsule rounded borders */
     box-shadow: 0px 8px 32px rgba(255, 102, 170, 0.15) !important; padding: 35px !important;
 }}
 
-div.stAppViewContainer > div:first-child, [data-testid="collapsedControl"], [data-testid="stHeader"], .stAppHeader {{
-    display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0px !important; width: 0px !important;
+/* 🚨 THE ULTIMATE GHOST TEXT ERASER: Targets all text containers globally */
+span, div, button, p, header, [data-testid="collapsedControl"], .stAppViewContainer > div:first-child {{
+    animation: none !important;
+}}
+span:contains("keyboard"), div:contains("keyboard"), p:contains("keyboard") {{
+    display: none !important; font-size: 0px !important; color: transparent !important; height: 0px !important; opacity: 0 !important;
+}}
+[data-testid="collapsedControl"], [data-testid="stHeader"], .stAppHeader {{
+    display: none !important; height: 0px !important; opacity: 0 !important;
 }}
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
-# Cleaned-up Sidebar Info Console Drawer
 with st.sidebar:
     st.markdown("---")
     st.markdown("### 🖥️ DIAGNOSTIC CORE")
-    st.markdown(" ")
-    st.markdown("● **PLATFORM STATUS:** `ONLINE` ⚡")
-    st.markdown("● **ACTIVE MODULES:** `02 ENGINES` 💾")
-    st.markdown("● **THEME REVOLVER:** `CYBER CHERRY` 🌸")
+    st.markdown("● **STATUS:** `ONLINE` ⚡")
+    st.markdown("● **ENGINES:** `02 TERMINALS` 💾")
     st.markdown("---")
 
 banner_html = (
-    "<div style='background-color: rgba(45, 20, 32, 0.45); backdrop-filter: blur(12px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>\n"
+    "<div style='background-color: rgba(45, 20, 32, 0.45); backdrop-filter: blur(12px); padding: 25px; border-radius: 16px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>\n"
     "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>\n"
     "        🌸 LORD'S ARCADE REALM 🌸\n"
     "    </h1>\n"
