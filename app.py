@@ -51,44 +51,69 @@ def trigger_arcade_synth():
 # =========================================================================
 css_style = f"""
 <style>
-/* Forces your local background image to stretch beautifully across the screen */
-.stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
+/* =========================================================================
+   GLOBAL DEVICE RECOVERY CORE
+   ========================================================================= */
+/* Forces your local background image to stretch beautifully across any device screen screen */
+.stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {
     background-image: linear-gradient(rgba(26, 12, 18, 0.45), rgba(26, 12, 18, 0.65)), 
-                url("data:image/jpeg;base64,{bg_base64}") !important;
+                url("data:image/jpeg;base64,[IMAGE_DATA]") !important;
     background-size: cover !important;
     background-position: center center !important;
     background-attachment: fixed !important;
-}}
+}
 
 /* THE FROSTED GLASS SIDEBAR EFFECT */
-[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
-    background-color: rgba(30, 15, 23, 0.25) !important;
+[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {
+    background-color: rgba(30, 15, 23, 0.50) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
     border-right: 3px solid #ff66aa !important;
-}}
+}
 
-/* FIX FOR SIDEBAR DROPDOWN BOXES */
-div[data-baseweb="select"] > div, 
-div[data-baseweb="select"] ul {{
-    background-color: rgba(37, 22, 31, 0.85) !important; 
-    border: 1px solid rgba(255, 102, 170, 0.4) !important; 
-    color: #ffffff !important; 
-}}
+/* =========================================================================
+   🚨 MOBILE INTERFACE DISASTER RECOVERY OVERRIDES (Android & iOS)
+   ========================================================================= */
+/* 💥 COMPLETELY DESTROY AND WIPE OUT THE UGLY "PRESS ENTER TO SUBMIT FORM" INSTRUCTIONS OVERLAY */
+form p, 
+div[style*="visibility: visible"] p,
+span:contains("Press Enter to submit form"),
+div[data-testid="stTextInput"] div:last-child {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0px !important;
+    opacity: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
 
-/* Force selection dropdown options text to match the dark scheme */
-div[data-baseweb="popover"] div, 
-li[role="option"] {{
-    background-color: #25161f !important;
-    color: #ffffff !important;
-}}
+/* ADJUST ALL FORM CONSOLE WRAPPERS TO NOT GET CUT OFF ON MOBILE PANELS */
+div[data-testid='stForm'], .stMainBlockContainer {
+    background: transparent !important;                 
+    background-color: transparent !important;
+    backdrop-filter: none !important;                   
+    -webkit-backdrop-filter: none !important;
+    border: none !important;                            
+    box-shadow: none !important;                        
+    padding: 15px !important; /* Shrunk padding down so it floats safely on small screens */
+    max-width: 100% !important;
+}
 
-.stSelectbox div {{
-    color: #ffffff !important;
-}}
+/* TARGETS INPUT AND DROPDOWN FIELDS TO KEEP TEXT PERFECTLY SPACED WITHOUT SCRAMBLING */
+input, 
+[data-baseweb="input"], 
+[data-baseweb="input"] > div,
+div[data-testid="stTextInput"] > div {
+    border: 2px solid rgba(255, 102, 170, 0.5) !important; 
+    border-radius: 8px !important;
+    color: #ff66aa !important; 
+    font-family: monospace !important;
+    font-weight: bold !important;
+    height: 45px !important; /* Forces fixed safe height so labels can never crawl inside */
+}
 
 /* Retro Arcade 3D Button Style */
-div.stButton > button:first-child {{
+div.stButton > button:first-child {
     background: #ff66aa !important;
     color: #1a0c12 !important;
     border: 3px solid #1a0c12 !important;
@@ -101,71 +126,35 @@ div.stButton > button:first-child {{
     transition: all 0.1s ease-in-out !important;
     margin-bottom: 6px !important;
     width: 100% !important;
-}}
-div.stButton > button:first-child:active {{
+}
+div.stButton > button:first-child:active {
     transform: translateY(4px) !important;
     box-shadow: 0px 2px 0px #992255 !important;
-}}
-div.stButton > button:first-child:hover {{
-    background: #ff88bb !important;
-    color: #1a0c12 !important;
-    border-color: #1a0c12 !important;
-}}
+}
 
-/* Floating UI Panel Containers - Clear Glass Style */
-div[data-testid='stForm'], .stMainBlockContainer {{
-    background: transparent !important;                 
-    background-color: transparent !important;
-    backdrop-filter: none !important;                   
-    -webkit-backdrop-filter: none !important;
-    border: none !important;                            
-    box-shadow: none !important;                        
-    padding: 25px !important;
-    max-width: 100% !important;
-}}
-div[data-testid='stMetricValue'] {{
+div[data-testid='stMetricValue'] {
     font-weight: 900 !important;
     color: #ff66aa !important;
     text-shadow: 2px 2px 0px #1a0c12 !important;
-    font-size: 1.8rem !important;
-}}
+    font-size: 1.5rem !important; /* Sized down slightly so metrics never stack horizontally on phone portrait modes */
+}
 
-/* 🌸 GLOBAL INPUT OVERRIDE: Forcefully destroys all blinding white boxes on the page 🌸 */
-input, 
-[data-baseweb="input"], 
-[data-baseweb="input"] > div,
-div[data-testid="stTextInput"] > div {{
-    background-color: rgba(37, 22, 31, 0.90) !important; 
-    background: rgba(37, 22, 31, 0.90) !important;
-    border: 2px solid rgba(255, 102, 170, 0.5) !important; 
-    border-radius: 8px !important;
-    color: #ff66aa !important; 
-    font-family: monospace !important;
-    font-weight: bold !important;
-}}
+/* 📱 INTELLIGENT MEDIA RESPONSIVENESS CAPTURE ENGINE */
+@media screen and (max-width: 768px) {
+    /* Optimizes font boundaries for small portable viewports */
+    h1 {
+        font-size: 1.5rem !important;
+    }
+    .main .block-container {
+        padding: 10px !important;
+        padding-top: 20px !important;
+    }
+    /* Adds safe padding at the bottom of mobile panels so mobile keyboards don't clip components */
+    .stApp {
+        padding-bottom: 80px !important;
+    }
+}
 
-/* Ensure typed numbers stay bright pink while actively selected */
-input:focus {{
-    color: #ff66aa !important;
-}}
-
-/* Style the placeholder hint text safely */
-input::placeholder {{
-    color: rgba(255, 255, 255, 0.3) !important;
-}}
-
-div[data-testid="stTextInput"] input {{
-    background-color: transparent !important;
-    color: #ff66aa !important;
-    font-family: monospace !important;
-    font-weight: bold !important;
-    font-size: 1.1rem !important;
-}}
-
-/* Hide standard small form instructions from creating text pollution */
-div[data-testid="stTextInput"] div div div {{
-    color: rgba(255,255,255,0.4) !important;
-}}
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
