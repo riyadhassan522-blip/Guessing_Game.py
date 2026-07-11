@@ -1,3 +1,4 @@
+# pages/Guessing_Game.py
 import streamlit as st
 import random
 
@@ -48,6 +49,7 @@ def submit_guess(game, guess: int):
             game["message"] = f"Try {hint}. Lives left: {game['lives']}"
 
 def app():
+    # Map difficulty string to range and lives
     diff = st.session_state.get("selected_difficulty", "Novice (1–20, 8 lives)")
     if "Novice" in diff:
         rng, lives = (1, 20), 8
@@ -82,4 +84,20 @@ def app():
         if submit:
             submit_guess(game, int(guess))
 
-    if game["message
+    # ✅ Corrected block — no unterminated string
+    if game["message"]:
+        st.info(game["message"])
+
+    st.markdown("---")
+    st.sidebar.markdown("### DASHBOARD STATS (Guessing)")
+    stats = game["stats"]
+    st.sidebar.write(f"Played Matches: {stats['played']}")
+    st.sidebar.write(f"Total Guesses: {stats['total_guesses']}")
+    st.sidebar.write(f"Wins Recorded: {stats['wins']}")
+    st.sidebar.write(f"Crash Losses: {stats['losses']}")
+
+    if st.sidebar.button("🎮 DEPLOY CORE MATCH (RESTART)"):
+        reset_round(game)
+        st.success("Core match deployed. New target generated.")
+
+    st.markdown("</div>", unsafe_allow_html=True)
