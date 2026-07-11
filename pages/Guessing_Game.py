@@ -1,4 +1,3 @@
-# pages/Guessing_Game.py
 import streamlit as st
 import random
 
@@ -8,10 +7,8 @@ def _init_state(range_vals, default_lives):
     if "games" not in st.session_state:
         st.session_state.games = {}
     game = st.session_state.games.setdefault("guessing", {})
-    # store canonical range and default lives for the selected difficulty
     game["range"] = list(range_vals)
     game["default_lives"] = int(default_lives)
-    # initialize runtime values only if missing
     game.setdefault("target", random.randint(*range_vals))
     game.setdefault("lives", int(default_lives))
     game.setdefault("stats", {"played": 0, "wins": 0, "losses": 0, "total_guesses": 0})
@@ -33,9 +30,7 @@ def submit_guess(game, guess: int):
         game["stats"]["wins"] += 1
         game["stats"]["played"] += 1
         gs = st.session_state.get("global_stats", {"played":0,"wins":0,"losses":0,"total_guesses":0})
-        gs["played"] += 1
-        gs["wins"] += 1
-        gs["total_guesses"] += 1
+        gs["played"] += 1; gs["wins"] += 1; gs["total_guesses"] += 1
         st.session_state["global_stats"] = gs
         reset_round(game)
     else:
@@ -45,8 +40,7 @@ def submit_guess(game, guess: int):
             game["stats"]["losses"] += 1
             game["stats"]["played"] += 1
             gs = st.session_state.get("global_stats", {"played":0,"wins":0,"losses":0,"total_guesses":0})
-            gs["played"] += 1
-            gs["losses"] += 1
+            gs["played"] += 1; gs["losses"] += 1
             st.session_state["global_stats"] = gs
             reset_round(game)
         else:
@@ -54,7 +48,6 @@ def submit_guess(game, guess: int):
             game["message"] = f"Try {hint}. Lives left: {game['lives']}"
 
 def app():
-    # Map difficulty string to range and lives
     diff = st.session_state.get("selected_difficulty", "Novice (1–20, 8 lives)")
     if "Novice" in diff:
         rng, lives = (1, 20), 8
@@ -67,14 +60,7 @@ def app():
     else:  # Expert
         rng, lives = (1, 500), 3
 
-    # initialize or update game state for the selected difficulty
     game = _init_state(rng, lives)
-
-    # If difficulty changed since last run, reset the round to apply new defaults
-    if game.get("range") != list(rng) or game.get("default_lives") != int(lives):
-        game["range"] = list(rng)
-        game["default_lives"] = int(lives)
-        reset_round(game)
 
     st.markdown("<div class='frosted'>", unsafe_allow_html=True)
     st.header("🎯 RADAR SCANNER")
@@ -96,19 +82,4 @@ def app():
         if submit:
             submit_guess(game, int(guess))
 
-    if game["message"]:
-        st.info(game["message"])
-
-    st.markdown("---")
-    st.sidebar.markdown("### DASHBOARD STATS (Guessing)")
-    stats = game["stats"]
-    st.sidebar.write(f"Played Matches: {stats['played']}")
-    st.sidebar.write(f"Total Guesses: {stats['total_guesses']}")
-    st.sidebar.write(f"Wins Recorded: {stats['wins']}")
-    st.sidebar.write(f"Crash Losses: {stats['losses']}")
-
-    if st.sidebar.button("🎮 DEPLOY CORE MATCH (RESTART)"):
-        reset_round(game)
-        st.success("Core match deployed. New target generated.")
-
-    st.markdown("</div>", unsafe_allow_html=True)
+    if game["message
