@@ -68,7 +68,7 @@ css_style = f"""
     border-right: 3px solid #ff66aa !important;
 }}
 
-/* FIX FOR STARK WHITE SIDEBAR DROPDOWN BOXES */
+/* FIX FOR SIDEBAR DROPDOWN BOXES */
 div[data-baseweb="select"] > div, 
 div[data-baseweb="select"] ul {{
     background-color: rgba(37, 22, 31, 0.85) !important; 
@@ -76,7 +76,7 @@ div[data-baseweb="select"] ul {{
     color: #ffffff !important; 
 }}
 
-/* Force selection dropdown options text to match the dark color scheme */
+/* Force selection dropdown options text to match the dark scheme */
 div[data-baseweb="popover"] div, 
 li[role="option"] {{
     background-color: #25161f !important;
@@ -130,36 +130,25 @@ div[data-testid='stMetricValue'] {{
     font-size: 1.8rem !important;
 }}
 
-/* 🌸 STYLING ONLY THE INPUT TEXT FIELD INSIDE THE SCANNER ROW 🌸 */
-.stNumberInput input {{
+/* 🌸 BULLETPROOF TEXT RADAR UNIFICATION: Wipes out buttons, hints, and misalignments 🌸 */
+div[data-testid="stTextInput"] [data-baseweb="input"] {{
     background-color: rgba(37, 22, 31, 0.90) !important; 
-    color: #ff66aa !important; 
-    font-family: monospace !important;
-    font-weight: bold !important;
-}}
-
-/* Targets the complete outer base row wrapper box natively */
-div[data-testid="stNumberInput"] div[role="data-baseweb"] {{
-    background-color: rgba(37, 22, 31, 0.90) !important;
-    border: 2px solid rgba(255, 102, 170, 0.5) !important;
+    border: 2px solid rgba(255, 102, 170, 0.5) !important; 
     border-radius: 8px !important;
+    color: #ff66aa !important;
 }}
 
-/* Unifies the increment and decrement buttons cleanly into the dark console style */
-div[data-testid="stNumberInput"] button {{
+div[data-testid="stTextInput"] input {{
     background-color: transparent !important;
     color: #ff66aa !important;
-    border: none !important;
+    font-family: monospace !important;
+    font-weight: bold !important;
+    font-size: 1.1rem !important;
 }}
 
-/* Ensure text stays bright pink while typing inside the scanner field */
-.stNumberInput input:focus {{
-    color: #ff66aa !important;
-}}
-
-/* Style the placeholder text safely */
-input[type="number"]::placeholder {{
-    color: rgba(255, 255, 255, 0.3) !important;
+/* Hide standard small form instructions from creating text pollution */
+div[data-testid="stTextInput"] div div div {{
+    color: rgba(255,255,255,0.4) !important;
 }}
 </style>
 """
