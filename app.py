@@ -17,7 +17,7 @@ def get_base64_image(image_path):
 
 bg_base64 = get_base64_image("themes/bg.jpg")
 
-# Rebuilt Frosted Glass Layout with Absolute Text Killer Injection Rules
+# Rebuilt Frosted Glass Theme Engine
 css_style = f"""
 <style>
 .stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
@@ -49,6 +49,7 @@ html, body, p, span, label, div, h1, h2, h3, a {{
     font-size: 1.05rem !important;
 }}
 
+/* 🌸 TOP-PADDING MARGIN FIX: Prevents your header panels from ever cutting off at the top border */
 .main .block-container {{
     padding-top: 100px !important;
 }}
@@ -63,13 +64,13 @@ html, body, p, span, label, div, h1, h2, h3, a {{
     padding: 35px !important;
 }}
 
-/* 🚨 UNBEATABLE OVERRIDE: Hard-erases the broken text name from all header slots natively */
+/* 🚨 TEXT ARTIFACT DETONATOR: Erases 'keyboard_double' from all main layout header nodes */
 [data-testid="collapsedControl"], 
-[data-testid="stHeader"] button, 
-[data-testid="stHeader"] span, 
-[data-testid="stHeader"] div, 
-.stAppHeader div, 
-.stAppHeader span {{
+[data-testid="stHeader"], 
+.stAppHeader, 
+[class*="Header"], 
+div[class*="collapsedControl"],
+section[data-testid="stSidebar"] > div:first-child > div:first-child {{
     font-size: 0px !important;
     color: transparent !important;
     line-height: 0 !important;
@@ -83,7 +84,8 @@ html, body, p, span, label, div, h1, h2, h3, a {{
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
-st.markdown(
+# Central Dashboard Title Card
+banner_html = (
     "<div style='background-color: rgba(45, 20, 32, 0.45); backdrop-filter: blur(12px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>\n"
     "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>\n"
     "        🌸 LORD'S ARCADE REALM 🌸\n"
@@ -91,11 +93,11 @@ st.markdown(
     "    <p style='color: #ffffff; margin: 8px 0 0 0; font-size: 1rem; font-family: \"Courier New\", monospace; font-weight: bold; letter-spacing: 1px;'>\n"
     "        [ SYSTEM CORE MODULES // ENGINEERED BY: LORDDARKNESS393 ]\n"
     "    </p>\n"
-    "</div>",
-    unsafe_allow_html=True
+    "</div>"
 )
+st.markdown(banner_html, unsafe_allow_html=True)
 
-st.markdown("### 🕹️ LOBBY CENTRAL CORE")
+st.markdown("### 🕹️ LOBBY CENTRAL HUB ONLINE")
 st.markdown("---")
 st.markdown("Your custom cross-platform retro gaming dashboard database has been successfully updated and re-aligned.")
 st.info("💡 TRANSMISSION PANEL: Pop open your left-side matrix link drawer options to deploy your game channels natively!")
