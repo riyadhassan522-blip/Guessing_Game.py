@@ -7,7 +7,6 @@ from typing import Callable, Dict
 
 st.set_page_config(page_title="Lord's Arcade Realm", page_icon="🌸", layout="centered")
 
-# --- helpers ---------------------------------------------------------------
 def get_base64_image(path: str):
     try:
         with open(path, "rb") as f:
@@ -33,24 +32,21 @@ def discover_pages(package_name: str = "pages") -> Dict[str, Callable]:
             continue
     return pages
 
-# --- styling (frosted glass) ----------------------------------------------
+# Styling and frosted glass background
 bg_b64 = get_base64_image("themes/bg.jpg")
 bg_css = (
     f"background-image: linear-gradient(rgba(26,12,18,0.45), rgba(26,12,18,0.65)), url('data:image/jpeg;base64,{bg_b64}');"
-    if bg_b64 else "background-color: #1a0c12;"
+    if bg_b64 else "background-color: #110b11;"
 )
 
 st.markdown(
     f"""
     <style>
-    /* app background */
     [data-testid='stAppViewContainer'] {{
         {bg_css}
         background-size: cover !important;
         background-position: center center !important;
     }}
-
-    /* frosted glass containers */
     .frosted {{
         background: rgba(30,15,23,0.28);
         backdrop-filter: blur(12px);
@@ -58,27 +54,22 @@ st.markdown(
         border-radius: 14px;
         padding: 18px;
     }}
-
-    /* sidebar texture */
     [data-testid='stSidebar'] {{
         background: linear-gradient(rgba(20,10,15,0.35), rgba(20,10,15,0.25));
         backdrop-filter: blur(14px);
         border-right: 3px solid #ff66aa !important;
     }}
-
     h1,h2,h3,p,label,.stMarkdown,.stMetric,input,button {{
         font-family: 'Courier New', monospace !important;
         font-weight: 700 !important;
         color: #ffffff !important;
     }}
-
     .main .block-container {{ padding-top: 48px !important; }}
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-# --- header and sidebar ----------------------------------------------------
 st.markdown(
     """
     <div class="frosted" style="text-align:center; margin-bottom:18px;">
@@ -95,29 +86,25 @@ with st.sidebar:
     st.markdown("● **ENGINES:** `01 MODULE` 💾")
     st.markdown("---")
 
-# --- page discovery and navigation ----------------------------------------
 pages = discover_pages("pages")
 nav_options = ["🌸 MAIN LOBBY"] + sorted(pages.keys())
 choice = st.sidebar.radio("Navigate", nav_options)
 
-# --- main lobby ------------------------------------------------------------
 if choice == "🌸 MAIN LOBBY":
     st.markdown("<div class='frosted'>", unsafe_allow_html=True)
     st.markdown("### 🕹️ LOBBY TERMINAL HUB ONLINE")
     st.markdown("---")
     st.markdown("Your retro gaming console framework has been successfully updated and re-aligned to full cross-platform glass dictionary specs.")
     st.info("💡 TRANSMISSION PANEL: Use the left-side drawer to deploy your game channels.")
-    stats = st.session_state.get("global_stats", {"played": 0, "wins": 0, "losses": 0, "total_guesses": 0})
+    global_stats = st.session_state.get("global_stats", {"played": 0, "wins": 0, "losses": 0, "total_guesses": 0})
     cols = st.columns(4)
-    cols[0].metric("Played", stats["played"])
-    cols[1].metric("Wins", stats["wins"])
-    cols[2].metric("Losses", stats["losses"])
-    cols[3].metric("Guesses", stats["total_guesses"])
+    cols[0].metric("Played", global_stats["played"])
+    cols[1].metric("Wins", global_stats["wins"])
+    cols[2].metric("Losses", global_stats["losses"])
+    cols[3].metric("Guesses", global_stats["total_guesses"])
     st.markdown("---")
     st.markdown("<div style='text-align:center; color:#ff66aa; font-weight:900;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</div>", unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
-
-# --- run selected page ----------------------------------------------------
 else:
     page_fn = pages.get(choice)
     if page_fn:
