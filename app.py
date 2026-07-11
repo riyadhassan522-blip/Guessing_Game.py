@@ -1,11 +1,9 @@
-# app.py
 import streamlit as st
 import base64
 import importlib
 
 st.set_page_config(page_title="Lord's Arcade Realm", page_icon="🌸", layout="centered")
 
-# --- helpers ---------------------------------------------------------------
 def get_base64_image(path: str):
     try:
         with open(path, "rb") as f:
@@ -13,7 +11,6 @@ def get_base64_image(path: str):
     except Exception:
         return None
 
-# --- styling ---------------------------------------------------------------
 bg_b64 = get_base64_image("themes/bg.jpg")
 bg_css = (
     f"background-image: linear-gradient(rgba(26,12,18,0.45), rgba(26,12,18,0.65)), url('data:image/jpeg;base64,{bg_b64}');"
@@ -51,9 +48,58 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# --- header ---------------------------------------------------------------
 st.markdown(
     """
     <div class="frosted" style="text-align:center; margin-bottom:18px;">
       <h1 style="color:#ff66aa; margin:0;">🌸 LORD'S ARCADE REALM 🌸</h1>
-      <p style="margin:6px 0 0 0; color:#fff;">
+      <p style="margin:6px 0 0 0; color:#fff;">[ SYSTEM CORE MODULES // CHIEF ENGINEER: LORDDARKNESS393 ]</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+with st.sidebar:
+    st.markdown("### 🖥️ SYSTEM SETTINGS")
+    difficulty = st.selectbox(
+        "Select Difficulty",
+        [
+            "Novice (1–20, 8 lives)",
+            "Easy (1–50, 6 lives)",
+            "Normal (1–100, 5 lives)",
+            "Hard (1–200, 4 lives)",
+            "Expert (1–500, 3 lives)"
+        ]
+    )
+    deploy = st.button("🎮 DEPLOY CORE MATCH")
+    st.markdown("---")
+    st.markdown("### DASHBOARD STATS")
+    gs = st.session_state.get("global_stats", {"played": 0, "wins": 0, "losses": 0, "total_guesses": 0})
+    st.write(f"PLAYED MATCH… {gs['played']}")
+    st.write(f"TOTAL GUESSES… {gs['total_guesses']}")
+    st.write(f"WINS RECORDED… {gs['wins']}")
+    st.write(f"CRASH LOSSES… {gs['losses']}")
+
+if "deployed_guessing" not in st.session_state:
+    st.session_state.deployed_guessing = False
+
+if deploy:
+    st.session_state.selected_difficulty = difficulty
+    st.session_state.deployed_guessing = True
+
+if not st.session_state.deployed_guessing:
+    st.markdown("<div class='frosted'>", unsafe_allow_html=True)
+    st.subheader("STATUS // PLATFORM IDLE")
+    st.write("Initialize the left matrix panel to deploy your first gameplay module round!")
+    st.markdown("---")
+    st.markdown("<div style='text-align:center; color:#ff66aa; font-weight:900;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+else:
+    try:
+        mod = importlib.import_module("pages.Guessing_Game")
+        if hasattr(mod, "app"):
+            mod.app()
+        else:
+            st.error("Guessing game module found but no app() function defined.")
+    except Exception as e:
+        st.error("Failed to load the guessing game. Check pages/Guessing_Game.py for errors.")
+        st.exception(e)
