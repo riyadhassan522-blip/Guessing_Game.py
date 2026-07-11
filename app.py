@@ -34,29 +34,31 @@ def get_base64_image(image_path):
 bg_base64 = get_base64_image("themes/bg.jpg")
 
 # =========================================================================
-# 3D CEL-SHADED GAMING ENGINE (Safe Text-Split CSS Engine)
+# HARD FULL-SCREEN OVERWRITE ENGINE (Bypasses Web Platform UI Limits)
 # =========================================================================
-# Safe raw string animation style (No f-string conflict)
-st.markdown("""
-<style>
-@keyframes entryPop {
-    0% { transform: scale(0.96); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-</style>
-""", unsafe_allow_html=True)
-
-# F-String layer for injecting the base64 background data safely
 css_style = f"""
 <style>
-/* Forces your local background image to stretch beautifully across the screen */
-.stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
-    background-image: linear-gradient(rgba(26, 12, 18, 0.45), rgba(26, 12, 18, 0.65)), 
+/* 🚨 FORCE FULL-SCREEN WALLPAPER OVER EVERY WEB ELEMENT */
+.stApp, [data-testid='stAppViewContainer'], [data-testid='stHeader'], .stAppHeader {{
+    background-image: linear-gradient(rgba(26, 12, 18, 0.50), rgba(26, 12, 18, 0.70)), 
                 url("data:image/jpeg;base64,{bg_base64}") !important;
     background-size: cover !important;
     background-position: center center !important;
     background-attachment: fixed !important;
-    animation: entryPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+    background-color: transparent !important;
+}}
+
+/* 💥 DESTROY STREAMLIT'S TOP WHITE NAVIGATION BAR AND TOOLBARS COMPLETELY */
+[data-testid="stHeader"], .stAppHeader, [data-testid="stToolbar"], [data-testid="stDecoration"] {{
+    display: none !important;
+    visibility: hidden !important;
+    height: 0px !important;
+    opacity: 0 !important;
+}}
+
+/* REMOVE DEFAULT TOP SCREEN MARGIN PADDING */
+.main .block-container {{
+    padding-top: 30px !important;
 }}
 
 /* THE ULTRA-CLEAR FROSTED GLASS SIDEBAR EFFECT */
@@ -94,12 +96,12 @@ div.stButton > button:first-child:hover {{
 
 /* Floating UI Panel Containers - Stripped to Pure Transparency */
 div[data-testid='stForm'], .stMainBlockContainer {{
-    background: transparent !important;                 /* Removes solid box panels entirely */
+    background: transparent !important;                 
     background-color: transparent !important;
-    backdrop-filter: none !important;                   /* Disables double blur conflict */
+    backdrop-filter: none !important;                   
     -webkit-backdrop-filter: none !important;
-    border: none !important;                            /* Wipes out solid black borders */
-    box-shadow: none !important;                        /* Removes flat drop shadows */
+    border: none !important;                            
+    box-shadow: none !important;                        
     padding: 25px !important;
     max-width: 100% !important;
 }}
