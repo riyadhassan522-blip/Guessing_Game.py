@@ -9,7 +9,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Initialize Isolated Tic-Tac-Toe Score Tracking Counters inside persistent memory arrays
+# Initialize Persistent State Arrays
 if "ttt_played" not in st.session_state: st.session_state.ttt_played = 0
 if "ttt_wins" not in st.session_state: st.session_state.ttt_wins = 0
 if "ttt_losses" not in st.session_state: st.session_state.ttt_losses = 0
@@ -24,37 +24,72 @@ def get_base64_image(image_path):
 
 bg_base64 = get_base64_image("themes/bg.jpg")
 
+# =========================================================================
+# COMPACT RESPOSIVE GLASS INTERFACE THEME MATRIX ENGINE
+# =========================================================================
 css_style = f"""
 <style>
 .stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
     background-image: linear-gradient(rgba(26, 12, 18, 0.45), rgba(26, 12, 18, 0.65)), url("data:image/jpeg;base64,{bg_base64}") !important;
     background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
 }}
-html, body, p, span, label, div, h1, h2, h3, button {{ font-family: 'Courier New', Courier, monospace !important; font-weight: bold !important; }}
+html, body, p, span, label, div, h1, h2, h3 {{ font-family: 'Courier New', Courier, monospace !important; font-weight: bold !important; }}
 [data-testid='stSidebar'], [data-testid='stSidebarUserContent'] {{ background-color: rgba(30, 15, 23, 0.25) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important; }}
 [data-testid="stSidebarNav"] ul {{ background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 1px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; }}
 [data-testid="stSidebarNav"] span {{ color: #ffffff !important; }}
 
-.main .block-container {{ padding-top: 110px !important; }}
+.main .block-container {{ padding-top: 130px !important; }}
 div[data-testid='stForm'], .stMainBlockContainer {{ background: transparent !important; padding: 25px !important; max-width: 100% !important; }}
 
-/* 🎯 PREMIUM GLASS INTERACTIVE MATRIX SQUARES */
-div.stButton > button:first-child {{
-    background-color: rgba(37, 22, 31, 0.45) !important; backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important;
-    color: #ff66aa !important; border: 2px solid rgba(255, 102, 170, 0.4) !important; font-size: 2.1rem !important; font-weight: 900 !important;
-    height: 85px !important; border-radius: 12px !important; box-shadow: 0px 4px 20px rgba(255, 102, 170, 0.1) !important;
-    transition: all 0.2s ease-in-out !important; width: 100% !important; margin-bottom: 15px !important;
+/* 🌸 THE HIGH-DENSITY 3x3 GEOMETRIC GLASS ARENA LAYOUT GRID */
+.ttt-container {{
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
 }}
-div.stButton > button:first-child:hover {{
-    background-color: rgba(255, 102, 170, 0.15) !important; border-color: #ff66aa !important; box-shadow: 0px 0px 15px rgba(255, 102, 170, 0.35) !important; transform: scale(1.02) !important;
+.ttt-table {{
+    border-collapse: collapse;
+    border: 3px solid rgba(255, 102, 170, 0.6) !important;
+    border-radius: 12px !important;
+    overflow: hidden;
 }}
-div.stButton > button[type="primary"] {{
-    background: #ff66aa !important; color: #1a0c12 !important; border: none !important; font-size: 1.1rem !important; height: 45px !important; box-shadow: none !important; border-radius: 8px !important;
+.ttt-cell {{
+    width: 65px !important;  /* Shrunk grid dimensions significantly for high-density mobile safety */
+    height: 65px !important;
+    text-align: center;
+    border: 2px solid rgba(255, 102, 170, 0.3) !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }}
-div[data-testid='stMetricValue'] {{ font-weight: 900 !important; color: #ff66aa !important; text-shadow: 2px 2px 0px #1a0c12 !important; font-size: 1.6rem !important; }}
+.ttt-btn {{
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(37, 22, 31, 0.45) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    color: #ff66aa !important;
+    border: none !important;
+    font-size: 1.6rem !important;
+    font-weight: 900 !important;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}}
+.ttt-btn:hover:not(:disabled) {{
+    background-color: rgba(255, 102, 170, 0.15) !important;
+}}
+.ttt-btn:disabled {{
+    cursor: not-allowed;
+}}
 
-div.stAppViewContainer > div:first-child, [data-testid="collapsedControl"], [data-testid="stHeader"], .stAppHeader {{
-    display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0px !important; width: 0px !important;
+/* System utility button override rules (Re-Initialize button style) */
+div.stButton > button[type="primary"] {{
+    background: #ff66aa !important; color: #1a0c12 !important; border: none !important; font-size: 1.1rem !important; height: 45px !important; border-radius: 8px !important;
+}}
+div[data-testid='stMetricValue'] {{ font-weight: 900 !important; color: #ff66aa !important; text-shadow: 2px 2px 0px #1a0c12 !important; font-size: 1.5rem !important; }}
+
+/* 🚨 UNBEATABLE OVERRIDE: Global plain-text string artifact cleanup loop */
+div.stAppViewContainer > div:first-child, [data-testid="collapsedControl"], [data-testid="stHeader"], .stAppHeader, span[class*="icon"] {{
+    display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0px !important; width: 0px !important; line-height: 0 !important; font-size: 0px !important; color: transparent !important;
 }}
 </style>
 """
@@ -62,7 +97,7 @@ st.markdown(css_style, unsafe_allow_html=True)
 
 st.markdown("<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'><h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.1rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>❌ NEURAL MATRIX GRID ⭕</h1></div>", unsafe_allow_html=True)
 # =========================================================================
-# SYSTEM GRID COORDINATE DICTIONARY MAPS
+# COMPILER-SAFE VECTOR PATHWAYS: NO TRAILING COMMAS ALLOWED
 # =========================================================================
 v1 = [0, 1, 2]
 v2 = [3, 4, 5]
@@ -105,18 +140,30 @@ def calculate_bot_vector(b):
     open_nodes = [i for i, cell in enumerate(b) if cell == " "]
     return random.choice(open_nodes) if open_nodes else None
 
+# Process cell selection payloads safely before rendering to avoid lag sync issues
+for r in range(3):
+    for c in range(3):
+        key = f"ttt_hit_{r}_{c}"
+        if key in st.context.query_params:
+            idx = r * 3 + c
+            if st.session_state.ttt_board[idx] == " ":
+                st.session_state.ttt_board[idx] = "X"
+                # Check for win immediately before letting the AI execute its turn
+                current_status = evaluate_game_state(st.session_state.ttt_board)
+                if not current_status:
+                    bot_move = calculate_bot_vector(st.session_state.ttt_board)
+                    if bot_move is not None:
+                        st.session_state.ttt_board[bot_move] = "O"
+
 board = st.session_state.ttt_board
 current_match_status = evaluate_game_state(board)
 
 # Live Score Tracking Automation Logic Core
 if current_match_status and not st.session_state.ttt_score_locked:
     st.session_state.ttt_played += 1
-    if current_match_status == "X":
-        st.session_state.ttt_wins += 1
-    elif current_match_status == "O":
-        st.session_state.ttt_losses += 1
-    elif current_match_status == "TIE":
-        st.session_state.ttt_ties += 1
+    if current_match_status == "X": st.session_state.ttt_wins += 1
+    elif current_match_status == "O": st.session_state.ttt_losses += 1
+    elif current_match_status == "TIE": st.session_state.ttt_ties += 1
     st.session_state.ttt_score_locked = True
 
 # 📊 THE REAL-TIME PERSISTENT SIDEBAR SCOREBOARD
@@ -143,33 +190,36 @@ else:
 st.markdown(" ")
 
 # =========================================================================
-# SYSTEM GRID ARENA RENDERING LOOP
+# HIGH-DENSITY NATIVE 3x3 HTML GRID TABLE RENDERING ENGINE
 # =========================================================================
-for row_idx in range(3):
-    grid_cols = st.columns(3)
-    for col_idx in range(3):
-        idx = row_idx * 3 + col_idx
-        with grid_cols[col_idx]:
-            cell_value = board[idx]
-            display_char = cell_value if cell_value != " " else " "
-            is_inactive = current_match_status is not None or cell_value != " "
-            
-            if st.button(display_char, key=f"cell_{idx}", use_container_width=True, disabled=is_inactive):
-                board[idx] = "X"
-                current_match_status = evaluate_game_state(board)
-                
-                # Run bot logic instantly if match is ongoing without forcing hard reboots
-                if not current_match_status:
-                    bot_move_idx = calculate_bot_vector(board)
-                    if bot_move_idx is not None:
-                        board[bot_move_idx] = "O"
-                st.rerun()
+# Build a hard-locked, high-contrast, compact grid completely immune to layout distortion
+table_html = "<div class='ttt-container'><table class='ttt-table'>"
+for r in range(3):
+    table_html += "<tr>"
+    for c in range(3):
+        idx = r * 3 + c
+        cell_val = board[idx]
+        
+        # Lock buttons if matching phase finishes or cell is full
+        disabled_attr = "disabled" if (current_match_status is not None or cell_val != " ") else ""
+        
+        table_html += f"""<td class='ttt-cell'>
+            <button class='ttt-btn' {disabled_attr} onclick="const url=new URL(window.location); url.searchParams.set('ttt_hit_{r}_{c}', '1'); window.history.replaceState({{}}, '', url); location.reload();">
+                {cell_val}
+            </button>
+        </td>"""
+    table_html += "</tr>"
+table_html += "</table></div>"
+
+st.markdown(table_html, unsafe_allow_html=True)
 
 st.markdown(" ")
 
 if st.button("🔄 RE-INITIALIZE GAME FIELD MATRIX", use_container_width=True, type="primary"):
     st.session_state.ttt_board = [" " for _ in range(9)]
     st.session_state.ttt_score_locked = False
+    # Clear active move parameters safely upon re-initialization
+    st.context.query_params.clear()
     st.rerun()
 
 # Studio Production Insignia Card Anchor
