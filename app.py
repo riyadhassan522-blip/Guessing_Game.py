@@ -130,24 +130,27 @@ div[data-testid='stMetricValue'] {{
     font-size: 1.8rem !important;
 }}
 
-/* 🌸 MAINFRAME INPUT SCANNER OVERRIDE: Wipes out the invisible text and the right-side white block */
-input[type="number"], 
-[data-baseweb="input"] > div, 
-.stNumberInput input,
-div[data-testid="stNumberInput"] div {{
+/* 🌸 MAINFRAME INPUT SCANNER OVERRIDE: Restores perfect alignment and functionality */
+.stNumberInput input {{
     background-color: rgba(37, 22, 31, 0.90) !important; /* Premium dark plum background */
     color: #ff66aa !important; /* High-contrast glowing pink text for your numbers */
-    border: 2px solid rgba(255, 102, 170, 0.5) !important; /* Matching neon pink border line */
-    border-radius: 8px !important;
     font-family: monospace !important;
     font-weight: bold !important;
 }}
 
-/* 🎯 TARGETS AND ERASES THE RIGHT-SIDE INCREMENT BUTTON BACKGROUND */
+/* Targets the complete base row outer wrapper containing input field and buttons */
+div[data-testid="stNumberInput"] div[role="data-baseweb"] {{
+    background-color: rgba(37, 22, 31, 0.90) !important;
+    border: 2px solid rgba(255, 102, 170, 0.5) !important;
+    border-radius: 8px !important;
+}}
+
+/* Unifies the increment and decrement buttons cleanly into the dark console style */
 div[data-testid="stNumberInput"] button {{
     background-color: transparent !important;
     color: #ff66aa !important;
     border: none !important;
+    cursor: pointer !important;
 }}
 
 /* Ensure text stays bright pink while typing inside the scanner field */
