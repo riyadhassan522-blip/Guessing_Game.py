@@ -1,6 +1,7 @@
 import streamlit as st
 import base64
 
+# 1. APPLICATION ENVIRONMENT FRAMEWORK
 st.set_page_config(
     page_title="Lord's Arcade Realm", 
     page_icon="🌸", 
@@ -16,6 +17,7 @@ def get_base64_image(image_path):
 
 bg_base64 = get_base64_image("themes/bg.jpg")
 
+# Rebuilt Frosted Glass Interface Engine - Safe Font Targets
 css_style = f"""
 <style>
 .stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
@@ -23,34 +25,58 @@ css_style = f"""
                 url("data:image/jpeg;base64,{bg_base64}") !important;
     background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
 }}
-html, body, p, span, label, div, h1, h2, h3, a {{ font-family: 'Courier New', Courier, monospace !important; font-weight: bold !important; }}
+
+/* SAFE TYPOGRAPHY: Targets only textual elements so icon fonts never break */
+h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stMetric, input, button, span:not([class*="Icon"]) {{
+    font-family: 'Courier New', Courier, monospace !important;
+    font-weight: bold !important;
+}}
+
+/* THE GLASS SIDEBAR NAVIGATION DRAWERS */
 [data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
-    background-color: rgba(30, 15, 23, 0.20) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important;
+    background-color: rgba(30, 15, 23, 0.20) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-right: 3px solid #ff66aa !important;
+    display: block !important;
+    visibility: visible !important;
+}}
+[data-testid="stSidebarNav"] {{
+    display: block !important;
+    visibility: visible !important;
 }}
 [data-testid="stSidebarNav"] ul {{
-    background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 1px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; margin-top: 15px !important;
+    background-color: rgba(37, 22, 31, 0.70) !important;
+    border-radius: 8px !important;
+    border: 2px solid rgba(255, 102, 170, 0.4) !important;
+    padding: 10px !important;
+    margin-top: 15px !important;
 }}
-[data-testid="stSidebarNav"] span {{ color: #ffffff !important; font-size: 1.05rem !important; }}
+[data-testid="stSidebarNav"] span {{
+    color: #ffffff !important;
+    font-size: 1.05rem !important;
+}}
 
-.main .block-container {{ padding-top: 140px !important; }}
-
-/* 🌸 ELIMINATES THE CUTOFF: Premium rounded glass layout box */
+/* CAPSULE CONTAINER: Centers layout and shapes both top corners perfectly */
+.main .block-container {{
+    padding-top: 140px !important;
+}}
 .stMainBlockContainer {{
-    background-color: rgba(37, 22, 31, 0.45) !important; backdrop-filter: blur(16px) !important;
-    border: 2px solid rgba(255, 102, 170, 0.4) !important; 
-    border-radius: 24px !important; /* Perfect uniform capsule rounded borders */
-    box-shadow: 0px 8px 32px rgba(255, 102, 170, 0.15) !important; padding: 35px !important;
+    background-color: rgba(37, 22, 31, 0.45) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 2px solid rgba(255, 102, 170, 0.4) !important;
+    border-radius: 24px !important;
+    box-shadow: 0px 8px 32px rgba(255, 102, 170, 0.15) !important;
+    padding: 35px !important;
 }}
 
-/* 🚨 THE ULTIMATE GHOST TEXT ERASER: Targets all text containers globally */
-span, div, button, p, header, [data-testid="collapsedControl"], .stAppViewContainer > div:first-child {{
-    animation: none !important;
-}}
-span:contains("keyboard"), div:contains("keyboard"), p:contains("keyboard") {{
-    display: none !important; font-size: 0px !important; color: transparent !important; height: 0px !important; opacity: 0 !important;
-}}
-[data-testid="collapsedControl"], [data-testid="stHeader"], .stAppHeader {{
-    display: none !important; height: 0px !important; opacity: 0 !important;
+/* 🚨 TARGETED TEXT DESTRUCTOR: Erases only the header button space, saving the sidebar */
+[data-testid="stHeader"], .stAppHeader, [data-testid="collapsedControl"] {{
+    display: none !important;
+    visibility: hidden !important;
+    height: 0px !important;
+    opacity: 0 !important;
 }}
 </style>
 """
