@@ -4,29 +4,22 @@ import random
 
 PAGE_TITLE = "🎯 RADAR SCANNER"
 
-LIVES_DEFAULT = 8
-RANGE_DEFAULT = (1, 20)
-
-def _init_state():
+def _init_state(range_vals, lives):
     if "games" not in st.session_state:
         st.session_state.games = {}
     game = st.session_state.games.setdefault("guessing", {})
-    game.setdefault("target", random.randint(*RANGE_DEFAULT))
-    game.setdefault("lives", LIVES_DEFAULT)
-    game.setdefault("range", list(RANGE_DEFAULT))
+    game["range"] = range_vals
+    game["lives"] = lives
+    game.setdefault("target", random.randint(*range_vals))
     game.setdefault("stats", {"played": 0, "wins": 0, "losses": 0, "total_guesses": 0})
     game.setdefault("message", "")
     game.setdefault("last_guess", None)
 
-def _save_game(game):
-    st.session_state.games["guessing"] = game
-
 def reset_round(game):
     game["target"] = random.randint(*game["range"])
-    game["lives"] = LIVES_DEFAULT
+    game["lives"] = game["lives"]  # reset lives to difficulty default
     game["last_guess"] = None
     game["message"] = ""
-    _save_game(game)
 
 def submit_guess(game, guess: int):
     game["last_guess"] = guess
@@ -35,11 +28,8 @@ def submit_guess(game, guess: int):
         game["message"] = f"🎉 Correct! The number was {game['target']}."
         game["stats"]["wins"] += 1
         game["stats"]["played"] += 1
-        # update global scoreboard
         gs = st.session_state.get("global_stats", {"played":0,"wins":0,"losses":0,"total_guesses":0})
-        gs["played"] += 1
-        gs["wins"] += 1
-        gs["total_guesses"] += 1
+        gs["played"] += 1; gs["wins"] += 1; gs["total_guesses"] += 1
         st.session_state["global_stats"] = gs
         reset_round(game)
     else:
@@ -49,35 +39,33 @@ def submit_guess(game, guess: int):
             game["stats"]["losses"] += 1
             game["stats"]["played"] += 1
             gs = st.session_state.get("global_stats", {"played":0,"wins":0,"losses":0,"total_guesses":0})
-            gs["played"] += 1
-            gs["losses"] += 1
+            gs["played"] += 1; gs["losses"] += 1
             st.session_state["global_stats"] = gs
             reset_round(game)
         else:
             hint = "higher" if guess < game["target"] else "lower"
             game["message"] = f"Try {hint}. Lives left: {game['lives']}"
-    _save_game(game)
 
 def app():
-    _init_state()
+    # Map difficulty string to range and lives
+    diff = st.session_state.get("selected_difficulty", "Novice (1–20, 8 lives)")
+    if "Novice" in diff:
+        rng, lives = (1,20), 8
+    elif "Easy" in diff:
+        rng, lives = (1,50), 6
+    elif "Normal" in diff:
+        rng, lives = (1,100), 5
+    elif "Hard" in diff:
+        rng, lives = (1,200), 4
+    else:  # Expert
+        rng, lives = (1,500), 3
+
+    _init_state(rng, lives)
     game = st.session_state.games["guessing"]
 
     st.markdown("<div class='frosted'>", unsafe_allow_html=True)
     st.header("🎯 RADAR SCANNER")
-    st.subheader(f"Core Integrity: {game['lives']} / {LIVES_DEFAULT} Lives Remaining")
-
-    with st.expander("Difficulty"):
-        diff = st.selectbox("Select difficulty", ["Novice", "Normal", "Hard"], index=0, key="guess_diff")
-        if diff == "Novice":
-            game["range"] = [1, 20]
-            game["lives"] = LIVES_DEFAULT
-        elif diff == "Normal":
-            game["range"] = [1, 50]
-            game["lives"] = 6
-        else:
-            game["range"] = [1, 100]
-            game["lives"] = 4
-        _save_game(game)
+    st.subheader(f"Core Integrity: {game['lives']} Lives Remaining")
 
     with st.form("guess_form"):
         col1, col2 = st.columns([3,1])
@@ -99,15 +87,6 @@ def app():
         st.info(game["message"])
 
     st.markdown("---")
-    st.sidebar.header("SYSTEM SETTINGS")
-    if st.sidebar.button("🎮 DEPLOY CORE MATCH (RESTART)"):
-        reset_round(game)
-        st.success("Core match deployed. New target generated.")
-
     st.sidebar.markdown("### DASHBOARD STATS (Guessing)")
     stats = game["stats"]
-    st.sidebar.write(f"Played Matches: {stats['played']}")
-    st.sidebar.write(f"Total Guesses: {stats['total_guesses']}")
-    st.sidebar.write(f"Wins Recorded: {stats['wins']}")
-    st.sidebar.write(f"Crash Losses: {stats['losses']}")
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.sidebar.write(f"Played Matches: {stats
