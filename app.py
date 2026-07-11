@@ -67,10 +67,21 @@ st.markdown(bg_style, unsafe_allow_html=True)
 # =========================================================================
 css_style = """
 <style>
-/* GLOBAL TYPOGRAPHY: Forces an incredibly clean, stylized retro monospace look */
-html, body, [class*="css"], p, span, label {
-    font-family: 'Courier New', Courier, monospace !important;
+/* GLOBAL TYPOGRAPHY OVERRIDE: Swaps out monospace for Times New Roman */
+html, body, [class*="css"], p, span, label, div, h1, h2, h3, h4, h5, h6, input {
+    font-family: 'Times New Roman', Times, serif !important;
     font-weight: bold !important;
+}
+
+/* 🌸 ARTIFACT CLEANUP ENGINE: Erases "keyboard_double_arrow_right" and hidden header text strings */
+[data-testid="collapsedControl"],
+.stApp > header,
+div[style*="font-size: 0px"],
+.main .block-container div:first-child span {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0px !important;
 }
 
 /* THE FROSTED GLASS SIDEBAR EFFECT */
@@ -81,12 +92,11 @@ html, body, [class*="css"], p, span, label {
     border-right: 3px solid #ff66aa !important;
 }
 
-/* 🌸 COMPACT SIDEBAR TEXT: Shrinks letters slightly so they never warp on Android devices */
+/* COMPACT SIDEBAR TEXT FOR MOBILE AND DESKTOP BALANCE */
 [data-testid="stSidebar"] label,
 [data-testid="stSidebar"] p,
 [data-testid="stSidebar"] span {
-    font-size: 0.85rem !important;
-    letter-spacing: -0.5px !important;
+    font-size: 0.9rem !important;
 }
 
 /* FIX FOR SIDEBAR DROPDOWN BOXES */
@@ -116,7 +126,7 @@ div.stButton > button:first-child {
     font-weight: 900 !important;
     font-size: 1.1rem !important;
     text-transform: uppercase !important;
-    letter-spacing: 2px !important;
+    letter-spacing: 1px !important;
     border-radius: 8px !important;
     box-shadow: 0px 6px 0px #992255 !important;
     transition: all 0.1s ease-in-out !important;
@@ -148,10 +158,10 @@ div[data-testid='stMetricValue'] {
     font-weight: 900 !important;
     color: #ff66aa !important;
     text-shadow: 2px 2px 0px #1a0c12 !important;
-    font-size: 1.6rem !important;
+    font-size: 1.8rem !important;
 }
 
-/* 🌸 BULLETPROOF INPUT OVERRIDE: Restores field visibility while obliterating mobile hints 🌸 */
+/* BULLETPROOF INPUT OVERRIDE: Safe Dark Cherry Input Row */
 div[data-testid="stTextInput"] [data-baseweb="input"] {
     background-color: rgba(37, 22, 31, 0.90) !important; 
     border: 2px solid rgba(255, 102, 170, 0.5) !important; 
@@ -161,12 +171,12 @@ div[data-testid="stTextInput"] [data-baseweb="input"] {
 div[data-testid="stTextInput"] input {
     background-color: transparent !important;
     color: #ff66aa !important;
-    font-family: 'Courier New', Courier, monospace !important;
+    font-family: 'Times New Roman', Times, serif !important;
     font-weight: bold !important;
     font-size: 1.1rem !important;
 }
 
-/* 💥 DESTROY NATIVE "PRESS ENTER TO SUBMIT FORM" INSTRUCTION TEXT FIELD FOR MOBILE USERS */
+/* DESTROY NATIVE "PRESS ENTER TO SUBMIT FORM" INSTRUCTION TEXT FIELD FOR MOBILE USERS */
 div[data-testid="stTextInput"] [data-baseweb="input"] + div {
     display: none !important;
     visibility: hidden !important;
@@ -192,16 +202,6 @@ div[data-testid="stTextInput"] [data-baseweb="input"] + div {
         font-size: 1.2rem !important;
     }
 }
-/* 🌸 HIDDEN TEXT FIX: Wipes out the raw text label name for the hidden sidebar arrow button */
-[data-testid="collapsedControl"],
-.stApp > header,
-span:contains("keyboard_double_arrow_right"),
-div[style*="font-size: 0px"] {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    color: transparent !important;
-}
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
@@ -209,10 +209,10 @@ st.markdown(css_style, unsafe_allow_html=True)
 # 2. BRANDING BANNER: HIGH-TECH OVERLAY WITH SEAMLESS BLENDING
 banner_html = (
     "<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>\n"
-    "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>\n"
+    "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Times New Roman\", Times, serif; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>\n"
     "        🌸 LORD'S ARCADE REALM 🌸\n"
     "    </h1>\n"
-    "    <p style='color: #ffffff; margin: 8px 0 0 0; font-size: 1rem; font-family: \"Courier New\", monospace; font-weight: bold; letter-spacing: 1px;'>\n"
+    "    <p style='color: #ffffff; margin: 8px 0 0 0; font-size: 1rem; font-family: \"Times New Roman\", Times, serif; font-weight: bold; letter-spacing: 1px;'>\n"
     "        [ SYSTEM CORE MODULES // ENGINEERED BY: LORDDARKNESS393 ]\n"
     "    </p>\n"
     "</div>"
@@ -264,7 +264,7 @@ with st.sidebar:
         
     st.markdown("---")
     best_display = f"{st.session_state.gg_best_score} attempts" if st.session_state.gg_best_score else "No wins recorded"
-    st.markdown(f"<p style='color: #ff66aa; font-family: monospace; font-size: 0.85rem; font-weight: bold; margin-top: 15px;'>🏆 BEST RECORD: <span style='color: #ffffff;'>{best_display}</span></p>", unsafe_allow_html=True)
+    st.markdown(f"<p style='color: #ff66aa; font-family: \"Times New Roman\", Times, serif; font-size: 0.95rem; font-weight: bold; margin-top: 15px;'>🏆 BEST RECORD: <span style='color: #ffffff;'>{best_display}</span></p>", unsafe_allow_html=True)
 
 # 4. INTERFACE PROCESSOR ROUTINE
 if st.session_state.gg_active:
@@ -343,6 +343,6 @@ else:
         st.markdown(idle_html, unsafe_allow_html=True)
 
 # 5. STUDIO PRODUCTION INSIGNIA
-footer_html = "<div style='text-align: center; padding: 10px; margin-top: 30px;'><p style='color: #614653; font-family: \"Courier New\", monospace; font-size: 0.85rem; margin: 0; font-weight: bold;'>© 2026 DARKNESS GAMING LABS | ALL RIGHTS RESERVED</p><p style='color: #ff66aa; font-family: \"Courier New\", monospace; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
+footer_html = "<div style='text-align: center; padding: 10px; margin-top: 30px;'><p style='color: #614653; font-family: \"Times New Roman\", Times, serif; font-size: 0.85rem; margin: 0; font-weight: bold;'>© 2026 DARKNESS GAMING LABS | ALL RIGHTS RESERVED</p><p style='color: #ff66aa; font-family: \"Times New Roman\", Times, serif; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
 st.markdown("---")
 st.markdown(footer_html, unsafe_allow_html=True)
