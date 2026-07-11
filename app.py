@@ -1,7 +1,7 @@
 import streamlit as st
 import base64
 
-# 1. APPLICATION ENVIRONMENT FRAMEWORK
+# 1. PLATFORM LOBBY MODULE FRAMEWORK
 st.set_page_config(
     page_title="Lord's Arcade Realm", 
     page_icon="🌸", 
@@ -17,16 +17,21 @@ def get_base64_image(image_path):
 
 bg_base64 = get_base64_image("themes/bg.jpg")
 
-# Rebuilt Frosted Glass Interface Engine - Safe Font Targets
+# =========================================================================
+# THE CEL-SHADED ARCADE THEME ENGINE (Restored and Protected)
+# =========================================================================
 css_style = f"""
 <style>
+/* Full screen canvas wallpaper background */
 .stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
     background-image: linear-gradient(rgba(26, 12, 18, 0.45), rgba(26, 12, 18, 0.65)), 
                 url("data:image/jpeg;base64,{bg_base64}") !important;
-    background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-attachment: fixed !important;
 }}
 
-/* SAFE TYPOGRAPHY: Targets only textual elements so icon fonts never break */
+/* Safe Monospace Typography: Excludes icons completely so text labels never break */
 h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stMetric, input, button, span:not([class*="Icon"]) {{
     font-family: 'Courier New', Courier, monospace !important;
     font-weight: bold !important;
@@ -41,37 +46,31 @@ h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stMetric, input, button, span:no
     display: block !important;
     visibility: visible !important;
 }}
-[data-testid="stSidebarNav"] {{
-    display: block !important;
-    visibility: visible !important;
-}}
+
 [data-testid="stSidebarNav"] ul {{
     background-color: rgba(37, 22, 31, 0.70) !important;
     border-radius: 8px !important;
     border: 2px solid rgba(255, 102, 170, 0.4) !important;
     padding: 10px !important;
-    margin-top: 15px !important;
+    margin-top: 30px !important;
 }}
 [data-testid="stSidebarNav"] span {{
     color: #ffffff !important;
     font-size: 1.05rem !important;
 }}
 
-/* CAPSULE CONTAINER: Centers layout and shapes both top corners perfectly */
-.main .block-container {{
-    padding-top: 140px !important;
-}}
+/* 🌸 THE PERFECT CAPSULE CARD PANEL: Removed the broken padding-top bottleneck */
 .stMainBlockContainer {{
     background-color: rgba(37, 22, 31, 0.45) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
     border: 2px solid rgba(255, 102, 170, 0.4) !important;
-    border-radius: 24px !important;
+    border-radius: 24px !important; /* Locks down the gorgeous rounded corners */
     box-shadow: 0px 8px 32px rgba(255, 102, 170, 0.15) !important;
     padding: 35px !important;
 }}
 
-/* 🚨 TARGETED TEXT DESTRUCTOR: Erases only the header button space, saving the sidebar */
+/* 🚨 SELECTIVE ARTIFACT CLEANER: Disables header toolbar buttons while preserving side layout */
 [data-testid="stHeader"], .stAppHeader, [data-testid="collapsedControl"] {{
     display: none !important;
     visibility: hidden !important;
@@ -82,12 +81,11 @@ h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stMetric, input, button, span:no
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
-with st.sidebar:
-    st.markdown("---")
-    st.markdown("### 🖥️ DIAGNOSTIC CORE")
-    st.markdown("● **STATUS:** `ONLINE` ⚡")
-    st.markdown("● **ENGINES:** `02 TERMINALS` 💾")
-    st.markdown("---")
+# =========================================================================
+# CENTRAL ARCADE LOBBY OVERLAY CARD PANEL
+# =========================================================================
+# Built-in spacing wrapper drops the layout down safely into view
+st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
 
 banner_html = (
     "<div style='background-color: rgba(45, 20, 32, 0.45); backdrop-filter: blur(12px); padding: 25px; border-radius: 16px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>\n"
@@ -101,10 +99,18 @@ banner_html = (
 )
 st.markdown(banner_html, unsafe_allow_html=True)
 
+with st.sidebar:
+    st.markdown("---")
+    st.markdown("### 🖥️ DIAGNOSTIC CORE")
+    st.markdown("● **STATUS:** `ONLINE` ⚡")
+    st.markdown("● **ENGINES:** `02 TERMINALS` 💾")
+    st.markdown("---")
+
 st.markdown("### 🕹️ LOBBY MAIN RECOVERY CORE")
 st.markdown("---")
 st.markdown("Your retro gaming console framework has been successfully updated and re-aligned to full cross-platform glass specs.")
 st.info("💡 TRANSMISSION PANEL: Pop open your left-side matrix link drawer options to deploy your game channels natively!")
 
 footer_html = "<div style='text-align: center; padding: 10px; margin-top: 50px;'><p style='color: #ff66aa; font-family: \"Courier New\", monospace; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
-st.markdown("---"); st.markdown(footer_html, unsafe_allow_html=True)
+st.markdown("---")
+st.markdown(footer_html, unsafe_allow_html=True)
