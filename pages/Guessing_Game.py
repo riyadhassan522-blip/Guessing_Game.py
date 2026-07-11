@@ -51,21 +51,15 @@ div[data-testid="stTextInput"] input {{ background-color: transparent !important
 div[data-testid="stTextInput"] [data-baseweb="input"] + div {{ display: none !important; }}
 div[data-testid='stMetricValue'] {{ font-weight: 900 !important; color: #ff66aa !important; text-shadow: 2px 2px 0px #1a0c12 !important; font-size: 1.6rem !important; }}
 
-/* 🚨 BLANKET TEXT DESTROYER OVERRIDE: Targets the top header elements directly to ensure total cleanup */
-[data-testid="collapsedControl"], 
-[data-testid="stHeader"], 
-.stAppHeader, 
-[class*="Header"], 
-div[class*="collapsedControl"],
-section[data-testid="stSidebar"] > div:first-child > div:first-child {{
-    font-size: 0px !important;
-    color: transparent !important;
-    line-height: 0 !important;
+/* 🎯 TIGHTLY TARGETED GHOST TEXT KILLER: Hides only the broken icon text, leaving sidebar menu 100% untouched */
+div.stAppViewContainer > div:first-child {{
     display: none !important;
     visibility: hidden !important;
-    opacity: 0 !important;
     height: 0px !important;
-    width: 0px !important;
+}}
+[data-testid="collapsedControl"] {{
+    font-size: 0px !important;
+    color: transparent !important;
 }}
 </style>
 """
