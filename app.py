@@ -1,6 +1,7 @@
 import streamlit as st
 import random
 import base64
+import time
 
 # 1. APPLICATION ENVIRONMENT FRAMEWORK
 st.set_page_config(
