@@ -149,9 +149,9 @@ section[data-testid="stSidebarCollapseButton"] button:hover,
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
-# 2. BRANDING BANNER: HIGH-TECH OVERLAY WITH SEAMLESS BLENDING
+# 2. BRANDING BANNER: SYSTEM CONFIGURATION MATRIX OVERLAY
 banner_html = (
-    "<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>\n"
+    "<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 20px;'>\n"
     "    <h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>\n"
     "        🌸 LORD'S ARCADE REALM 🌸\n"
     "    </h1>\n"
@@ -161,6 +161,12 @@ banner_html = (
     "</div>"
 )
 st.markdown(banner_html, unsafe_allow_html=True)
+
+# 🌐 FLOATING MAINFRAME OVERLAY TOGGLE SHORTCUT
+# This button sits permanently at the top of the main area. 
+# If a user accidentally closes the sidebar, clicking this will force it back open!
+if st.button("⚙️ TOGGLE SYSTEM SETTINGS & STATS PANEL"):
+    st.sidebar.markdown(" ") # Injects an update pulse to force the sidebar to redraw and pop out instantly
 
 # 3. CONTROL PANEL CONFIGURATION
 with st.sidebar:
@@ -184,7 +190,7 @@ with st.sidebar:
     if st.button("🚀 DEPLOY CORE MATCH", use_container_width=True, type="primary"):
         # ANIMATED LOADING SCREEN TRANSITION
         with st.spinner("🔄 INITIALIZING MAINFRAME MODULE SYSTEM..."):
-            time.sleep(1.2)  # Artificial processing gap for retro arcade simulation feel
+            time.sleep(1.2)  # Simulated processing loop delay
             trigger_arcade_synth()
             
         st.session_state.gg_secret_number = random.randint(1, max_range)
