@@ -4,17 +4,30 @@ import random
 
 PAGE_TITLE = "🎯 RADAR SCANNER"
 
+def _difficulty_to_params(diff_str):
+    if "Novice" in diff_str:
+        return (1, 20), 8
+    if "Easy" in diff_str:
+        return (1, 50), 6
+    if "Normal" in diff_str:
+        return (1, 100), 5
+    if "Hard" in diff_str:
+        return (1, 200), 4
+    return (1, 500), 3  # Expert
+
 def _init_state(range_vals, default_lives):
     if "games" not in st.session_state:
         st.session_state.games = {}
     game = st.session_state.games.setdefault("guessing", {})
-    game["range"] = list(range_vals)
-    game["default_lives"] = int(default_lives)
-    game.setdefault("target", random.randint(*range_vals))
-    game.setdefault("lives", int(default_lives))
+    # only update canonical difficulty values; do not overwrite runtime target unless difficulty changed
+    if game.get("range") != list(range_vals) or game.get("default_lives") != int(default_lives):
+        game["range"] = list(range_vals)
+        game["default_lives"] = int(default_lives)
+        game["target"] = random.randint(*range_vals)
+        game["lives"] = int(default_lives)
+        game["message"] = ""
+        game["last_guess"] = None
     game.setdefault("stats", {"played": 0, "wins": 0, "losses": 0, "total_guesses": 0})
-    game.setdefault("message", "")
-    game.setdefault("last_guess", None)
     return game
 
 def reset_round(game):
@@ -49,23 +62,15 @@ def submit_guess(game, guess: int):
             game["message"] = f"Try {hint}. Lives left: {game['lives']}"
 
 def app():
-    # Map difficulty string to range and lives
+    # read difficulty selected in hub (fallback to Novice)
     diff = st.session_state.get("selected_difficulty", "Novice (1–20, 8 lives)")
-    if "Novice" in diff:
-        rng, lives = (1, 20), 8
-    elif "Easy" in diff:
-        rng, lives = (1, 50), 6
-    elif "Normal" in diff:
-        rng, lives = (1, 100), 5
-    elif "Hard" in diff:
-        rng, lives = (1, 200), 4
-    else:  # Expert
-        rng, lives = (1, 500), 3
+    rng, lives = _difficulty_to_params(diff)
 
     game = _init_state(rng, lives)
 
     st.markdown("<div class='frosted'>", unsafe_allow_html=True)
     st.header("🎯 RADAR SCANNER")
+    st.subheader(f"Difficulty: {diff}")
     st.subheader(f"Core Integrity: {game['lives']} Lives Remaining")
 
     with st.form("guess_form"):
@@ -84,7 +89,6 @@ def app():
         if submit:
             submit_guess(game, int(guess))
 
-    # ✅ Corrected block — no unterminated string
     if game["message"]:
         st.info(game["message"])
 
