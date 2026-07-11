@@ -35,7 +35,6 @@ html, body, p, span, label, div, h1, h2, h3, input {{ font-family: 'Courier New'
 [data-testid="stSidebarNav"] ul {{ background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 1px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; }}
 [data-testid="stSidebarNav"] span {{ color: #ffffff !important; }}
 
-/* 🌸 TOP-PADDING CORRECTION: Pushes the screen content down so it never cuts off at the top border */
 .main .block-container {{
     padding-top: 100px !important;
 }}
@@ -52,21 +51,21 @@ div[data-testid="stTextInput"] input {{ background-color: transparent !important
 div[data-testid="stTextInput"] [data-baseweb="input"] + div {{ display: none !important; }}
 div[data-testid='stMetricValue'] {{ font-weight: 900 !important; color: #ff66aa !important; text-shadow: 2px 2px 0px #1a0c12 !important; font-size: 1.6rem !important; }}
 
-/* 🚨 SIDEBAR TEXT ARTIFACT DETONATOR: Erases 'keyboard_double' permanently */
-[data-testid="collapsedControl"],
-[data-testid="collapsedControl"] *,
-.stAppHeader,
-[data-testid="stHeader"],
-span[class*="icon"],
-div[class*="collapsedControl"] {{
+/* 🚨 UNBEATABLE OVERRIDE: Global plain-text string artifact cleanup loop */
+[data-testid="collapsedControl"], 
+[data-testid="stHeader"] button, 
+[data-testid="stHeader"] span, 
+[data-testid="stHeader"] div, 
+.stAppHeader div, 
+.stAppHeader span {{
+    font-size: 0px !important;
+    color: transparent !important;
+    line-height: 0 !important;
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
     height: 0px !important;
     width: 0px !important;
-    font-size: 0px !important;
-    color: transparent !important;
-    line-height: 0 !important;
 }}
 </style>
 """
