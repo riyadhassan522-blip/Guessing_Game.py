@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# 2. DEFINITIVE ARCADES DICTIONARY CONFIGURATION
+# 2. DEFINITIVE ARCADES NAV MAP
 st.navigation([
     st.Page("app.py", title="🌸 MAIN LOBBY"),
     st.Page("pages/Guessing_Game.py", title="🎯 RADAR SCANNER")
@@ -31,8 +31,8 @@ css_style = f"""
     background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
 }}
 
-/* 🎯 SAFE TYPOGRAPHY FILTER: Explicitly skips icon elements so the browser icons load natively */
-*:not(i):not([class*="icon"]):not([class*="Icon"]):not([class*="material"]) {{
+/* 🎯 SAFE TYPOGRAPHY: Excludes spans and icons so material arrow elements never turn into raw text strings */
+h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stMetric, input, button {{
     font-family: 'Courier New', Courier, monospace !important;
     font-weight: bold !important;
 }}
@@ -50,11 +50,6 @@ css_style = f"""
 .stMainBlockContainer {{
     background-color: rgba(37, 22, 31, 0.45) !important; backdrop-filter: blur(16px) !important;
     border: 2px solid rgba(255, 102, 170, 0.4) !important; border-radius: 24px !important; box-shadow: 0px 8px 32px rgba(255, 102, 170, 0.15) !important; padding: 35px !important;
-}}
-
-/* Clean up upper layout utility background headers safely */
-[data-testid="stHeader"], .stAppHeader, div.stAppViewContainer > div:first-child {{
-    display: none !important; opacity: 0 !important; height: 0px !important;
 }}
 </style>
 """
