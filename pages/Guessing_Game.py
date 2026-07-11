@@ -31,29 +31,23 @@ css_style = f"""
     background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
 }}
 
-/* SAFE ARCHITECTURAL TYPOGRAPHY: Forces your clean arcade monospace layout without corrupting Streamlit's icon engines */
-h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stMetric, input, button, .stForm {{
+/* SAFE TYPOGRAPHY: Leaves icon font packages completely untouched */
+h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stMetric, input, button, span:not([class*="Icon"]):not([class*="icon"]):not([class*="material"]) {{
     font-family: 'Courier New', Courier, monospace !important;
     font-weight: bold !important;
 }}
 
-/* THE GLORIOUS FROSTED GLASS SIDEBAR AREA (Fully visible and functioning) */
-[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{ 
-    background-color: rgba(30, 15, 23, 0.25) !important; 
-    backdrop-filter: blur(16px) !important; 
-    -webkit-backdrop-filter: blur(16px) !important;
-    border-right: 3px solid #ff66aa !important; 
-    display: block !important;
-    visibility: visible !important;
-}}
-[data-testid="stSidebarNav"] {{
-    display: block !important;
-    visibility: visible !important;
+/* THE GLORIOUS FROSTED GLASS SIDEBAR (Perfect and visible) */
+[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
+    background-color: rgba(30, 15, 23, 0.20) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important;
+    display: block !important; visibility: visible !important;
 }}
 [data-testid="stSidebarNav"] ul {{ background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 1px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; }}
-[data-testid="stSidebarNav"] span {{ color: #ffffff !important; }}
+[data-testid="stSidebarNav"] span {{ color: #ffffff !important; font-size: 1.05rem !important; }}
 
-/* FLOATING COUNTER CARDS COMPONENT HOUSING */
+.main .block-container {{ padding-top: 60px !important; }}
+
+/* AMAZING GLOWING COUNTER GLASS BOX PANELS RESTORED EXCLUSIVELY FOR GAME CONTENT */
 div[data-testid='stForm'], .stMainBlockContainer div[data-testid='stVerticalBlock'] > div[style*="border"] {{
     background-color: rgba(37, 22, 31, 0.45) !important;
     backdrop-filter: blur(16px) !important;
@@ -66,10 +60,6 @@ div[data-testid='stForm'], .stMainBlockContainer div[data-testid='stVerticalBloc
 }}
 .stMainBlockContainer {{ background: transparent !important; padding: 0 !important; max-width: 100% !important; }}
 
-.main .block-container {{
-    padding-top: 50px !important;
-}}
-
 div.stButton > button:first-child {{
     background: #ff66aa !important; color: #1a0c12 !important; border: 3px solid #1a0c12 !important; font-weight: 900 !important;
     font-size: 1.1rem !important; text-transform: uppercase !important; letter-spacing: 2px !important; border-radius: 8px !important;
@@ -81,12 +71,9 @@ div[data-testid="stTextInput"] input {{ background-color: transparent !important
 div[data-testid="stTextInput"] [data-baseweb="input"] + div {{ display: none !important; }}
 div[data-testid='stMetricValue'] {{ font-weight: 900 !important; color: #ff66aa !important; text-shadow: 2px 2px 0px #1a0c12 !important; font-size: 1.6rem !important; }}
 
-/* 🚨 THE TRUE TEXT ELIMINATOR: Hard-deletes the broken top header toggle buttons completely from the page node structure */
-[data-testid="stHeader"], .stAppHeader, [data-testid="collapsedControl"] {{
-    display: none !important;
-    visibility: hidden !important;
-    height: 0px !important;
-    opacity: 0 !important;
+/* 🚨 RE-ENGINEERED ICON CONTEXT CLEANER: Hides only the broken text header nodes safely */
+[data-testid="stHeader"], .stAppHeader, div.stAppViewContainer > div:first-child {{
+    display: none !important; opacity: 0 !important; height: 0px !important; width: 0px !important;
 }}
 </style>
 """
