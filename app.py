@@ -192,6 +192,16 @@ div[data-testid="stTextInput"] [data-baseweb="input"] + div {
         font-size: 1.2rem !important;
     }
 }
+/* 🌸 HIDDEN TEXT FIX: Wipes out the raw text label name for the hidden sidebar arrow button */
+[data-testid="collapsedControl"],
+.stApp > header,
+span:contains("keyboard_double_arrow_right"),
+div[style*="font-size: 0px"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    color: transparent !important;
+}
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
