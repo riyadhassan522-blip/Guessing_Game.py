@@ -1,80 +1,130 @@
 # app.py
 import streamlit as st
 import base64
-
-from pages import Guessing_Game as guessing_game  # expects pages/Guessing_Game.py with an app() function
+import importlib
+import pkgutil
+from typing import Callable, Dict
 
 st.set_page_config(page_title="Lord's Arcade Realm", page_icon="🌸", layout="centered")
 
-def get_base64_image(image_path):
+# --- helpers ---------------------------------------------------------------
+def get_base64_image(path: str):
     try:
-        with open(image_path, "rb") as img_file:
-            return base64.b64encode(img_file.read()).decode()
-    except FileNotFoundError:
+        with open(path, "rb") as f:
+            return base64.b64encode(f.read()).decode()
+    except Exception:
         return None
 
-# Load background image safely
-bg_base64 = get_base64_image("themes/bg.jpg")
+def discover_pages(package_name: str = "pages") -> Dict[str, Callable]:
+    pages = {}
+    try:
+        package = importlib.import_module(package_name)
+    except Exception:
+        return pages
+    prefix = package.__name__ + "."
+    for finder, name, ispkg in pkgutil.iter_modules(package.__path__, prefix):
+        try:
+            mod = importlib.import_module(name)
+            app_fn = getattr(mod, "app", None)
+            if callable(app_fn):
+                title = getattr(mod, "PAGE_TITLE", None) or getattr(mod, "PAGE_NAME", None) or name.split(".")[-1]
+                pages[title] = app_fn
+        except Exception:
+            continue
+    return pages
 
-css_style = f"""
-<style>
-.stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
-    {"background-image: linear-gradient(rgba(26, 12, 18, 0.45), rgba(26, 12, 18, 0.65)), url('data:image/jpeg;base64," + bg_base64 + "')" if bg_base64 else "background-color: #1a0c12;"}
-    background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
-}}
+# --- styling (frosted glass) ----------------------------------------------
+bg_b64 = get_base64_image("themes/bg.jpg")
+bg_css = (
+    f"background-image: linear-gradient(rgba(26,12,18,0.45), rgba(26,12,18,0.65)), url('data:image/jpeg;base64,{bg_b64}');"
+    if bg_b64 else "background-color: #1a0c12;"
+)
 
-h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stMetric, input, button {{
-    font-family: 'Courier New', Courier, monospace !important;
-    font-weight: bold !important;
-}}
+st.markdown(
+    f"""
+    <style>
+    /* app background */
+    [data-testid='stAppViewContainer'] {{
+        {bg_css}
+        background-size: cover !important;
+        background-position: center center !important;
+    }}
 
-[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
-    background-color: rgba(30, 15, 23, 0.20) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important;
-}}
-[data-testid="stSidebarNav"] ul {{
-    background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 12px !important; border: 1px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; margin-top: 15px !important;
-}}
-[data-testid="stSidebarNav"] span {{ color: #ffffff !important; font-size: 1.05rem !important; }}
+    /* frosted glass containers */
+    .frosted {{
+        background: rgba(30,15,23,0.28);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255,102,170,0.18);
+        border-radius: 14px;
+        padding: 18px;
+    }}
 
-.main .block-container {{ padding-top: 60px !important; }}
-.stMainBlockContainer {{
-    background-color: rgba(37, 22, 31, 0.45) !important; backdrop-filter: blur(16px) !important;
-    border: 2px solid rgba(255, 102, 170, 0.4) !important; border-radius: 24px !important; box-shadow: 0px 8px 32px rgba(255, 102, 170, 0.15) !important; padding: 35px !important;
-}}
-</style>
-"""
-st.markdown(css_style, unsafe_allow_html=True)
+    /* sidebar texture */
+    [data-testid='stSidebar'] {{
+        background: linear-gradient(rgba(20,10,15,0.35), rgba(20,10,15,0.25));
+        backdrop-filter: blur(14px);
+        border-right: 3px solid #ff66aa !important;
+    }}
 
-banner_html = """
-<div style='background-color: rgba(45, 20, 32, 0.45); backdrop-filter: blur(12px); padding: 25px; border-radius: 16px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'>
-    <h1 style='color: #ff66aa; margin: 0; font-family: "Courier New", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>
-        🌸 LORD'S ARCADE REALM 🌸
-    </h1>
-    <p style='color: #ffffff; margin: 8px 0 0 0; font-size: 1rem; font-family: "Courier New", monospace; font-weight: bold; letter-spacing: 1px;'>
-        [ SYSTEM CORE MODULES // CHIEF ENGINEER: LORDDARKNESS393 ]
-    </p>
-</div>
-"""
-st.markdown(banner_html, unsafe_allow_html=True)
+    h1,h2,h3,p,label,.stMarkdown,.stMetric,input,button {{
+        font-family: 'Courier New', monospace !important;
+        font-weight: 700 !important;
+        color: #ffffff !important;
+    }}
+
+    .main .block-container {{ padding-top: 48px !important; }}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# --- header and sidebar ----------------------------------------------------
+st.markdown(
+    """
+    <div class="frosted" style="text-align:center; margin-bottom:18px;">
+      <h1 style="color:#ff66aa; margin:0;">🌸 LORD'S ARCADE REALM 🌸</h1>
+      <p style="margin:6px 0 0 0; color:#fff;">[ SYSTEM CORE MODULES // CHIEF ENGINEER: LORDDARKNESS393 ]</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 with st.sidebar:
-    st.markdown("---")
     st.markdown("### 🖥️ DIAGNOSTIC CORE")
     st.markdown("● **STATUS:** `ONLINE` ⚡")
     st.markdown("● **ENGINES:** `01 MODULE` 💾")
     st.markdown("---")
 
-# Stable navigation using sidebar radio
-page = st.sidebar.radio("Navigate", ["🌸 MAIN LOBBY", "🎯 RADAR SCANNER"])
+# --- page discovery and navigation ----------------------------------------
+pages = discover_pages("pages")
+nav_options = ["🌸 MAIN LOBBY"] + sorted(pages.keys())
+choice = st.sidebar.radio("Navigate", nav_options)
 
-if page == "🌸 MAIN LOBBY":
+# --- main lobby ------------------------------------------------------------
+if choice == "🌸 MAIN LOBBY":
+    st.markdown("<div class='frosted'>", unsafe_allow_html=True)
     st.markdown("### 🕹️ LOBBY TERMINAL HUB ONLINE")
     st.markdown("---")
     st.markdown("Your retro gaming console framework has been successfully updated and re-aligned to full cross-platform glass dictionary specs.")
-    st.info("💡 TRANSMISSION PANEL: Pop open your left-side matrix link drawer options to deploy your game channels natively!")
-    footer_html = "<div style='text-align: center; padding: 10px; margin-top: 50px;'><p style='color: #ff66aa; font-family: \"Courier New\", monospace; font-size: 1rem; margin: 5px 0 0 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
+    st.info("💡 TRANSMISSION PANEL: Use the left-side drawer to deploy your game channels.")
+    stats = st.session_state.get("global_stats", {"played": 0, "wins": 0, "losses": 0, "total_guesses": 0})
+    cols = st.columns(4)
+    cols[0].metric("Played", stats["played"])
+    cols[1].metric("Wins", stats["wins"])
+    cols[2].metric("Losses", stats["losses"])
+    cols[3].metric("Guesses", stats["total_guesses"])
     st.markdown("---")
-    st.markdown(footer_html, unsafe_allow_html=True)
+    st.markdown("<div style='text-align:center; color:#ff66aa; font-weight:900;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-elif page == "🎯 RADAR SCANNER":
-    guessing_game.app()
+# --- run selected page ----------------------------------------------------
+else:
+    page_fn = pages.get(choice)
+    if page_fn:
+        try:
+            page_fn()
+        except Exception as e:
+            st.error("This page failed to load. Check the page module for errors.")
+            st.exception(e)
+    else:
+        st.error("Selected page not found. Make sure the page module defines `app()` and is inside the pages package.")
