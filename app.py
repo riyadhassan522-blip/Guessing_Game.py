@@ -49,7 +49,6 @@ def trigger_arcade_synth():
 # =========================================================================
 # HARD FULL-SCREEN OVERWRITE ENGINE (Bypasses Web Platform UI Limits)
 # =========================================================================
-# Using raw .markdown text strings to fully protect brackets from Python clashing
 css_style = f"""
 <style>
 .stApp, [data-testid='stAppViewContainer'], [data-testid='stHeader'], .stAppHeader {{
@@ -59,6 +58,13 @@ css_style = f"""
     background-position: center center !important;
     background-attachment: fixed !important;
     background-color: transparent !important;
+}}
+
+/* DISBALE THE SIDEBAR ENTIRELY TO ELIMINATE PANEL CONFLICTS */
+[data-testid="stSidebar"], section[data-testid="stSidebar"] {{
+    display: none !important;
+    visibility: hidden !important;
+    width: 0px !important;
 }}
 
 [data-testid="stToolbar"], [data-testid="stDecoration"] {{
@@ -76,13 +82,6 @@ css_style = f"""
 
 .main .block-container {{
     padding-top: 30px !important;
-}}
-
-[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
-    background-color: rgba(17, 11, 17, 0.05) !important; 
-    backdrop-filter: blur(12px) !important;             
-    -webkit-backdrop-filter: blur(12px) !important;     
-    border-right: 3px solid #ff66aa !important;         
 }}
 
 div.stButton > button:first-child {{
@@ -124,26 +123,6 @@ div[data-testid='stMetricValue'] {{
     color: #ff66aa !important;
     text-shadow: 2px 2px 0px #1a0c12 !important;
     font-size: 1.8rem !important;
-}}
-
-section[data-testid="stSidebarCollapseButton"] button, 
-[data-testid="collapsedControl"] {{
-    background-color: rgba(37, 22, 31, 0.85) !important;
-    backdrop-filter: blur(8px) !important;
-    color: #ff66aa !important; 
-    border: 2px solid #ff66aa !important;
-    border-radius: 8px !important;
-    box-shadow: 0px 0px 10px rgba(255, 102, 170, 0.4) !important;
-    left: 15px !important;
-    top: 15px !important;
-    z-index: 999999 !important;
-    transition: all 0.2s ease-in-out !important;
-}}
-section[data-testid="stSidebarCollapseButton"] button:hover, 
-[data-testid="collapsedControl"]:hover {{
-    transform: scale(1.1) !important;
-    background-color: #ff66aa !important;
-    color: #1a0c12 !important;
 }}
 </style>
 """
