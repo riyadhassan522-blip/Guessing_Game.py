@@ -49,9 +49,9 @@ def trigger_arcade_synth():
 # =========================================================================
 # HARD FULL-SCREEN OVERWRITE ENGINE (Bypasses Web Platform UI Limits)
 # =========================================================================
+# Using raw .markdown text strings to fully protect brackets from Python clashing
 css_style = f"""
 <style>
-/* 🚨 FORCE FULL-SCREEN WALLPAPER OVER EVERY WEB ELEMENT */
 .stApp, [data-testid='stAppViewContainer'], [data-testid='stHeader'], .stAppHeader {{
     background-image: linear-gradient(rgba(26, 12, 18, 0.50), rgba(26, 12, 18, 0.70)), 
                 url("data:image/jpeg;base64,{bg_base64}") !important;
@@ -61,51 +61,30 @@ css_style = f"""
     background-color: transparent !important;
 }}
 
-/* 💥 LAYER OVERRIDE: Wipes out the white header but leaves the sidebar arrow alive */
-[data-testid="stHeader"], .stAppHeader {
+[data-testid="stToolbar"], [data-testid="stDecoration"] {{
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}}
+
+[data-testid="stHeader"], .stAppHeader {{
     background: transparent !important;
     background-color: transparent !important;
     border-bottom: none !important;
     box-shadow: none !important;
-}
-
-[data-testid="stToolbar"], [data-testid="stDecoration"] {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-}
-
-/* 🌸 RETRO SIDEBAR EXPAND TRIGGER BUTTON: Forces the collapse/expand arrow to stay visible */
-section[data-testid="stSidebarCollapseButton"] button, 
-[data-testid="collapsedControl"] {
-    background-color: rgba(37, 22, 31, 0.85) !important;
-    backdrop-filter: blur(8px) !important;
-    color: #ff66aa !important; /* Glowing Sakura Pink arrow */
-    border: 2px solid #ff66aa !important;
-    border-radius: 8px !important;
-    box-shadow: 0px 0px 10px rgba(255, 102, 170, 0.4) !important;
-    left: 15px !important;
-    top: 15px !important;
-    z-index: 999999 !important;
-    transition: all 0.2s ease-in-out !important;
-}
-
-section[data-testid="stSidebarCollapseButton"] button:hover, 
-[data-testid="collapsedControl"]:hover {
-    transform: scale(1.1) !important;
-    background-color: #ff66aa !important;
-    color: #1a0c12 !important;
-}
-
-/* THE ULTRA-CLEAR FROSTED GLASS SIDEBAR EFFECT */
-[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
-    background-color: rgba(17, 11, 17, 0.05) !important; /* Stripped down to 5% opacity */
-    backdrop-filter: blur(12px) !important;             /* Heavy glass blur engine */
-    -webkit-backdrop-filter: blur(12px) !important;     
-    border-right: 3px solid #ff66aa !important;         /* Glowing sakura divider border */
 }}
 
-/* Retro Arcade 3D Button Style */
+.main .block-container {{
+    padding-top: 30px !important;
+}}
+
+[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
+    background-color: rgba(17, 11, 17, 0.05) !important; 
+    backdrop-filter: blur(12px) !important;             
+    -webkit-backdrop-filter: blur(12px) !important;     
+    border-right: 3px solid #ff66aa !important;         
+}}
+
 div.stButton > button:first-child {{
     background: #ff66aa !important;
     color: #1a0c12 !important;
@@ -130,7 +109,6 @@ div.stButton > button:first-child:hover {{
     border-color: #1a0c12 !important;
 }}
 
-/* Floating UI Panel Containers - Stripped to Pure Transparency */
 div[data-testid='stForm'], .stMainBlockContainer {{
     background: transparent !important;                 
     background-color: transparent !important;
@@ -146,6 +124,26 @@ div[data-testid='stMetricValue'] {{
     color: #ff66aa !important;
     text-shadow: 2px 2px 0px #1a0c12 !important;
     font-size: 1.8rem !important;
+}}
+
+section[data-testid="stSidebarCollapseButton"] button, 
+[data-testid="collapsedControl"] {{
+    background-color: rgba(37, 22, 31, 0.85) !important;
+    backdrop-filter: blur(8px) !important;
+    color: #ff66aa !important; 
+    border: 2px solid #ff66aa !important;
+    border-radius: 8px !important;
+    box-shadow: 0px 0px 10px rgba(255, 102, 170, 0.4) !important;
+    left: 15px !important;
+    top: 15px !important;
+    z-index: 999999 !important;
+    transition: all 0.2s ease-in-out !important;
+}}
+section[data-testid="stSidebarCollapseButton"] button:hover, 
+[data-testid="collapsedControl"]:hover {{
+    transform: scale(1.1) !important;
+    background-color: #ff66aa !important;
+    color: #1a0c12 !important;
 }}
 </style>
 """
