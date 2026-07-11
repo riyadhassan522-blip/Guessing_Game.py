@@ -26,23 +26,6 @@ def trigger_arcade_synth():
 
 css_style = f"""
 <style>
-/* 🚨 COMPLETE OBLITERATION OF THE SIDEBAR TEXT ARTIFACT BUG */
-[data-testid="collapsedControl"],
-[data-testid="collapsedControl"] *,
-.stAppHeader,
-[data-testid="stHeader"],
-span[class*="icon"],
-div[class*="collapsedControl"] {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    height: 0px !important;
-    width: 0px !important;
-    font-size: 0px !important;
-    color: transparent !important;
-    line-height: 0 !important;
-}
-
 .stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
     background-image: linear-gradient(rgba(26, 12, 18, 0.45), rgba(26, 12, 18, 0.65)), url("data:image/jpeg;base64,{bg_base64}") !important;
     background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
@@ -51,6 +34,12 @@ html, body, p, span, label, div, h1, h2, h3, input {{ font-family: 'Courier New'
 [data-testid='stSidebar'], [data-testid='stSidebarUserContent'] {{ background-color: rgba(30, 15, 23, 0.25) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important; }}
 [data-testid="stSidebarNav"] ul {{ background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 1px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; }}
 [data-testid="stSidebarNav"] span {{ color: #ffffff !important; }}
+
+/* 🌸 TOP-PADDING CORRECTION: Pushes the screen content down so it never cuts off at the top border */
+.main .block-container {{
+    padding-top: 100px !important;
+}}
+
 div[data-testid='stForm'], .stMainBlockContainer {{ background: transparent !important; padding: 25px !important; max-width: 100% !important; }}
 div.stButton > button:first-child {{
     background: #ff66aa !important; color: #1a0c12 !important; border: 3px solid #1a0c12 !important; font-weight: 900 !important;
@@ -62,14 +51,28 @@ div[data-testid="stTextInput"] [data-baseweb="input"] {{ background-color: rgba(
 div[data-testid="stTextInput"] input {{ background-color: transparent !important; color: #ff66aa !important; font-size: 1.1rem !important; }}
 div[data-testid="stTextInput"] [data-baseweb="input"] + div {{ display: none !important; }}
 div[data-testid='stMetricValue'] {{ font-weight: 900 !important; color: #ff66aa !important; text-shadow: 2px 2px 0px #1a0c12 !important; font-size: 1.6rem !important; }}
-button[aria-label="Collapse sidebar"], button[aria-label="Expand sidebar"] {{ display: none !important; }}
+
+/* 🚨 SIDEBAR TEXT ARTIFACT DETONATOR: Erases 'keyboard_double' permanently */
+[data-testid="collapsedControl"],
+[data-testid="collapsedControl"] *,
+.stAppHeader,
+[data-testid="stHeader"],
+span[class*="icon"],
+div[class*="collapsedControl"] {{
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0px !important;
+    width: 0px !important;
+    font-size: 0px !important;
+    color: transparent !important;
+    line-height: 0 !important;
+}}
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
-# Main Branding Header Box
 st.markdown("<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'><h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>🌸 RADAR NUMBER SCANNER 🌸</h1></div>", unsafe_allow_html=True)
-
 with st.sidebar:
     st.markdown("### ⚙️ SYSTEM SETTINGS")
     difficulty = st.selectbox("Select Rank Boundary:", ["1. Novice (1-20, 8 lives)", "2. Easy (1-50, 10 lives)", "3. Medium (1-100, 7 lives)", "4. Hard (1-200, 5 lives)", "5. Expert (1-500, 3 lives)"])
