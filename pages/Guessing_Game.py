@@ -5,6 +5,38 @@ import time
 
 st.set_page_config(page_title="Number Scanner Radar", page_icon="🎯", layout="centered")
 
+# =========================================================================
+# THEME SYNC ENGINE MAPPING (Bypasses config.toml restrictions)
+# =========================================================================
+if "theme_glow" not in st.session_state:
+    st.session_state.theme_glow = "🌸 Cyber Cherry Blossom"
+if "theme_bg_file" not in st.session_state:
+    st.session_state.theme_bg_file = "Pagoda Waterfall (Default)"
+
+def get_base64_image(image_path):
+    try:
+        with open(image_path, "rb") as img_file: return base64.b64encode(img_file.read()).decode()
+    except FileNotFoundError: return ""
+
+if st.session_state.theme_bg_file == "Retro Arcade Cabinet Room":
+    bg_base64 = get_base64_image("themes/bg2.jpg")
+else:
+    bg_base64 = get_base64_image("themes/bg.jpg")
+
+if "🧪 Toxic Lime Green" in st.session_state.theme_glow:
+    glow_color = "#39ff14"
+    shadow_color = "#139900"
+    glass_base = "rgba(18, 30, 20, 0.45)"
+elif "🔥 Synthwave Laser Orange" in st.session_state.theme_glow:
+    glow_color = "#ff6600"
+    shadow_color = "#992200"
+    glass_base = "rgba(35, 18, 14, 0.45)"
+else:
+    glow_color = "#ff66aa"
+    shadow_color = "#992255"
+    glass_base = "rgba(37, 22, 31, 0.45)"
+
+# Initialize Score Variables
 if "gg_played" not in st.session_state:
     st.session_state.gg_played = 0
     st.session_state.gg_wins = 0
@@ -14,73 +46,71 @@ if "gg_played" not in st.session_state:
     st.session_state.gg_active = False
     st.session_state.gg_current_difficulty = None
 
-def get_base64_image(image_path):
-    try:
-        with open(image_path, "rb") as img_file: return base64.b64encode(img_file.read()).decode()
-    except FileNotFoundError: return ""
-
-bg_base64 = get_base64_image("themes/bg.jpg")
-
 def trigger_arcade_synth():
     st.markdown("""<audio autoplay style="display:none;"><source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQQAAAAAf39/fw==" type="audio/wav"></audio>""", unsafe_allow_html=True)
 
 css_style = f"""
 <style>
 .stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
-    background-image: linear-gradient(rgba(26, 12, 18, 0.45), rgba(26, 12, 18, 0.65)), url("data:image/jpeg;base64,{bg_base64}") !important;
+    background-image: linear-gradient(rgba(15, 10, 14, 0.50), rgba(15, 10, 14, 0.70)), url("data:image/jpeg;base64,{bg_base64}") !important;
     background-size: cover !important; background-position: center center !important; background-attachment: fixed !important;
 }}
 
-/* SAFE TYPOGRAPHY: Leaves icon font packages completely untouched */
 h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stMetric, input, button, span:not([class*="Icon"]):not([class*="icon"]):not([class*="material"]) {{
-    font-family: 'Courier New', Courier, monospace !important;
-    font-weight: bold !important;
+    font-family: 'Courier New', Courier, monospace !important; font-weight: bold !important;
 }}
 
-/* THE GLORIOUS FROSTED GLASS SIDEBAR (Perfect and visible) */
-[data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {{
-    background-color: rgba(30, 15, 23, 0.20) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid #ff66aa !important;
-    display: block !important; visibility: visible !important;
-}}
-[data-testid="stSidebarNav"] ul {{ background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 1px solid rgba(255, 102, 170, 0.4) !important; padding: 10px !important; }}
-[data-testid="stSidebarNav"] span {{ color: #ffffff !important; font-size: 1.05rem !important; }}
+[data-testid='stSidebar'], [data-testid='stSidebarUserContent'] {{ background-color: rgba(30, 15, 23, 0.25) !important; backdrop-filter: blur(16px) !important; border-right: 3px solid {glow_color} !important; }}
+[data-testid="stSidebarNav"] ul {{ background-color: rgba(37, 22, 31, 0.70) !important; border-radius: 8px !important; border: 1px solid rgba(255, 102, 170, 0.2) !important; padding: 10px !important; }}
+[data-testid="stSidebarNav"] span {{ color: #ffffff !important; }}
 
 .main .block-container {{ padding-top: 60px !important; }}
 
-/* AMAZING GLOWING COUNTER GLASS BOX PANELS RESTORED EXCLUSIVELY FOR GAME CONTENT */
+/* DYNAMIC HOUSING REVOLVER: Automatically recolors glass windows on theme change */
 div[data-testid='stForm'], .stMainBlockContainer div[data-testid='stVerticalBlock'] > div[style*="border"] {{
-    background-color: rgba(37, 22, 31, 0.45) !important;
+    background-color: {glass_base} !important;
     backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
-    border: 2px solid rgba(255, 102, 170, 0.4) !important;
+    border: 2px solid {glow_color}44 !important;
     border-radius: 24px !important;
     padding: 30px !important;
-    box-shadow: 0px 8px 32px rgba(255, 102, 170, 0.15) !important;
+    box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.2) !important;
     margin-bottom: 25px !important;
 }}
 .stMainBlockContainer {{ background: transparent !important; padding: 0 !important; max-width: 100% !important; }}
 
 div.stButton > button:first-child {{
-    background: #ff66aa !important; color: #1a0c12 !important; border: 3px solid #1a0c12 !important; font-weight: 900 !important;
+    background: {glow_color} !important; color: #1a0c12 !important; border: 3px solid #1a0c12 !important; font-weight: 900 !important;
     font-size: 1.1rem !important; text-transform: uppercase !important; letter-spacing: 2px !important; border-radius: 8px !important;
-    box-shadow: 0px 6px 0px #992255 !important; transition: all 0.1s ease-in-out !important; width: 100% !important;
+    box-shadow: 0px 6px 0px {shadow_color} !important; transition: all 0.1s ease-in-out !important; width: 100% !important;
 }}
-div.stButton > button:first-child:active {{ transform: translateY(4px) !important; box-shadow: 0px 2px 0px #992255 !important; }}
-div[data-testid="stTextInput"] [data-baseweb="input"] {{ background-color: rgba(37, 22, 31, 0.90) !important; border: 2px solid rgba(255, 102, 170, 0.5) !important; border-radius: 8px !important; }}
-div[data-testid="stTextInput"] input {{ background-color: transparent !important; color: #ff66aa !important; font-size: 1.1rem !important; }}
+div.stButton > button:first-child:active {{ transform: translateY(4px) !important; box-shadow: 0px 2px 0px {shadow_color} !important; }}
+div[data-testid="stTextInput"] [data-baseweb="input"] {{ background-color: rgba(30, 15, 23, 0.85) !important; border: 2px solid {glow_color}55 !important; border-radius: 8px !important; }}
+div[data-testid="stTextInput"] input {{ background-color: transparent !important; color: #ffffff !important; font-size: 1.1rem !important; }}
 div[data-testid="stTextInput"] [data-baseweb="input"] + div {{ display: none !important; }}
-div[data-testid='stMetricValue'] {{ font-weight: 900 !important; color: #ff66aa !important; text-shadow: 2px 2px 0px #1a0c12 !important; font-size: 1.6rem !important; }}
+div[data-testid='stMetricValue'] {{ font-weight: 900 !important; color: {glow_color} !important; text-shadow: 2px 2px 0px #1a0c12 !important; font-size: 1.6rem !important; }}
 
-/* 🚨 RE-ENGINEERED ICON CONTEXT CLEANER: Hides only the broken text header nodes safely */
-[data-testid="stHeader"], .stAppHeader, div.stAppViewContainer > div:first-child {{
+[data-testid="stHeader"], .stAppHeader, div.stAppViewContainer > div:first-child, [data-testid="collapsedControl"] {{
     display: none !important; opacity: 0 !important; height: 0px !important; width: 0px !important;
 }}
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
 
-st.markdown("<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 16px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'><h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>🌸 RADAR NUMBER SCANNER 🌸</h1></div>", unsafe_allow_html=True)
+st.markdown(f"<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 16px; text-align: center; border: 1px solid {glow_color}44; box-shadow: 0px 4px 15px rgba(0,0,0,0.2); margin-bottom: 35px;'><h1 style='color: {glow_color}; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>🌸 RADAR NUMBER SCANNER 🌸</h1></div>", unsafe_allow_html=True)
 with st.sidebar:
+    st.markdown("---")
+    st.markdown("### 🎨 CABINET INTERFACE")
+    
+    # Active synchronization listener: Reruns page frames if the operator switches themes inside this menu drawer
+    sel_glow = st.selectbox("NEON REVOLVER COLOR:", ["🌸 Cyber Cherry Blossom", "🧪 Toxic Lime Green", "🔥 Synthwave Laser Orange"], index=["🌸 Cyber Cherry Blossom", "🧪 Toxic Lime Green", "🔥 Synthwave Laser Orange"].index(st.session_state.theme_glow))
+    sel_bg = st.selectbox("BACKGROUND ARTWORK:", ["Pagoda Waterfall (Default)", "Retro Arcade Cabinet Room"], index=["Pagoda Waterfall (Default)", "Retro Arcade Cabinet Room"].index(st.session_state.theme_bg_file))
+    
+    if sel_glow != st.session_state.theme_glow or sel_bg != st.session_state.theme_bg_file:
+        st.session_state.theme_glow = sel_glow
+        st.session_state.theme_bg_file = sel_bg
+        st.rerun()
+        
+    st.markdown("---")
     st.markdown("### ⚙️ SYSTEM SETTINGS")
     difficulty = st.selectbox("Select Rank Boundary:", ["1. Novice (1-20, 8 lives)", "2. Easy (1-50, 10 lives)", "3. Medium (1-100, 7 lives)", "4. Hard (1-200, 5 lives)", "5. Expert (1-500, 3 lives)"])
     if "1." in difficulty: max_lives, max_range = 8, 20
@@ -110,10 +140,10 @@ with st.sidebar:
         st.metric(label="CRASH LOSSES 💀", value=st.session_state.gg_losses)
     st.markdown("---")
     best_display = f"{st.session_state.gg_best_score} attempts" if st.session_state.gg_best_score else "No wins recorded"
-    st.markdown(f"<p style='color: #ff66aa; font-family: monospace; font-size: 0.85rem; font-weight: bold; margin-top: 15px;'>🏆 BEST RECORD: <span style='color: #ffffff;'>{best_display}</span></p>", unsafe_allow_html=True)
+    st.markdown(f"<p style='color: {glow_color}; font-family: monospace; font-size: 0.85rem; font-weight: bold; margin-top: 15px;'>🏆 BEST RECORD: <span style='color: #ffffff;'>{best_display}</span></p>", unsafe_allow_html=True)
 
 if st.session_state.gg_active:
-    with st.container(border=True):
+    with st.container():
         st.markdown(f"##### 🌸 Core Integrity: **{st.session_state.gg_lives_left} / {max_lives} Lives Remaining**")
         st.progress(float(min(1.0, max(0, st.session_state.gg_lives_left) / max_lives)))
     st.markdown(" ")
@@ -164,5 +194,5 @@ if st.session_state.gg_active:
 else:
     st.markdown("<div style='text-align: center; padding: 40px 20px; background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); border: 4px dashed #ff66aa; box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.15);'><p style='font-size: 1.3rem; color: #ff66aa; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>STATUS // PLATFORM IDLE</p><p style='font-size: 0.95rem; color: #ffffff; font-weight: bold; margin-top: 10px;'>Initialize the left matrix panel to deploy your first gameplay module round!</p></div>", unsafe_allow_html=True)
 
-footer_html = "<div style='text-align: center; padding: 10px; margin-top: 30px;'><p style='color: #614653; font-family: \"Courier New\", monospace; font-size: 0.85rem; margin: 0; font-weight: bold;'>© 2026 DARKNESS GAMING LABS | ALL RIGHTS RESERVED</p></div>"
+footer_html = f"<div style='text-align: center; padding: 10px; margin-top: 30px;'><p style='color: {glow_color}; font-family: \"Courier New\", monospace; font-size: 1rem; margin: 0; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 0px #1a0c12;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</p></div>"
 st.markdown("---"); st.markdown(footer_html, unsafe_allow_html=True)
