@@ -47,37 +47,37 @@ def trigger_arcade_synth():
     st.markdown(audio_html, unsafe_allow_html=True)
 
 # =========================================================================
-# THE PERFECTED CYBER ARCADE THEME ENGINE
+# PART A: BASE64 IMAGE BACKGROUND LAYERING (Uses f-string safely)
 # =========================================================================
-css_style = f"""
+bg_style = f"""
 <style>
-/* =========================================================================
-   GLOBAL DEVICE RECOVERY CORE
-   ========================================================================= */
-/* Forces your local background image to stretch beautifully across any device screen screen */
-.stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {
+.stApp, [data-testid='stAppViewContainer'], .stAppHeader, [data-testid='stHeader'] {{
     background-image: linear-gradient(rgba(26, 12, 18, 0.45), rgba(26, 12, 18, 0.65)), 
-                url("data:image/jpeg;base64,[IMAGE_DATA]") !important;
+                url("data:image/jpeg;base64,{bg_base64}") !important;
     background-size: cover !important;
     background-position: center center !important;
     background-attachment: fixed !important;
-}
+}}
+</style>
+"""
+st.markdown(bg_style, unsafe_allow_html=True)
 
+# =========================================================================
+# PART B: STYLES ENGINE (Uses standard string to fully protect brackets)
+# =========================================================================
+css_style = """
+<style>
 /* THE FROSTED GLASS SIDEBAR EFFECT */
 [data-testid='stSidebar'], [data-testid='stSidebarUserContent'], section[data-testid='stSidebar'] > div:first-child {
-    background-color: rgba(30, 15, 23, 0.50) !important;
+    background-color: rgba(30, 15, 23, 0.25) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
     border-right: 3px solid #ff66aa !important;
 }
 
-/* =========================================================================
-   🚨 MOBILE INTERFACE DISASTER RECOVERY OVERRIDES (Android & iOS)
-   ========================================================================= */
-/* 💥 COMPLETELY DESTROY AND WIPE OUT THE UGLY "PRESS ENTER TO SUBMIT FORM" INSTRUCTIONS OVERLAY */
+/* WIPE OUT THE NATIVE "PRESS ENTER TO SUBMIT FORM" TEXT FLOATING OVER THE VALUE ON ANDROID */
 form p, 
 div[style*="visibility: visible"] p,
-span:contains("Press Enter to submit form"),
 div[data-testid="stTextInput"] div:last-child {
     display: none !important;
     visibility: hidden !important;
@@ -85,31 +85,6 @@ div[data-testid="stTextInput"] div:last-child {
     opacity: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
-}
-
-/* ADJUST ALL FORM CONSOLE WRAPPERS TO NOT GET CUT OFF ON MOBILE PANELS */
-div[data-testid='stForm'], .stMainBlockContainer {
-    background: transparent !important;                 
-    background-color: transparent !important;
-    backdrop-filter: none !important;                   
-    -webkit-backdrop-filter: none !important;
-    border: none !important;                            
-    box-shadow: none !important;                        
-    padding: 15px !important; /* Shrunk padding down so it floats safely on small screens */
-    max-width: 100% !important;
-}
-
-/* TARGETS INPUT AND DROPDOWN FIELDS TO KEEP TEXT PERFECTLY SPACED WITHOUT SCRAMBLING */
-input, 
-[data-baseweb="input"], 
-[data-baseweb="input"] > div,
-div[data-testid="stTextInput"] > div {
-    border: 2px solid rgba(255, 102, 170, 0.5) !important; 
-    border-radius: 8px !important;
-    color: #ff66aa !important; 
-    font-family: monospace !important;
-    font-weight: bold !important;
-    height: 45px !important; /* Forces fixed safe height so labels can never crawl inside */
 }
 
 /* Retro Arcade 3D Button Style */
@@ -131,17 +106,32 @@ div.stButton > button:first-child:active {
     transform: translateY(4px) !important;
     box-shadow: 0px 2px 0px #992255 !important;
 }
+div.stButton > button:first-child:hover {
+    background: #ff88bb !important;
+    color: #1a0c12 !important;
+    border-color: #1a0c12 !important;
+}
 
+/* Clear Glass Panels for Content Containers */
+div[data-testid='stForm'], .stMainBlockContainer {
+    background: transparent !important;                 
+    background-color: transparent !important;
+    backdrop-filter: none !important;                   
+    -webkit-backdrop-filter: none !important;
+    border: none !important;                            
+    box-shadow: none !important;                        
+    padding: 25px !important;
+    max-width: 100% !important;
+}
 div[data-testid='stMetricValue'] {
     font-weight: 900 !important;
     color: #ff66aa !important;
     text-shadow: 2px 2px 0px #1a0c12 !important;
-    font-size: 1.5rem !important; /* Sized down slightly so metrics never stack horizontally on phone portrait modes */
+    font-size: 1.6rem !important;
 }
 
-/* 📱 INTELLIGENT MEDIA RESPONSIVENESS CAPTURE ENGINE */
+/* INTELLIGENT MEDIA RESPONSIVENESS PATTERNS FOR MOBILE PHONE CORES */
 @media screen and (max-width: 768px) {
-    /* Optimizes font boundaries for small portable viewports */
     h1 {
         font-size: 1.5rem !important;
     }
@@ -149,12 +139,13 @@ div[data-testid='stMetricValue'] {
         padding: 10px !important;
         padding-top: 20px !important;
     }
-    /* Adds safe padding at the bottom of mobile panels so mobile keyboards don't clip components */
     .stApp {
         padding-bottom: 80px !important;
     }
+    div[data-testid='stMetricValue'] {
+        font-size: 1.3rem !important;
+    }
 }
-
 </style>
 """
 st.markdown(css_style, unsafe_allow_html=True)
