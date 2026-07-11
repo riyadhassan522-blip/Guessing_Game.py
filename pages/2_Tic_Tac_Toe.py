@@ -104,11 +104,13 @@ st.markdown(css_style, unsafe_allow_html=True)
 st.markdown("<div style='background-color: rgba(45, 20, 32, 0.40); backdrop-filter: blur(10px); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 102, 170, 0.25); box-shadow: 0px 4px 15px rgba(255, 102, 170, 0.1); margin-bottom: 35px;'><h1 style='color: #ff66aa; margin: 0; font-family: \"Courier New\", monospace; font-size: 2.1rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>❌ NEURAL MATRIX GRID ⭕</h1></div>", unsafe_allow_html=True)
 
 # =========================================================================
-# FIXED NEURAL MATRIX ENGINE & ADAPTIVE BOT BRAIN LOGIC 
+# FIXED BULLETPROOF GAME AND BOT LOGIC
 # =========================================================================
 def evaluate_game_state(b):
-    # Core mathematical indices representing all possible win lines in a 1D 3x3 array
-    win_vectors = [, [3, 4, 5], [6, 7, 8],  # Horizontal vector lines, [1, 4, 7], [2, 5, 8],  # Vertical column tracks, [2, 4, 6]              # Cross diagonal trajectories
+    # Hardcoded coordinate pathways (Completely line-by-line safe format)
+    win_vectors = [, [3, 4, 5], [6, 7, 8],
+, [1, 4, 7], [2, 5, 8],
+, [2, 4, 6]
     ]
     for vector in win_vectors:
         if b[vector[0]] == b[vector[1]] == b[vector[2]] and b[vector[0]] != " ":
