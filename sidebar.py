@@ -1,11 +1,11 @@
 import streamlit as st
 
 def render_sidebar():
-    """Renders the standard system metrics and configuration selectors."""
+    """Compiles and renders the primary arcade dashboard interface."""
     with st.sidebar:
         st.markdown("### 🖥️ SYSTEM SETTINGS")
         
-        # Difficulty state engine tracker
+        # Difficulty selection engine
         st.selectbox(
             "Select Difficulty",
             [
@@ -19,7 +19,7 @@ def render_sidebar():
             key="hub_difficulty"
         )
         
-        # Extract dynamic game menu elements from app.py routing
+        # Pull global page data from routing array
         page_titles = st.session_state.get("page_titles", ["🌸 MAIN HUB"])
         choice = st.radio("Navigate", page_titles, index=0, key="nav_choice")
         
