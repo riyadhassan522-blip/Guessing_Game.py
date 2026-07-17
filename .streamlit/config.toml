@@ -9,3 +9,6 @@ font = "monospace"
 [server]
 headless = true
 enableCORS = false
+
+[client]
+showSidebarNavigation = false
