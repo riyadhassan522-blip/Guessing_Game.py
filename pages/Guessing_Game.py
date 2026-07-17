@@ -19,7 +19,7 @@ def _init_state(range_vals, default_lives):
         st.session_state.games = {}
     game = st.session_state.games.setdefault("guessing", {})
     
-    # Check if the player changed difficulty setting in the sidebar
+    # Check if the player altered settings inside the gameplay canvas
     if game.get("range") != list(range_vals) or game.get("default_lives") != int(default_lives):
         game["range"] = list(range_vals)
         game["default_lives"] = int(default_lives)
@@ -41,7 +41,6 @@ def submit_guess(game, guess: int):
     game["last_guess"] = guess
     game["stats"]["total_guesses"] += 1
     
-    # Sync with global stats tracker
     gs = st.session_state.get("global_stats", {"played":0,"wins":0,"losses":0,"total_guesses":0})
     gs["total_guesses"] += 1
     
@@ -49,8 +48,7 @@ def submit_guess(game, guess: int):
         game["message"] = f"🎉 Correct! The number was {game['target']}."
         game["stats"]["wins"] += 1
         game["stats"]["played"] += 1
-        gs["played"] += 1
-        gs["wins"] += 1
+        gs["played"] += 1; gs["wins"] += 1
         st.session_state["global_stats"] = gs
         reset_round(game)
     else:
@@ -59,8 +57,7 @@ def submit_guess(game, guess: int):
             game["message"] = f"💥 Out of lives. The number was {game['target']}."
             game["stats"]["losses"] += 1
             game["stats"]["played"] += 1
-            gs["played"] += 1
-            gs["losses"] += 1
+            gs["played"] += 1; gs["losses"] += 1
             st.session_state["global_stats"] = gs
             reset_round(game)
         else:
@@ -69,23 +66,37 @@ def submit_guess(game, guess: int):
             st.session_state["global_stats"] = gs
 
 def app():
-    # Read chosen values from sidebar dropdown
-    diff = st.session_state.get("selected_difficulty", "Novice (1–20, 8 lives)")
-    rng, lives = _difficulty_to_params(diff)
-
-    game = _init_state(rng, lives)
-
     st.markdown("<div class='frosted'>", unsafe_allow_html=True)
-    st.header("🎯 RADAR SCANNER")
-    st.write(f"**Difficulty Setting:** {diff}")
-    st.write(f"**Core Integrity:** {game['lives']} / {game['default_lives']} Lives Remaining")
+    st.markdown("<h1 class='hub-title'>🎯 RADAR SCANNER MODULE</h1>", unsafe_allow_html=True)
     st.markdown("---")
 
+    # ─── SECTION 1: DIFFICULTY SELECTOR INSIDE THE GAME SCREEN ───
+    diff = st.selectbox(
+        "⚡ CONFIGURE ENGINE DIFFICULTY",
+        [
+            "Novice (1–20, 8 lives)",
+            "Easy (1–50, 6 lives)",
+            "Normal (1–100, 5 lives)",
+            "Hard (1–200, 4 lives)",
+            "Expert (1–500, 3 lives)"
+        ],
+        index=0,
+        key="game_internal_difficulty"
+    )
+    
+    rng, lives = _difficulty_to_params(diff)
+    game = _init_state(rng, lives)
+    
+    st.write(f"**Target Threshold Range:** {game['range'][0]} to {game['range'][1]}")
+    st.write(f"**Core Integrity status:** {game['lives']} / {game['default_lives']} Units Remaining")
+    st.markdown("---")
+
+    # ─── SECTION 2: GAMEPLAY INPUT FIELD ───
     with st.form("guess_form", clear_on_submit=False):
         col1, col2 = st.columns([3, 1])
         with col1:
             guess = st.number_input(
-                f"Enter Scan Matrix ({game['range'][0]}–{game['range'][1]}):",
+                "Input Coordinate Matrix Guess:",
                 min_value=int(game["range"][0]),
                 max_value=int(game["range"][1]),
                 value=int(game["range"][0]),
@@ -93,8 +104,8 @@ def app():
                 key="input_guess"
             )
         with col2:
-            st.write("<br>", unsafe_allow_html=True) # visual spacer
-            submit = st.form_submit_button("⭐ SUBMIT SCAN")
+            st.write("<br>", unsafe_allow_html=True)
+            submit = st.form_submit_button("⭐ EXECUTE SCAN")
             
         if submit:
             submit_guess(game, int(guess))
@@ -110,19 +121,22 @@ def app():
 
     st.markdown("---")
     
-    # Local Module Stats Panel (Moved safely inside main content screen)
-    st.subheader("📊 CURRENT MODULE PERFORMANCE")
-    c1, c2, c3, c4 = st.columns(4)
+    # ─── SECTION 3: METRICS SCOREBOARD INSIDE THE GAME SCREEN ───
+    st.markdown("<h3 style='color:#ff66aa; text-align:center; font-size:18px;'>📊 MODULE SCOREBOARD</h3>", unsafe_allow_html=True)
     stats = game["stats"]
-    c1.metric("Played", stats['played'])
-    c2.metric("Guesses", stats['total_guesses'])
-    c3.metric("Wins", stats['wins'])
-    c4.metric("Losses", stats['losses'])
+    
+    col_a, col_b = st.columns(2)
+    with col_a:
+        st.metric(label="MATCHES PLAYED", value=stats['played'])
+        st.metric(label="TOTAL SCANS", value=stats['total_guesses'])
+    with col_b:
+        st.metric(label="WINS CONFIRMED", value=stats['wins'])
+        st.metric(label="CRASH LOSSES", value=stats['losses'])
 
     st.write("")
-    if st.button("🎮 RESTART CURRENT ROUND"):
+    if st.button("🎮 RESTART SYSTEM ROUND"):
         reset_round(game)
-        st.toast("Core match restarted. New target generated.")
+        st.toast("Core match restarted. New target matrix generated.")
         st.rerun()
 
     st.markdown("</div>", unsafe_allow_html=True)
