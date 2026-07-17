@@ -61,9 +61,6 @@ st.markdown(
 # Run sidebar UI and capture choice
 choice = render_sidebar()
 
-# Pass down selected difficulty down to modules
-st.session_state.selected_difficulty = st.session_state.get("hub_difficulty", "Novice (1–20, 8 lives)")
-
 # Run application states
 if choice == "🌸 MAIN HUB":
     st.markdown("<div class='frosted'>", unsafe_allow_html=True)
