@@ -46,12 +46,55 @@ bg_css = f"background-image: linear-gradient(rgba(26,12,18,0.45), rgba(26,12,18,
 st.markdown(
     f"""
     <style>
-    [data-testid='stAppViewContainer'] {{ {bg_css} background-size: cover !important; background-position: center center !important; }}
-    .frosted {{ background: rgba(30,15,23,0.28); backdrop-filter: blur(12px); border: 1px solid rgba(255,102,170,0.18); border-radius: 14px; padding: 22px; margin-bottom: 18px; }}
+    /* Main App Layout */
+    [data-testid='stAppViewContainer'] {{ 
+        {bg_css} 
+        background-size: cover !important; 
+        background-position: center center !important; 
+    }}
+    
+    /* Center Game Canvas Container */
+    .frosted {{ 
+        background: rgba(30,15,23,0.28); 
+        backdrop-filter: blur(12px); 
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255,102,170,0.18); 
+        border-radius: 14px; 
+        padding: 22px; 
+        margin-bottom: 18px; 
+    }}
+    
     .hub-title {{ text-align: center; color: #ff66aa; font-family: 'Courier New', monospace; font-weight: 900; font-size: 28px; margin: 0; padding: 0; }}
     .hub-sub {{ text-align: center; color: #ffffff; font-family: 'Courier New', monospace; font-weight: 700; margin-top: 6px; margin-bottom: 0; }}
-    [data-testid='stSidebar'] {{ background: linear-gradient(rgba(20,10,15,0.35), rgba(20,10,15,0.25)); backdrop-filter: blur(14px); border-right: 3px solid #ff66aa !important; }}
-    h1,h2,h3,p,label,.stMarkdown,.stMetric,input,button {{ font-family: 'Courier New', monospace !important; color: #ffffff !important; }}
+    
+    /* 💎 THE GLASSMORPHIC SIDEBAR OVERHAUL 💎 */
+    /* Root element transparency */
+    [data-testid='stSidebar'] {{ 
+        background-color: transparent !important;
+        border-right: 3px solid #ff66aa !important; 
+    }}
+    
+    /* Inner viewport panel glass reflection */
+    [data-testid='stSidebarContent'] {{
+        background: rgba(30, 15, 23, 0.35) !important; 
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        box-shadow: inset -10px 0 20px rgba(0,0,0,0.2);
+    }}
+    
+    /* Typography Global Rules */
+    h1, h2, h3, p, label, .stMarkdown, .stMetric, input, button, span, div {{ 
+        font-family: 'Courier New', monospace !important; 
+        color: #ffffff !important; 
+    }}
+    
+    /* Custom Styling Fix for Form Elements inside Sidebar */
+    [data-testid='stSidebarContent'] .stSelectbox label p,
+    [data-testid='stSidebarContent'] .stRadio label p {{
+        color: #ff66aa !important;
+        font-weight: bold;
+    }}
+    
     .main .block-container {{ padding-top: 36px !important; }}
     </style>
     """,
@@ -64,10 +107,10 @@ choice = render_sidebar()
 # Run application states
 if choice == "🌸 MAIN HUB":
     st.markdown("<div class='frosted'>", unsafe_allow_html=True)
-    st.markdown("<h1 class='hub-title'>🌸 LORD'S ARCADE REALM 🌸</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='hub-title'>🌸 RADAR NUMBER SCANNER 🌸</h1>", unsafe_allow_html=True)
     st.markdown("<p class='hub-sub'>[ SYSTEM CORE MODULES // CHIEF ENGINEER: LORDDARKNESS393 ]</p>", unsafe_allow_html=True)
     st.markdown("---")
-    st.subheader("STATUS // PLATFORM IDLE")
+    st.markdown("<h3 style='color:#ff66aa; text-align:center;'>STATUS // PLATFORM IDLE</h3>", unsafe_allow_html=True)
     st.write("Initialize the left matrix panel to deploy your first gameplay module round!")
     st.markdown("---")
     st.markdown("<div style='text-align:center; color:#ff66aa; font-weight:900;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</div>", unsafe_allow_html=True)
