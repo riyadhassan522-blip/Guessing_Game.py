@@ -67,14 +67,12 @@ st.markdown(
     .hub-title {{ text-align: center; color: #ff66aa; font-family: 'Courier New', monospace; font-weight: 900; font-size: 28px; margin: 0; padding: 0; }}
     .hub-sub {{ text-align: center; color: #ffffff; font-family: 'Courier New', monospace; font-weight: 700; margin-top: 6px; margin-bottom: 0; }}
     
-    /* 💎 THE GLASSMORPHIC SIDEBAR OVERHAUL 💎 */
-    /* Root element transparency */
+    /* THE GLASSMORPHIC SIDEBAR */
     [data-testid='stSidebar'] {{ 
         background-color: transparent !important;
         border-right: 3px solid #ff66aa !important; 
     }}
     
-    /* Inner viewport panel glass reflection */
     [data-testid='stSidebarContent'] {{
         background: rgba(30, 15, 23, 0.35) !important; 
         backdrop-filter: blur(16px) !important;
@@ -82,17 +80,9 @@ st.markdown(
         box-shadow: inset -10px 0 20px rgba(0,0,0,0.2);
     }}
     
-    /* Typography Global Rules */
     h1, h2, h3, p, label, .stMarkdown, .stMetric, input, button, span, div {{ 
         font-family: 'Courier New', monospace !important; 
         color: #ffffff !important; 
-    }}
-    
-    /* Custom Styling Fix for Form Elements inside Sidebar */
-    [data-testid='stSidebarContent'] .stSelectbox label p,
-    [data-testid='stSidebarContent'] .stRadio label p {{
-        color: #ff66aa !important;
-        font-weight: bold;
     }}
     
     .main .block-container {{ padding-top: 36px !important; }}
@@ -104,26 +94,34 @@ st.markdown(
 # Run sidebar UI and capture choice
 choice = render_sidebar()
 
-# Run application states
-if choice == "🌸 MAIN HUB":
-    st.markdown("<div class='frosted'>", unsafe_allow_html=True)
-    st.markdown("<h1 class='hub-title'>🌸 RADAR NUMBER SCANNER 🌸</h1>", unsafe_allow_html=True)
-    st.markdown("<p class='hub-sub'>[ SYSTEM CORE MODULES // CHIEF ENGINEER: LORDDARKNESS393 ]</p>", unsafe_allow_html=True)
-    st.markdown("---")
-    st.markdown("<h3 style='color:#ff66aa; text-align:center;'>STATUS // PLATFORM IDLE</h3>", unsafe_allow_html=True)
-    st.write("Initialize the left matrix panel to deploy your first gameplay module round!")
-    st.markdown("---")
-    st.markdown("<div style='text-align:center; color:#ff66aa; font-weight:900;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</div>", unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
-else:
-    module_path = discovered_pages.get(choice)
-    if module_path:
-        try:
-            mod = importlib.import_module(module_path)
-            if hasattr(mod, "app"):
-                mod.app()
-            else:
-                st.error("Page module found but no app() function defined.")
-        except Exception as e:
-            st.error("This page failed to load. Check the page module for errors.")
-            st.exception(e)
+# Create a clean, single rendering container block for the main window frame
+main_canvas = st.empty()
+
+# Run application states inside the container block to kill the double-arrow bug
+with main_canvas.container():
+    if choice == "🌸 MAIN HUB":
+        st.markdown("<div class='frosted'>", unsafe_allow_html=True)
+        st.markdown("<h1 class='hub-title'>🌸 RADAR NUMBER SCANNER 🌸</h1>", unsafe_allow_html=True)
+        st.markdown("<p class='hub-sub'>[ SYSTEM CORE MODULES // CHIEF ENGINEER: LORDDARKNESS393 ]</p>", unsafe_allow_html=True)
+        st.markdown("---")
+        st.markdown("<h3 style='color:#ff66aa; text-align:center;'>STATUS // PLATFORM IDLE</h3>", unsafe_allow_html=True)
+        st.write("Initialize the left matrix panel to deploy your first gameplay module round!")
+        st.markdown("---")
+        st.markdown("<div style='text-align:center; color:#ff66aa; font-weight:900;'>DESIGNED & ENGINEERED BY LORDDARKNESS393</div>", unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+    else:
+        module_path = discovered_pages.get(choice)
+        if module_path:
+            try:
+                # Force dynamic module reloading to clear stale visual states
+                if module_path in importlib.sys.modules:
+                    importlib.reload(importlib.sys.modules[module_path])
+                mod = importlib.import_module(module_path)
+                
+                if hasattr(mod, "app"):
+                    mod.app()
+                else:
+                    st.error("Page module found but no app() function defined.")
+            except Exception as e:
+                st.error("This page failed to load. Check the page module for errors.")
+                st.exception(e)
